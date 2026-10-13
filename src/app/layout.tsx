@@ -4,6 +4,7 @@ import { ThemeRegistry } from "@/theme/ThemeRegistry";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { ReduxStoreProvider } from "@/components/providers/ReduxStoreProvider";
 import { FavouritesFeatureRoot } from "@/components/providers/FavouritesFeatureRoot";
+import { VercelAnalytics } from "@/components/providers/VercelAnalytics";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { VercelToolbar } from "@vercel/toolbar/next";
@@ -101,6 +102,7 @@ export default function RootLayout({
             </ReduxStoreProvider>
           </ThemeRegistry>
         </FavouritesFeatureRoot>
+        <VercelAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}

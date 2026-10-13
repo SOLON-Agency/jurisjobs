@@ -15,7 +15,7 @@ Before changing routing, data fetching, or config:
 2. Heed deprecation warnings from `next build` and ESLint (`eslint-config-next`).
 3. Do not assume file locations or APIs from pre-v15 tutorials without verifying against this repo and current docs.
 
-**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; require Node ≥ 22.12; pin MUI to v7, TypeScript to ~5.9, and ESLint to v9 until their next majors are verified.
+**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; use Node `^22.22.2 || ^24.15.0 || >=26.0.0` as specified in `package.json`; pin MUI to v7 and TypeScript to ~5.9. ESLint 10 is in use; its config and lint run are verified, though `eslint-plugin-react`, `eslint-plugin-import`, and `eslint-plugin-jsx-a11y` still declare peer ranges that stop at ESLint 9 and npm reports peer override warnings.
 <!-- END:nextjs-agent-rules -->
 
 ---
@@ -43,7 +43,7 @@ Before changing routing, data fetching, or config:
 | Motion | Framer Motion |
 | Markdown | react-markdown |
 | Tests | Vitest + jsdom + Testing Library (`src/__tests__/`) |
-| Lint | ESLint 9 flat config, `eslint-config-next` (core-web-vitals + typescript) |
+| Lint | ESLint 10 flat config, `eslint-config-next` (core-web-vitals + typescript) |
 
 ---
 
@@ -79,6 +79,11 @@ Path alias: **`@/*` → `./src/*`** (`tsconfig.json`).
 | **`src/PATTERNS.md`** | Copy-paste snippets and **Pattern Index** (reference implementations per concern) |
 
 Keep these aligned when patterns change; avoid documenting behaviour in only one place.
+
+### Repository reconnaissance references
+
+- **[`technical-map.md`](technical-map.md)** — evidence-based structure, stack, feature, environment, workflow, and risk map.
+- **[`user-roles-and-functionalities.md`](user-roles-and-functionalities.md)** — global role inventory and current role-specific capabilities for product research.
 
 ---
 
@@ -168,6 +173,20 @@ void supabase.functions
 | `notifications-matchmaking` | **Active** | `CRON_SECRET` bearer | Daily cron (05:15); compares companies + profiles edited in last 24h by approved competency overlap; inserts/updates `public.matches`; re-notifies both sides only when overlap set changes. |
 
 All functions use `verify_jwt = false` and validate auth inside the function.
+
+### OpenAPI & Interactive Documentation
+
+- **Schema:** Machine-readable OpenAPI 3.0 specification is available at [`supabase/openapi.json`](supabase/openapi.json) and served live at `/api/docs/openapi.json`.
+- **Swagger UI:** Interactive API documentation and endpoint testing UI is accessible at `/api/docs`.
+- **Validation:** CI/CD and unit tests (`src/__tests__/openapi.test.ts`) validate that `supabase/openapi.json` is synced with all Edge Functions in `supabase/functions/` and listed in `AGENTS.md`.
+
+### API Versioning Strategy
+
+- **URL Path Versioning:** All Edge Functions follow standard URL path versioning (`/functions/v1/<function-name>`).
+- **Breaking Changes:** When a non-backwards-compatible interface change is introduced, a new version path (`/functions/v2/<function-name>`) will be created while maintaining the previous version during a deprecation window.
+- **Non-breaking Changes:** Additive fields to request or response payloads remain within the existing `/v1` path.
+- **Deprecation Policy:** Deprecated endpoints will be marked with `deprecated: true` in `supabase/openapi.json` prior to removal.
+
 
 #### `notifications` edge function — new typed dispatcher
 
@@ -511,6 +530,7 @@ Add tests for non-trivial logic (utils, services where mockable, critical UI beh
 5. **Accessibility:** Run through the WCAG AAA checklist in this document before considering any UI task complete.
 6. **Responsiveness:** Verify all four breakpoints (`xs` / `sm` / `md` / `lg`) before considering any UI task complete.
 7. **Copy:** Preserve Romanian UI tone where the rest of the screen is Romanian unless the task is explicitly to translate.
+8. **Git workflow:** Commit and push changes to the branch that is checked out when the task begins, unless the user explicitly instructs otherwise. Do not create or switch branches on your own. Keep required validation and pre-commit hooks enabled; if the build fails, do not commit or push the changes.
 
 ---
 

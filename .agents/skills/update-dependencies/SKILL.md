@@ -43,7 +43,7 @@ Then **re-pin** packages that must stay below “latest” for functionality (ed
 |---------|--------|
 | `@mui/material` / `@mui/icons-material` | Stay on **latest v7** until a dedicated MUI v9 migration. v9 removes system props (`alignItems`, `fontWeight`, …) and legacy `*Outline` icons. If icons were already migrated to `*Outlined`, that is fine on v7. |
 | `typescript` | Cap at **`~5.9.x`** (or max allowed by `typescript-eslint` from `eslint-config-next`, currently `<6.1.0`). Do not jump to TS 7 while Next’s ESLint stack rejects it. |
-| `eslint` | Cap at **`^9`**. ESLint 10 breaks `eslint-plugin-react` shipped with `eslint-config-next`. |
+| `eslint` | Use **`^10.12.0`**. `eslint-config-next@16.4.0` accepts ESLint 10 and the repository flat config passes lint. Its React, import, and JSX accessibility plugins still declare peer ranges ending at ESLint 9, so npm reports peer override warnings; recheck those ranges and rerun lint on future plugin/config upgrades. |
 | `@supabase/ssr` / `supabase-js` | ≥0.12 / recent clients throw if URL/key missing. Browser + static clients use build-time placeholders (`client.ts`, `static.ts`) so `next build` prerender works without secrets. |
 | Icon imports | If MUI v9 is intentionally adopted: rename 23 legacy `*Outline` → `*Outlined` (see MUI upgrade guide). |
 
@@ -82,7 +82,7 @@ Record these in `package.json` when “latest” is unsafe:
 "engines": { "node": ">=22.12.0" },
 "@mui/material": "^7.3.11",
 "@mui/icons-material": "^7.3.11",
-"eslint": "^9.39.5",
+"eslint": "^10.12.0",
 "typescript": "~5.9.3"
 ```
 

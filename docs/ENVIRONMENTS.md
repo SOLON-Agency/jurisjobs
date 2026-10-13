@@ -115,11 +115,11 @@ Do **not** set `NEXT_PUBLIC_TITLE_PREFIX`. Mirror values in **Vercel → Product
 | 1 | `npm run codegen` | Types from branch `SUPABASE_PROJECT_ID` |
 | 2 | `vercel env pull --environment=development` → merge `.env.local` | Development flags only |
 | 3 | `node scripts/sync-branch-environment.js` again | Re-compose `.env` |
-| 4 | `npm run build` | — |
+| 4 | `npm run build` — mandatory; failure aborts the commit before deployments | — |
 | 5 | Deploy changed Edge Functions | `test` / `main` → `uccivcdtfpevtykirkuw` |
 | 6 | Push staged migrations | Same project as step 5 |
 
-Opt-outs: `SKIP_ENV_SYNC=1`, `SKIP_CODEGEN=1`, `SKIP_VERCEL_ENV_PULL=1`, `SKIP_BUILD=1`, `SKIP_DEPLOY=1`, `SKIP_MIGRATIONS=1`, or `git commit --no-verify`.
+Other steps may be skipped with `SKIP_ENV_SYNC=1`, `SKIP_CODEGEN=1`, `SKIP_VERCEL_ENV_PULL=1`, `SKIP_DEPLOY=1`, or `SKIP_MIGRATIONS=1`. The build has no opt-out (`SKIP_BUILD` is ignored). Do not bypass the hook with `git commit --no-verify` when the build fails.
 
 **After merge / branch switch (git hooks):**
 
