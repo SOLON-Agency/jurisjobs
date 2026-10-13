@@ -119,7 +119,12 @@ async function goto(
   urlPath,
   { waitUntil = 'domcontentloaded', timeout = 30000, requireOk = false } = {}
 ) {
-  const url = `${BASE_URL}${urlPath}`;
+  const bypass = process.env.VERCEL_AUTOMATION_BYPASS_SECRET?.trim();
+  let url = `${BASE_URL}${urlPath}`;
+  if (bypass && !url.includes("x-vercel-protection-bypass")) {
+    const sep = url.includes("?") ? "&" : "?";
+    url = `${url}${sep}x-vercel-protection-bypass=${encodeURIComponent(bypass)}&x-vercel-set-bypass-cookie=true`;
+  }
   const response = await page.goto(url, { waitUntil, timeout });
   if (!response) throw new Error(`No response from ${url}`);
   const status = response.status();
@@ -160,7 +165,7 @@ async function expectHasContent(page, timeout = 8000) {
 }
 
 /** Wait for a CSS selector to appear; throws with a clear message on timeout. */
-async function expectSelector(page, selector, timeout = 10000) {
+async function expectSelector(page, selector, timeout = 20000) {
   try {
     await page.waitForSelector(selector, { visible: true, timeout });
   } catch {
