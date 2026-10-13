@@ -80,6 +80,11 @@ Path alias: **`@/*` → `./src/*`** (`tsconfig.json`).
 
 Keep these aligned when patterns change; avoid documenting behaviour in only one place.
 
+### Repository reconnaissance references
+
+- **[`technical-map.md`](technical-map.md)** — evidence-based structure, stack, feature, environment, workflow, and risk map.
+- **[`user-roles-and-functionalities.md`](user-roles-and-functionalities.md)** — global role inventory and current role-specific capabilities for product research.
+
 ---
 
 ## Branch environments (TEST vs PROD)
