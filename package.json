@@ -78,7 +78,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "braces": "file:vendor/braces-3.0.4-jurisjobs.1.tgz",
     "dotenv": "^17.4.2",
-    "eslint": "^9.39.5",
+    "eslint": "^10.12.0",
     "eslint-config-next": "16.4.0",
     "jsdom": "^30.1.2",
     "supabase": "^2.116.0",

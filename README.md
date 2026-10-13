@@ -19,7 +19,7 @@ A production-grade job board for the Romanian legal industry built with **Next.j
 | Motion | Framer Motion |
 | Markdown | react-markdown |
 | Tests | Vitest + jsdom + Testing Library |
-| Lint | ESLint 9 flat config · `eslint-config-next` (core-web-vitals + typescript) |
+| Lint | ESLint 10 flat config · `eslint-config-next` (core-web-vitals + typescript) |
 
 ---
 

@@ -15,7 +15,7 @@ Before changing routing, data fetching, or config:
 2. Heed deprecation warnings from `next build` and ESLint (`eslint-config-next`).
 3. Do not assume file locations or APIs from pre-v15 tutorials without verifying against this repo and current docs.
 
-**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; use Node `^22.22.2 || ^24.15.0 || >=26.0.0` as specified in `package.json`; pin MUI to v7, TypeScript to ~5.9, and ESLint to v9 until their next majors are verified.
+**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; use Node `^22.22.2 || ^24.15.0 || >=26.0.0` as specified in `package.json`; pin MUI to v7 and TypeScript to ~5.9. ESLint 10 is in use; its config and lint run are verified, though `eslint-plugin-react`, `eslint-plugin-import`, and `eslint-plugin-jsx-a11y` still declare peer ranges that stop at ESLint 9 and npm reports peer override warnings.
 <!-- END:nextjs-agent-rules -->
 
 ---
@@ -43,7 +43,7 @@ Before changing routing, data fetching, or config:
 | Motion | Framer Motion |
 | Markdown | react-markdown |
 | Tests | Vitest + jsdom + Testing Library (`src/__tests__/`) |
-| Lint | ESLint 9 flat config, `eslint-config-next` (core-web-vitals + typescript) |
+| Lint | ESLint 10 flat config, `eslint-config-next` (core-web-vitals + typescript) |
 
 ---
 
