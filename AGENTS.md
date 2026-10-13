@@ -530,6 +530,7 @@ Add tests for non-trivial logic (utils, services where mockable, critical UI beh
 5. **Accessibility:** Run through the WCAG AAA checklist in this document before considering any UI task complete.
 6. **Responsiveness:** Verify all four breakpoints (`xs` / `sm` / `md` / `lg`) before considering any UI task complete.
 7. **Copy:** Preserve Romanian UI tone where the rest of the screen is Romanian unless the task is explicitly to translate.
+8. **Git workflow:** Commit and push changes to the branch that is checked out when the task begins, unless the user explicitly instructs otherwise. Do not create or switch branches on your own. Keep required validation and pre-commit hooks enabled; if the build fails, do not commit or push the changes.
 
 ---
 
