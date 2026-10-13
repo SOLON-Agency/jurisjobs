@@ -1,0 +1,1206 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "LegalJobs API & Edge Functions",
+    "version": "1.0.0",
+    "description": "Machine-readable OpenAPI 3.0 specification for LegalJobs Supabase Edge Functions and API route handlers.\n\n### API Versioning Strategy\n- **URL Path Versioning:** All Edge Functions follow standard URL path versioning (`/functions/v1/<function-name>`).\n- **Breaking Changes:** If a breaking interface change is required, a new version path (`/functions/v2/<function-name>`) will be introduced while maintaining the previous version during a deprecation window.\n- **Non-breaking Changes:** Additive fields to requests/responses remain within the existing `/v1` path.\n- **Deprecation Policy:** Deprecated endpoints will be marked with `deprecated: true` in this OpenAPI specification prior to removal."
+  },
+  "servers": [
+    {
+      "url": "https://{project_ref}.supabase.co",
+      "description": "Supabase Edge Functions origin"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Authenticated user JWT token"
+      },
+      "ServiceRoleAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "SUPABASE_SERVICE_ROLE_KEY for privileged operations"
+      },
+      "CronSecretAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "CRON_SECRET bearer token for scheduled jobs"
+      }
+    },
+    "schemas": {
+      "StandardError": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "GenericSuccess": {
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully"
+          }
+        }
+      },
+      "NotificationTypeKey": {
+        "type": "string",
+        "enum": [
+          "account_created",
+          "account_deletion_scheduled",
+          "password_reset_ok",
+          "profile_updated",
+          "daily_digest",
+          "profile_nudge",
+          "company_created",
+          "company_updated",
+          "company_archived",
+          "company_deleted",
+          "company_favorited",
+          "company_engagement_up",
+          "job_created",
+          "job_published",
+          "job_edited",
+          "job_expires_tomorrow",
+          "job_unpublished",
+          "job_archived",
+          "job_deleted",
+          "form_created",
+          "form_archived",
+          "form_deleted",
+          "application_new",
+          "application_withdrawn",
+          "application_rejected",
+          "alert_job_match",
+          "release_announcement",
+          "matchmaking"
+        ],
+        "example": "job_published"
+      },
+      "NotificationRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "recipients",
+          "data"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/NotificationTypeKey"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": [
+              "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            ]
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true,
+            "example": {
+              "job_title": "Avocat Senior",
+              "job_id": "12345678-1234-1234-1234-123456789012"
+            }
+          },
+          "channels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "email",
+                "browser",
+                "sms"
+              ]
+            },
+            "example": [
+              "email",
+              "browser"
+            ]
+          },
+          "idempotency_key": {
+            "type": "string",
+            "example": "job-published/12345678"
+          }
+        }
+      },
+      "NotificationResponse": {
+        "type": "object",
+        "required": [
+          "ok",
+          "sent",
+          "total"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "sent": {
+            "type": "integer",
+            "example": 1
+          },
+          "total": {
+            "type": "integer",
+            "example": 1
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          }
+        }
+      },
+      "SendEmailRequest": {
+        "type": "object",
+        "required": [
+          "event"
+        ],
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": [
+              "profile_updated",
+              "company_created",
+              "custom_email"
+            ],
+            "example": "company_created"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "b2c3d4e5-f6a7-8901-bcde-f23456789012"
+          },
+          "to": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Confirmare actualizare profil"
+          },
+          "body": {
+            "type": "string",
+            "example": "<p>Profilul tău a fost actualizat.</p>"
+          }
+        }
+      },
+      "JobApplicationRequest": {
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "c3d4e5f6-a7b8-9012-cdef-345678901234"
+          }
+        }
+      },
+      "ApplicationRejectedRequest": {
+        "type": "object",
+        "required": [
+          "application_id"
+        ],
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d4e5f6a7-b8c9-0123-defa-456789012345"
+          }
+        }
+      },
+      "ApplicationWithdrawnRequest": {
+        "type": "object",
+        "required": [
+          "application_id"
+        ],
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "e5f6a7b8-c9d0-1234-efab-567890123456"
+          }
+        }
+      },
+      "CompanyFollowersNotifyRequest": {
+        "type": "object",
+        "required": [
+          "company_id",
+          "action"
+        ],
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f6a7b8c9-d0e1-2345-fabc-678901234567"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "company_updated",
+              "job_created"
+            ],
+            "example": "job_created"
+          },
+          "job_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "a7b8c9d0-e1f2-3456-abcd-789012345678"
+          }
+        }
+      },
+      "AlertsJobMatchRequest": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "b8c9d0e1-f2a3-4567-bcde-890123456789"
+          }
+        }
+      },
+      "MatchmakingRequest": {
+        "type": "object",
+        "properties": {
+          "min_overlap": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      },
+      "SendBrowserRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "title",
+          "body"
+        ],
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "c9d0e1f2-a3b4-5678-cdef-901234567890"
+          },
+          "title": {
+            "type": "string",
+            "example": "Candidatură nouă"
+          },
+          "body": {
+            "type": "string",
+            "example": "Un candidat a aplicat la anunțul tău."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://legaljobs.ro/dashboard/applications"
+          }
+        }
+      },
+      "SendSmsRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "phone",
+          "message"
+        ],
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d0e1f2a3-b4c5-6789-defa-012345678901"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+40712345678"
+          },
+          "message": {
+            "type": "string",
+            "example": "Ai primire nouă pe LegalJobs!"
+          }
+        }
+      },
+      "NewsletterNotifyRequest": {
+        "type": "object",
+        "required": [
+          "subject",
+          "content"
+        ],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "example": "Noutăți LegalJobs"
+          },
+          "content": {
+            "type": "string",
+            "example": "Iată ultimele noutăți pe platformă."
+          },
+          "recipient_emails": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "email"
+            },
+            "example": [
+              "user@example.com"
+            ]
+          }
+        }
+      },
+      "ApplyInternalFormRequest": {
+        "type": "object",
+        "required": [
+          "job_id",
+          "form_data"
+        ],
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "e1f2a3b4-c5d6-7890-efab-123456789012"
+          },
+          "form_data": {
+            "type": "object",
+            "additionalProperties": true,
+            "example": {
+              "full_name": "Ion Popescu",
+              "experience_years": 5
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/functions/v1/alerts-job-match": {
+      "post": {
+        "summary": "Alerts Job Match",
+        "description": "Compares published jobs against active job alerts and sends match notifications.",
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "ServiceRoleAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertsJobMatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Alerts checked successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/application-rejected": {
+      "post": {
+        "summary": "Application Rejected Notification",
+        "description": "Invoked by recruiter when an application is set to rejected status. Notifies candidate.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRejectedRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notification sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/application-withdrawn": {
+      "post": {
+        "summary": "Application Withdrawn Notification",
+        "description": "Invoked by applicant when withdrawing a job application. Notifies recruiter.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationWithdrawnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notification sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/company-followers-notify": {
+      "post": {
+        "summary": "Company Followers Notification",
+        "description": "Notifies company followers when a company updates profile or publishes a new job.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyFollowersNotifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Followers notified successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/job-application": {
+      "post": {
+        "summary": "Job Application Notification",
+        "description": "Post-apply notification function; dispatches emails and in-app notifications to candidate and recruiter.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JobApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Application notification dispatched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing job_id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/jobs-lifecycle": {
+      "post": {
+        "summary": "Jobs Lifecycle Cron Task",
+        "description": "Daily cron function that auto-publishes scheduled drafts and expires overdue listings.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jobs lifecycle processed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/newsletter-notify": {
+      "post": {
+        "summary": "Newsletter / Announcement Notification",
+        "description": "Dispatches newsletter broadcasts or site-wide announcements.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          },
+          {
+            "ServiceRoleAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsletterNotifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Newsletter notification sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/notifications": {
+      "post": {
+        "summary": "Central Notifications Dispatcher (v2)",
+        "description": "Single entry point for notification dispatching. Supports typed dispatch to user channels and in-app feed.",
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "ServiceRoleAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notifications dispatched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload or missing recipients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/notifications-daily-digest": {
+      "post": {
+        "summary": "Daily Digest Cron Task",
+        "description": "Daily cron function (05:00) that dispatches daily digest summaries to users.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily digests dispatched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/notifications-job-expiry-tomorrow": {
+      "post": {
+        "summary": "Expiring Jobs Notification Cron Task",
+        "description": "Daily cron function (06:00) notifying posters and applicants about jobs expiring tomorrow.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expiry warnings dispatched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/notifications-matchmaking": {
+      "post": {
+        "summary": "Matchmaking Cron Task",
+        "description": "Daily cron function (05:15) evaluating candidate skills and company job requirements for match updates.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatchmakingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Matchmaking completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/notifications-profile-nudge": {
+      "post": {
+        "summary": "Profile Completeness Nudge Cron Task",
+        "description": "Daily cron function (05:05) nudging users with incomplete profiles.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile nudges dispatched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/notifications-release-detect": {
+      "post": {
+        "summary": "Release Detector Cron Task",
+        "description": "Cron function detecting package.json version changes to trigger release announcement drafts.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Release detection completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/send-browser": {
+      "post": {
+        "summary": "Send Web Push Notification",
+        "description": "Internal helper sending Web Push payload to target user subscriptions.",
+        "security": [
+          {
+            "ServiceRoleAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendBrowserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Web Push sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/send-email": {
+      "post": {
+        "summary": "Send Transactional Email",
+        "description": "Sends transactional HTML emails for profile updates, company creation, or custom emails under RLS.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/send-sms": {
+      "post": {
+        "summary": "Send SMS",
+        "description": "Internal helper logging SMS and inserting SMS notification record.",
+        "security": [
+          {
+            "ServiceRoleAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSmsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SMS sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/functions/v1/unclaimed-companies-nudge": {
+      "post": {
+        "summary": "Unclaimed Companies Nudge Cron Task",
+        "description": "Daily cron function nudging unclaimed company contact emails.",
+        "security": [
+          {
+            "CronSecretAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unclaimed company nudges sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/apply-internal-form": {
+      "post": {
+        "summary": "Submit Internal Custom Form Job Application",
+        "description": "Submits a candidate job application for jobs utilizing custom application forms.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyInternalFormRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Application submitted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandardError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

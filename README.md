@@ -19,7 +19,7 @@ A production-grade job board for the Romanian legal industry built with **Next.j
 | Motion | Framer Motion |
 | Markdown | react-markdown |
 | Tests | Vitest + jsdom + Testing Library |
-| Lint | ESLint 9 flat config · `eslint-config-next` (core-web-vitals + typescript) |
+| Lint | ESLint 10 flat config · `eslint-config-next` (core-web-vitals + typescript) |
 
 ---
 
@@ -379,6 +379,10 @@ Set environment variables in the Vercel dashboard (web app):
 | `SUPABASE_TEST_*` / `SUPABASE_MAIN_*` | Local `.env.test` / `.env.prod` — see `docs/ENVIRONMENTS.md` |
 
 **Do not add `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, or `RESEND_FROM` to Vercel** for this project — they belong in **Supabase Edge Function secrets** (see **`AGENTS.md`** environment table).
+
+#### Web Analytics
+
+The Next.js root layout loads Vercel Web Analytics for public, authentication, and dashboard pages, including client-side navigation. In the Vercel project dashboard, enable **Analytics** for Preview and Production deployments. Analytics retains page paths but strips query parameters and fragments to avoid sending auth codes, redirect values, or other query data.
 
 ### Edge Functions
 

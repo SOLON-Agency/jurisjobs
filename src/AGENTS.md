@@ -237,7 +237,7 @@ Other state lives in:
 
 ## API Routes
 
-Only one route handler exists: `POST /api/jobs/apply-internal-form`.
+Route handlers exist for custom job forms (`POST /api/jobs/apply-internal-form`) and interactive API documentation (`GET /api/docs`, `GET /api/docs/openapi.json`).
 
 **Template for new route handlers:**
 ```ts
