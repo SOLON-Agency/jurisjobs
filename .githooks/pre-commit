@@ -26,12 +26,10 @@
 #   SKIP_ENV_SYNC=1         bypass branch env sync
 #   SKIP_CODEGEN=1          bypass Supabase types + database.zod.ts regeneration
 #   SKIP_VERCEL_ENV_PULL=1  bypass Vercel `env pull`
-#   SKIP_BUILD=1            bypass the Next.js build
 #   SKIP_DEPLOY=1           bypass edge-function deployment
 #   SKIP_MIGRATIONS=1       bypass `supabase db push`
 #
-# Bypass everything for a WIP commit:
-#   git commit --no-verify -m "wip"
+# The build check is mandatory; do not bypass this hook for a failing build.
 #
 # Offline / no Vercel CLI login: use SKIP_VERCEL_ENV_PULL=1 (pull step warns and continues).
 # Offline types pull: codegen:types skips when not linked; supazod still refreshes Zod from committed types.
@@ -110,24 +108,19 @@ fi
 
 # ── 4. Next.js build check ──────────────────────────────────────────────────
 
-if [ "${SKIP_BUILD:-0}" = "1" ]; then
-  echo "⚠️  SKIP_BUILD=1 — skipping build check."
+echo ""
+echo "🏗️  Running Next.js build check..."
+echo ""
+
+if npm run build; then
+  echo ""
+  echo "✅ Build passed — proceeding with commit."
+  echo ""
 else
   echo ""
-  echo "🏗️  Running Next.js build check..."
+  echo "❌ Build failed. Fix the errors above before committing."
   echo ""
-
-  if npm run build; then
-    echo ""
-    echo "✅ Build passed — proceeding with commit."
-    echo ""
-  else
-    echo ""
-    echo "❌ Build failed. Fix the errors above before committing."
-    echo "   (To bypass this check run: SKIP_BUILD=1 git commit ...)"
-    echo ""
-    exit 1
-  fi
+  exit 1
 fi
 
 # ── 5. Supabase Edge Functions deployment ───────────────────────────────────
