@@ -129,7 +129,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
       component="section"
       sx={{
         position: "relative",
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 66px)",
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
@@ -248,16 +248,14 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
               sx={{
                 fontSize: { xs: "1.05rem", md: "1.25rem" },
                 color: "rgba(240,235,216,0.78)",
-                maxWidth: 680,
+                maxWidth: 730,
                 mx: "auto",
                 mb: 5,
                 lineHeight: 1.75,
               }}
             >
-              Pentru avocați, juriști și departamente in-house care caută cele mai bine plătite
-              posturi din piață — și pentru societăți care recrutează talent juridic de top.
-              Tehnologie de ultimă generație care potrivește competențele cu oportunitățile
-              potrivite, direct pe platformă, transparent și rapid.
+              Algoritmi inteligenți care potrivesc competențe juridice cu oportunități potrivite
+               - direct pe platformă, gratuit, transparent și rapid.
             </Typography>
           </motion.div>
 
@@ -322,34 +320,61 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
 
           {/* Feature pills */}
           <motion.div variants={heroItem}>
-            <Stack
-              direction="row"
-              spacing={1.5}
-              justifyContent="center"
-              flexWrap="wrap"
-              sx={{ mb: 8, gap: 1.5 }}
+            <Box
+              sx={{
+                mb: 8,
+                mt: 8,
+                overflow: "hidden",
+                width: "100vw",
+                ml: "calc(50% - 50vw)",
+              }}
             >
-              {pills.map((pill) => (
-                <Box
-                  key={pill}
-                  sx={{
-                    px: 2.5,
-                    py: 0.75,
-                    borderRadius: 99,
-                    border: "1px solid rgba(240,235,216,0.15)",
-                    bgcolor: "rgba(240,235,216,0.05)",
-                    backdropFilter: "blur(6px)",
-                    color: "rgba(240,235,216,0.6)",
-                    fontSize: "0.72rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {pill}
-                </Box>
-              ))}
-            </Stack>
+              <motion.div
+                animate={reduced ? undefined : { x: ["0%", "calc(-50% - 6px)"] }}
+                transition={{
+                  duration: 34,
+                  ease: "linear",
+                  repeat: Infinity,
+                }}
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  width: "max-content",
+                }}
+              >
+                {[0, 1].map((group) => (
+                  <Stack
+                    key={group}
+                    direction="row"
+                    spacing={1.5}
+                    aria-hidden={group === 1}
+                    sx={{ flexShrink: 0 }}
+                  >
+                    {pills.map((pill) => (
+                      <Box
+                        key={`${group}-${pill}`}
+                        sx={{
+                          px: 2.5,
+                          py: 0.75,
+                          borderRadius: 99,
+                          border: "1px solid rgba(240,235,216,0.15)",
+                          bgcolor: "rgba(240,235,216,0.05)",
+                          backdropFilter: "blur(6px)",
+                          color: "rgba(240,235,216,0.6)",
+                          fontSize: "0.72rem",
+                          fontWeight: 600,
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {pill}
+                      </Box>
+                    ))}
+                  </Stack>
+                ))}
+              </motion.div>
+            </Box>
           </motion.div>
 
           {/* Stats bar */}
