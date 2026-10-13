@@ -15,7 +15,7 @@ Before changing routing, data fetching, or config:
 2. Heed deprecation warnings from `next build` and ESLint (`eslint-config-next`).
 3. Do not assume file locations or APIs from pre-v15 tutorials without verifying against this repo and current docs.
 
-**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; require Node ≥ 22.12; pin MUI to v7, TypeScript to ~5.9, and ESLint to v9 until their next majors are verified.
+**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; use Node `^22.22.2 || ^24.15.0 || >=26.0.0` as specified in `package.json`; pin MUI to v7, TypeScript to ~5.9, and ESLint to v9 until their next majors are verified.
 <!-- END:nextjs-agent-rules -->
 
 ---

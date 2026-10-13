@@ -37,7 +37,7 @@ Canonical brand name and numeric defaults live in the same JSON file (`name`, `b
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22.22.2 (use `nvm use`; see `.nvmrc`). Node 24.15+ and 26+ also satisfy the dependency engine ranges.
 - npm
 - Supabase project (cloud or local CLI)
 
@@ -46,8 +46,15 @@ Canonical brand name and numeric defaults live in the same JSON file (`name`, `b
 ```bash
 git clone <repo-url>
 cd jobboard
+nvm install
+nvm use
 npm install
 ```
+
+ESLint 9 may still print an upstream deprecation notice during installation. The
+current Next.js lint preset depends on React/import/accessibility plugins whose
+published peer ranges exclude ESLint 10; keep ESLint 9 until that stack supports
+the new major. This notice does not affect the security audit or lint result.
 
 ### 2 — Configure environment variables
 
