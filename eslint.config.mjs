@@ -15,7 +15,7 @@ const eslintConfig = defineConfig([
   // CommonJS tooling — require() is intentional.
   {
     name: "commonjs-tooling",
-    files: ["e2e/**/*.js", "scripts/**/*.{js,cjs,mjs}"],
+    files: ["e2e/**/*.js", "scripts/**/*.{js,cjs,mjs}", "vendor/braces/**/*.js"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
     },
