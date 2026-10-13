@@ -24,7 +24,7 @@ export interface HeroCounts {
 }
 
 // ── Pills ─────────────────────────────────────────────────────────────────────
-const pills = ["Matchmaking inteligent", "Alerte personalizate", "Transparență salarială", "Candidați verificați"] as const;
+const pills = ["Matchmaking inteligent", "Gestionare candidaturi", "Alerte personalizate", "Transparență salarială", "Candidați verificați", "Feedback direct de la angajator"] as const;
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function HeroSection({ }: { counts?: HeroCounts }) {
@@ -223,6 +223,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 lineHeight: 1.1,
                 color: "#F0EBD8",
                 mb: 3,
+                mt: 4
               }}
             >
               Recrutare{" "}
@@ -282,8 +283,8 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                   letterSpacing: "0.04em",
                   bgcolor: "rgba(195,174,97,0.9)",
                   color: "white",
-                  "&:hover": { bgcolor: "rgba(195,174,97,1)", transform: "translateY(-1px)", boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
-                  transition: "all 0.2s",
+                  "&:hover": { bgcolor: "rgba(195,174,97,1)", boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
+                  transition: "background-color 0.2s, box-shadow 0.2s",
                 }}
               >
                 Creează anunț
@@ -306,15 +307,19 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                   "&:hover": {
                     borderColor: "rgba(240,235,216,0.5)",
                     bgcolor: "rgba(240,235,216,0.1)",
-                    transform: "translateY(-1px)",
                   },
-                  transition: "all 0.2s",
+                  transition: "border-color 0.2s, background-color 0.2s",
                 }}
               >
                 Explorează anunțuri
               </Button>
             </Stack>
           </motion.div>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
           <br/>
           <br/>
 

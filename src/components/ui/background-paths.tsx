@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 function FloatingPaths({ position }: { position: number }) {
-  const reduced = useReducedMotion();
   const paths = Array.from({ length: 36 }, (_, i) => ({
     id: i,
     d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
@@ -17,9 +16,7 @@ function FloatingPaths({ position }: { position: number }) {
     } ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${
       684 - i * 5 * position
     } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
-    color: `rgba(15,23,42,${0.1 + i * 0.03})`,
     width: 0.5 + i * 0.03,
-    duration: 20 + (i % 10),
   }));
 
   return (
@@ -30,38 +27,17 @@ function FloatingPaths({ position }: { position: number }) {
         fill="none"
       >
         <title>Fundal decorativ</title>
-        {paths.map((path) =>
-          reduced ? (
-            <path
-              key={path.id}
-              d={path.d}
-              stroke="currentColor"
-              strokeWidth={path.width}
-              strokeOpacity={0.08 + path.id * 0.02}
-              pathLength={1}
-              fill="none"
-            />
-          ) : (
-            <motion.path
-              key={path.id}
-              d={path.d}
-              stroke="currentColor"
-              strokeWidth={path.width}
-              strokeOpacity={0.1 + path.id * 0.03}
-              initial={{ pathLength: 0.3, opacity: 0.6 }}
-              animate={{
-                pathLength: 1,
-                opacity: [0.3, 0.6, 0.3],
-                pathOffset: [0, 1, 0],
-              }}
-              transition={{
-                duration: path.duration,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            />
-          )
-        )}
+        {paths.map((path) => (
+          <path
+            key={path.id}
+            d={path.d}
+            stroke="currentColor"
+            strokeWidth={path.width}
+            strokeOpacity={0.08 + path.id * 0.02}
+            pathLength={1}
+            fill="none"
+          />
+        ))}
       </svg>
     </div>
   );
@@ -174,11 +150,11 @@ export const BackgroundPaths = ({
             </p>
           ) : null}
 
-          <div className="group inline-block overflow-hidden rounded-2xl bg-gradient-to-b from-black/10 to-white/10 p-px shadow-lg backdrop-blur-lg transition-shadow duration-300 hover:shadow-xl dark:from-white/10 dark:to-black/10">
+          <div className="group inline-block overflow-hidden rounded-2xl bg-gradient-to-b from-black/10 to-white/10 p-px shadow-lg transition-shadow duration-300 hover:shadow-xl dark:from-white/10 dark:to-black/10">
             <Button
               asChild
               variant="ghost"
-              className="rounded-[1.15rem] border border-black/10 bg-white/95 px-8 py-6 text-lg font-semibold text-black backdrop-blur-md transition-all duration-300 hover:bg-white/100 hover:shadow-md dark:border-white/10 dark:bg-black/95 dark:text-white dark:hover:bg-black/100 dark:hover:shadow-neutral-800/50"
+              className="rounded-[1.15rem] border border-black/10 bg-white px-8 py-6 text-lg font-semibold text-black transition-all duration-300 hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-black dark:text-white dark:hover:bg-black dark:hover:shadow-neutral-800/50"
             >
               <Link
                 href={ctaHref}

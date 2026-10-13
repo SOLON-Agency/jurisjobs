@@ -26,7 +26,6 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import appSettings from "@/config/app.settings.json";
 import { FaqSection } from "@/components/marketing/FaqSection";
-import { RecruitingAgenciesSection } from "@/components/marketing/RecruitingAgenciesSection";
 import type { FaqPublicItem } from "@/services/faq.service";
 
 // ── Brand tokens ──────────────────────────────────────────────────────────────
@@ -228,8 +227,8 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   sx={{
                     px: 4, py: 1.6, borderRadius: 99, fontWeight: 700,
                     bgcolor: GOLD, color: "white",
-                    "&:hover": { bgcolor: GOLD_FULL, transform: "translateY(-1px)", boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
-                    transition: "all 0.2s",
+                    "&:hover": { bgcolor: GOLD_FULL, boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
+                    transition: "background-color 0.2s, box-shadow 0.2s",
                   }}
                 >
                   Sunt candidat
@@ -240,8 +239,8 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                     px: 4, py: 1.6, borderRadius: 99, fontWeight: 600,
                     borderColor: "rgba(240,235,216,0.25)", color: "rgba(240,235,216,0.8)",
                     backdropFilter: "blur(8px)", bgcolor: "rgba(240,235,216,0.05)",
-                    "&:hover": { borderColor: "rgba(240,235,216,0.5)", bgcolor: "rgba(240,235,216,0.1)", transform: "translateY(-1px)" },
-                    transition: "all 0.2s",
+                    "&:hover": { borderColor: "rgba(240,235,216,0.5)", bgcolor: "rgba(240,235,216,0.1)" },
+                    transition: "border-color 0.2s, background-color 0.2s",
                   }}
                 >
                   Sunt angajator
@@ -258,9 +257,8 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                     "&:hover": {
                       borderColor: "rgba(195,174,97,0.75)",
                       bgcolor: "rgba(195,174,97,0.12)",
-                      transform: "translateY(-1px)",
                     },
-                    transition: "all 0.2s",
+                    transition: "border-color 0.2s, background-color 0.2s",
                   }}
                 >
                   Agenții de recrutare
@@ -315,10 +313,9 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                 <Paper variant="outlined" sx={{
                   p: 3, height: "100%", borderRadius: 3,
                   borderColor: b.border, bgcolor: b.bg,
-                  transition: "all 0.25s",
+                  transition: "border-color 0.25s, box-shadow 0.25s",
                   "&:hover": {
                     borderColor: b.color,
-                    transform: "translateY(-4px)",
                     boxShadow: `0 12px 40px ${b.bg}`,
                   },
                 }}>
@@ -391,10 +388,9 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   p: 3, height: "100%", borderRadius: 3,
                   borderColor: step.border, bgcolor: step.bg,
                   position: "relative", zIndex: 1,
-                  transition: "all 0.25s",
+                  transition: "border-color 0.25s, box-shadow 0.25s",
                   "&:hover": {
                     borderColor: step.color,
-                    transform: "translateY(-4px)",
                     boxShadow: `0 12px 40px ${step.bg}`,
                   },
                 }}>
@@ -517,13 +513,6 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
           </Box>
         </Container>
       </Box>
-
-      {/* ── RECRUITING AGENCIES ─────────────────────────────────────────────── */}
-      <RecruitingAgenciesSection
-        title="Recrutare juridică inteligentă"
-        ctaLabel="Postează un anunț gratuit"
-        ctaHref="/anunt"
-      />
 
       <FaqSection items={faqItems} variant="dark" />
 

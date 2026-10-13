@@ -185,11 +185,10 @@ export function AudienceSection() {
                   borderColor: "rgba(240,235,216,0.12)",
                   bgcolor: "rgba(240,235,216,0.04)",
                   backdropFilter: "blur(10px)",
-                  transition: "all 0.25s",
+                  transition: "border-color 0.25s, background-color 0.25s, box-shadow 0.25s",
                   "&:hover": {
                     borderColor: "rgba(195,174,97,0.45)",
                     bgcolor: "rgba(240,235,216,0.06)",
-                    transform: "translateY(-4px)",
                     boxShadow: "0 12px 36px rgba(0,0,0,0.25)",
                   },
                 }}

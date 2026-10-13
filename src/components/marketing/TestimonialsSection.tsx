@@ -128,9 +128,8 @@ export function TestimonialsSection() {
                   borderRadius: 3,
                   borderColor: "rgba(3,23,12,0.08)",
                   bgcolor: t.bg,
-                  transition: "all 0.25s",
+                  transition: "box-shadow 0.25s",
                   "&:hover": {
-                    transform: "translateY(-4px)",
                     boxShadow: "0 14px 40px rgba(3,23,12,0.08)",
                   },
                 }}

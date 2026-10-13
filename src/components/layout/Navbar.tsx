@@ -137,7 +137,7 @@ export function Navbar() {
             }}
           >
             <Image
-              src="/logo-icon-light.png"
+              src="/jurisjobs-logo.png"
               alt={appSettings.name}
               width={48}
               height={48}

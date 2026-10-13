@@ -193,10 +193,9 @@ export function PlatformAdvantagesSection() {
                   borderRadius: 3,
                   borderColor: adv.border,
                   bgcolor: adv.lightBg,
-                  transition: "all 0.25s",
+                  transition: "border-color 0.25s, box-shadow 0.25s",
                   "&:hover": {
                     borderColor: adv.color,
-                    transform: "translateY(-4px)",
                     boxShadow: `0 14px 44px ${adv.lightBg}`,
                   },
                 }}

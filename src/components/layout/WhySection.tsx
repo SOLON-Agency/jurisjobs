@@ -114,10 +114,9 @@ export function WhySection() {
                   borderColor: f.border,
                   bgcolor: f.lightBg,
                   textAlign: "center",
-                  transition: "all 0.25s",
+                  transition: "border-color 0.25s, box-shadow 0.25s",
                   "&:hover": {
                     borderColor: f.color,
-                    transform: "translateY(-4px)",
                     boxShadow: `0 12px 40px ${f.lightBg}`,
                   },
                 }}

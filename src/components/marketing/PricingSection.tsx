@@ -183,9 +183,8 @@ export function PricingSection() {
                       "&:hover": {
                         bgcolor: "#c3ae61",
                         boxShadow: "0 10px 32px rgba(195,174,97,0.35)",
-                        transform: "translateY(-1px)",
                       },
-                      transition: "all 0.2s",
+                      transition: "background-color 0.2s, box-shadow 0.2s",
                     }}
                   >
                     Postează gratuit

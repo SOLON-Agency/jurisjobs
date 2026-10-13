@@ -184,13 +184,13 @@ function StatCard({ label, value, icon, accentColor, href, sublabel }: StatCardP
         border: "1px solid rgba(3, 23, 12, 0.1)",
         borderLeft: `4px solid ${accentColor}`,
         textDecoration: "none",
-        transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease",
+        transition: "border-color 0.2s ease, box-shadow 0.2s ease",
         cursor: href ? "pointer" : "default",
         display: "flex",
         alignItems: "center",
         gap: 2,
         "&:hover": href
-          ? { borderColor: "rgba(62, 92, 118, 0.35)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)", transform: "translateY(-1px)" }
+          ? { borderColor: "rgba(62, 92, 118, 0.35)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" }
           : {},
       }}
     >

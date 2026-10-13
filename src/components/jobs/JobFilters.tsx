@@ -161,7 +161,7 @@ export function JobFilters() {
       {/* Location */}
       <Box>
         <Typography variant="h5" component="h2" fontWeight={700} mb={-1}>
-          Filtrează după
+          Filtrează
         </Typography>
         <SectionHeader label="Locație" open={open.location} onToggle={() => toggle("location")} controlsId="filter-location" />
         <Collapse id="filter-location" in={open.location}>
@@ -373,7 +373,7 @@ export function JobFilters() {
             fullWidth
             onClick={clearFilters}
             disabled={activeFilterCount === 0}
-            sx={{ borderRadius: 2, py: 1, "&.Mui-disabled": { color: "white", cursor: "not-allowed" } }}
+            sx={{ borderRadius: 1, py: 1, "&.Mui-disabled": { color: "white", cursor: "not-allowed" } }}
           >
             Resetează filtrele{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
           </Button>
@@ -432,7 +432,7 @@ export function JobFilters() {
         >
           <Stack direction="row" spacing={1} alignItems="center" sx={{ flexShrink: 0, ml: { xs: 0, md: 2 } }}>
             <FilterListIcon aria-hidden="true" fontSize="small" sx={{ color: "text.secondary" }} />
-            {isTablet && <Typography variant="body2" fontWeight={600}>Filtrează după</Typography>}
+            {isTablet && <Typography variant="body2" fontWeight={600}>Filtrează</Typography>}
             {activeFilterCount > 0 && (
               <Chip label={activeFilterCount} size="small" color="primary" sx={{ height: 20, fontSize: 11 }} />
             )}
@@ -451,7 +451,7 @@ export function JobFilters() {
               variant="contained"
               fullWidth
               onClick={clearFilters}
-              sx={{ mt: 2, borderRadius: 2 }}
+              sx={{ mt: 2, borderRadius: 1 }}
             >
               Resetează filtrele ({activeFilterCount})
             </Button>

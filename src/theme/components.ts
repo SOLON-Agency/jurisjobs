@@ -66,7 +66,7 @@ export const components: Components<Theme> = {
         backgroundImage: "none",
         transition: "border-color 0.2s ease, box-shadow 0.2s ease",
         "&:hover": {
-          border: "1px solid #3E5C76",
+          borderColor: "#3E5C76",
           boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)",
         },
       },
