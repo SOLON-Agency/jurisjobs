@@ -19,7 +19,7 @@ A production-grade job board for the Romanian legal industry built with **Next.j
 | Motion | Framer Motion |
 | Markdown | react-markdown |
 | Tests | Vitest + jsdom + Testing Library |
-| Lint | ESLint 10 flat config · `eslint-config-next` (core-web-vitals + typescript) |
+| Lint | ESLint 9 flat config · `eslint-config-next` (core-web-vitals + typescript) |
 
 ---
 
@@ -45,16 +45,15 @@ Canonical brand name and numeric defaults live in the same JSON file (`name`, `b
 
 ```bash
 git clone <repo-url>
-cd jobboard
+cd jurisjobs
 nvm install
 nvm use
 npm install
 ```
 
-ESLint 9 may still print an upstream deprecation notice during installation. The
-current Next.js lint preset depends on React/import/accessibility plugins whose
-published peer ranges exclude ESLint 10; keep ESLint 9 until that stack supports
-the new major. This notice does not affect the security audit or lint result.
+ESLint is pinned to v9 because the React, import, and accessibility plugins used
+by the current Next.js lint preset declare peer ranges through ESLint 9. Keep
+ESLint 9 until those plugins publish compatible peer ranges for a newer major.
 
 ### 2 — Configure environment variables
 

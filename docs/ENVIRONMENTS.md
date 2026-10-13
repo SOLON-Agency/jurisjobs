@@ -42,7 +42,7 @@ flowchart LR
 2. **On branch `main`**, migrations and Edge Function deploys from pre-commit target `uccivcdtfpevtykirkuw` (production).
 3. **Locally**, `npm run vercel:env` and pre-commit always pull **Development** Vercel Flags — not Preview or Production flag values.
 4. **`NEXT_PUBLIC_TITLE_PREFIX`** drives the `[TEST] ` browser/social title prefix via `src/lib/page-title.ts` — do not hardcode `[TEST]` in page metadata.
-5. **Cursor MCP** (`.cursor/mcp.json`) is wired to the **jobboard** Supabase project (`uccivcdtfpevtykirkuw`).
+5. **Cursor MCP** (`.cursor/mcp.json`) is wired to the **jurisjobs** Supabase project (`uccivcdtfpevtykirkuw`).
 6. **Schema changes** must be applied to **both** Supabase projects when shipping migrations (test first, then main).
 
 ---

@@ -1,7 +1,7 @@
 version = 1
 
 # ---------------------------------------------------------------------------
-# DeepSource configuration — jobboard (LegalJobs)
+# DeepSource configuration — jurisjobs (LegalJobs)
 #
 # Stack: Next.js 16 (App Router) · React 19 · TypeScript (strict) · MUI v7
 #        Redux Toolkit · Supabase (Postgres migrations + Deno Edge Functions)

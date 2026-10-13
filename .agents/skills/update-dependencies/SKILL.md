@@ -2,7 +2,7 @@
 name: update-dependencies
 description: >-
   Update all npm dependencies and devDependencies to the latest versions that
-  keep this jobboard (LegalJobs) platform fully functional. Use when the user
+  keep this jurisjobs (LegalJobs) platform fully functional. Use when the user
   asks for /update-dependencies, dependency bumps, npm outdated, ncu, or
   upgrading Next/MUI/React packages while preserving lint, tests, and build.
 disable-model-invocation: true
@@ -43,7 +43,7 @@ Then **re-pin** packages that must stay below “latest” for functionality (ed
 |---------|--------|
 | `@mui/material` / `@mui/icons-material` | Stay on **latest v7** until a dedicated MUI v9 migration. v9 removes system props (`alignItems`, `fontWeight`, …) and legacy `*Outline` icons. If icons were already migrated to `*Outlined`, that is fine on v7. |
 | `typescript` | Cap at **`~5.9.x`** (or max allowed by `typescript-eslint` from `eslint-config-next`, currently `<6.1.0`). Do not jump to TS 7 while Next’s ESLint stack rejects it. |
-| `eslint` | Use **`^10.12.0`**. `eslint-config-next@16.4.0` accepts ESLint 10 and the repository flat config passes lint. Its React, import, and JSX accessibility plugins still declare peer ranges ending at ESLint 9, so npm reports peer override warnings; recheck those ranges and rerun lint on future plugin/config upgrades. |
+| `eslint` | Use **`^9.39.5`** while the React, import, and JSX accessibility plugins used by `eslint-config-next@16.4.0` declare peer ranges ending at ESLint 9. Recheck those ranges before adopting a newer major; do not suppress peer warnings with npm overrides or `legacy-peer-deps`. |
 | `@supabase/ssr` / `supabase-js` | ≥0.12 / recent clients throw if URL/key missing. Browser + static clients use build-time placeholders (`client.ts`, `static.ts`) so `next build` prerender works without secrets. |
 | Icon imports | If MUI v9 is intentionally adopted: rename 23 legacy `*Outline` → `*Outlined` (see MUI upgrade guide). |
 
@@ -82,11 +82,11 @@ Record these in `package.json` when “latest” is unsafe:
 "engines": { "node": ">=22.12.0" },
 "@mui/material": "^7.3.11",
 "@mui/icons-material": "^7.3.11",
-"eslint": "^10.12.0",
+"eslint": "^9.39.5",
 "typescript": "~5.9.3"
 ```
 
-Re-check pins each run: if `eslint-config-next` gains ESLint 10 / TS 6+ support, raise the caps.
+Re-check pins each run: if the lint plugins used by `eslint-config-next` publish peer support for ESLint 10 / TS 6+, reconsider the caps.
 
 ## Anti-patterns
 

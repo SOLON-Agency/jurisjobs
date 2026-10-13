@@ -8,7 +8,7 @@ Repository snapshot: 2026-10-13, branch `main`. This map describes checked-in im
 
 | Area | Current responsibility | Evidence |
 | --- | --- | --- |
-| Root | One private `jobboard` npm package; no workspace manifest or nested package manifest found | `package.json`, `package-lock.json`, root file inventory |
+| Root | One private `jurisjobs` npm package; no workspace manifest or nested package manifest found | `package.json`, `package-lock.json`, root file inventory |
 | `src/app` | Next.js App Router: public and auth route groups, protected `/dashboard`, one application API route, newsletter action, metadata, sitemap, robots | `src/app/**`, `middleware.ts` |
 | `src/components`, `src/theme`, `src/contexts` | MUI/Emotion UI, shared and feature components, theme, toast and favourites providers | `src/app/layout.tsx`, `src/components/**` |
 | `src/services`, `src/hooks`, `src/lib`, `src/store` | Typed Supabase data access; client hooks; client/server/static Supabase factories, role/SEO/notification helpers; Redux Toolkit with an RTK Query employer dashboard endpoint | Representative files in each directory |
