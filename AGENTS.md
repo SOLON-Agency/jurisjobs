@@ -169,6 +169,20 @@ void supabase.functions
 
 All functions use `verify_jwt = false` and validate auth inside the function.
 
+### OpenAPI & Interactive Documentation
+
+- **Schema:** Machine-readable OpenAPI 3.0 specification is available at [`supabase/openapi.json`](supabase/openapi.json) and served live at `/api/docs/openapi.json`.
+- **Swagger UI:** Interactive API documentation and endpoint testing UI is accessible at `/api/docs`.
+- **Validation:** CI/CD and unit tests (`src/__tests__/openapi.test.ts`) validate that `supabase/openapi.json` is synced with all Edge Functions in `supabase/functions/` and listed in `AGENTS.md`.
+
+### API Versioning Strategy
+
+- **URL Path Versioning:** All Edge Functions follow standard URL path versioning (`/functions/v1/<function-name>`).
+- **Breaking Changes:** When a non-backwards-compatible interface change is introduced, a new version path (`/functions/v2/<function-name>`) will be created while maintaining the previous version during a deprecation window.
+- **Non-breaking Changes:** Additive fields to request or response payloads remain within the existing `/v1` path.
+- **Deprecation Policy:** Deprecated endpoints will be marked with `deprecated: true` in `supabase/openapi.json` prior to removal.
+
+
 #### `notifications` edge function — new typed dispatcher
 
 All notification dispatch must go through this function. Resend templates are no longer used.
