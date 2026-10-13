@@ -32,7 +32,7 @@ export function NewsletterSection() {
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
             <MailOutlineIcon
-              sx={{ fontSize: { xs: 32, md: 40 }, opacity: 0.9 }}
+              sx={{ fontSize: { xs: 32, md: 40 }, color: "#F0EBD8" }}
               aria-hidden="true"
             />
             <Typography
@@ -48,7 +48,7 @@ export function NewsletterSection() {
 
           <Typography
             variant="body1"
-            sx={{ opacity: 0.85, maxWidth: 520, lineHeight: 1.7 }}
+            sx={{ color: "#F0EBD8", maxWidth: 520, lineHeight: 1.7 }}
           >
             Abonează-te și primești direct în inbox fiecare articol nou despre cariera
             juridică, tendințe în recrutare și sfaturi pentru profesioniști din România.

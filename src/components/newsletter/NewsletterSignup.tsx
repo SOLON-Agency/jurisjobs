@@ -64,13 +64,19 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
                 : "newsletter-hint",
               "aria-required": "true",
             }}
-            sx={{ bgcolor: "background.paper", borderRadius: 1 }}
+            sx={{
+              bgcolor: "#FFFFFF",
+              borderRadius: 1,
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: "#03170C" },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#03170C" },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#03170C", borderWidth: 2 },
+              "& input::placeholder": { color: "#3E5C76", opacity: 1 },
+            }}
           />
           <Typography
             id="newsletter-hint"
             variant="caption"
-            color="text.secondary"
-            sx={{ mt: 0.75, display: "block" }}
+            sx={{ mt: 0.75, display: "block", color: "#F0EBD8" }}
           >
             Te poți dezabona oricând. Nu trimitem spam.
           </Typography>
@@ -82,7 +88,16 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
           size="large"
           disabled={isSubmitting}
           startIcon={isSubmitting ? <CircularProgress size={16} /> : undefined}
-          sx={{ minHeight: 56, minWidth: 140, whiteSpace: "nowrap", flexShrink: 0 }}
+          sx={{
+            minHeight: 56,
+            minWidth: 140,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+            bgcolor: "#C3AE61",
+            color: "#03170C",
+            "&:hover": { bgcolor: "#D7C996" },
+            "&.Mui-disabled": { bgcolor: "#D7C996", color: "#03170C" },
+          }}
         >
           {isSubmitting ? "Se trimite…" : "Mă abonez"}
         </Button>
