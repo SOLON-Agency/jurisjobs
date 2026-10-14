@@ -7,9 +7,8 @@ import { FavouritesFeatureRoot } from "@/components/providers/FavouritesFeatureR
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { VercelToolbar } from "@vercel/toolbar/next";
-import { Analytics } from "@vercel/analytics/next";
+import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import { isVercelToolbarConfigured } from "@/lib/vercel-toolbar";
-import { redactAnalyticsQueryParameters } from "@/lib/vercel-analytics";
 import { generateWebSiteJsonLd } from "@/lib/seo";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import "./globals.css";
@@ -103,7 +102,7 @@ export default function RootLayout({
             </ReduxStoreProvider>
           </ThemeRegistry>
         </FavouritesFeatureRoot>
-        <Analytics beforeSend={redactAnalyticsQueryParameters} />
+        <AnalyticsProvider />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
