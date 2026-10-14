@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import React, { useSyncExternalStore } from "react";
 import Link from "next/link";
 import {
@@ -96,23 +97,22 @@ export interface DashboardStats {
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const C = {
-  primary: "#03170C",
-  secondary: "#3E5C76",
-  secondaryLight: "#748CAB",
-  // #7a6420 on white = ~5.2:1 — passes WCAG AA for normal text and icons
-  gold: "#7a6420",
-  // Gold on dark hero background — lighter variant so it reads on #03170C
-  goldOnDark: "#e0c96a",
-  soft: "#F0EBD8",
+  primary: brandCssVars.forest,
+  secondary: brandCssVars.green,
+  secondaryLight: brandCssVars.green,
+  gold: brandCssVars.goldText,
+  // Official gold accent for dark dashboard panels.
+  goldOnDark: brandCssVars.gold,
+  soft: brandCssVars.cream,
   danger: "#c62828",
-  success: "#2d6a4f",
-  bg: "#f6f8f5",
+  success: brandCssVars.green,
+  bg: brandCssVars.nearWhite,
 };
 
 // Pie chart colours — used only as decorative swatch fills (min 3:1 for non-text).
 // Legend caption text always renders in text.primary, so fill contrast rules are relaxed.
-const PIE_JOB = [C.primary, C.gold, "#5a7a96"];
-const PIE_APP = ["#5a7a96", C.secondary, C.gold, C.primary, C.danger];
+const PIE_JOB = [C.primary, C.gold, brandCssVars.green];
+const PIE_APP = [brandCssVars.green, C.secondary, C.gold, C.primary, C.danger];
 
 // ─── Tooltip ─────────────────────────────────────────────────────────────────
 
@@ -190,7 +190,7 @@ function StatCard({ label, value, icon, accentColor, href, sublabel }: StatCardP
         alignItems: "center",
         gap: 2,
         "&:hover": href
-          ? { borderColor: "rgba(62, 92, 118, 0.35)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" }
+          ? { borderColor: "color-mix(in srgb, var(--brand-green) 35%, transparent)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" }
           : {},
       }}
     >
@@ -290,7 +290,7 @@ function ChartCard({
 
 // ─── Progress bar ─────────────────────────────────────────────────────────────
 
-// All colors are chosen for WCAG AA contrast on the dark hero (#03170C→#3E5C76).
+// Dashboard colors use the shared JurisJobs brand palette.
 interface ProfileProgressProps {
   /**
    * Authoritative completeness percentage read from `profiles.completeness`.
@@ -476,7 +476,7 @@ function QuickAction({ href, icon, color, label, sublabel, warn = false }: Quick
         transition: "border-color 0.2s ease, box-shadow 0.2s ease",
         "&:hover": warn
           ? { boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" }
-          : { borderColor: "rgba(62, 92, 118, 0.35)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" },
+          : { borderColor: "color-mix(in srgb, var(--brand-green) 35%, transparent)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" },
       }}
     >
       <Avatar
@@ -620,7 +620,7 @@ export function DashboardContent({
                 variant="contained"
                 size="small"
                 startIcon={<AddIcon />}
-                sx={{ bgcolor: C.goldOnDark, color: C.soft, fontWeight: 700, "&:hover": { bgcolor: "#c9b24e" } }}
+                sx={{ bgcolor: C.goldOnDark, color: C.primary, fontWeight: 700, "&:hover": { bgcolor: C.goldOnDark } }}
               >
                 Anunț nou
               </Button>
@@ -631,7 +631,7 @@ export function DashboardContent({
                 variant="contained"
                 size="small"
                 startIcon={<SearchIcon />}
-                sx={{ bgcolor: C.goldOnDark, color: C.primary, fontWeight: 700, "&:hover": { bgcolor: "#c9b24e" } }}
+                sx={{ bgcolor: C.goldOnDark, color: C.primary, fontWeight: 700, "&:hover": { bgcolor: C.goldOnDark } }}
               >
                 Caută joburi
               </Button>
@@ -845,7 +845,7 @@ export function DashboardContent({
                 <Chip
                   size="small"
                   label="Trimise"
-                  sx={{ bgcolor: C.gold, color: "#ffffff", fontWeight: 600 }}
+                  sx={{ bgcolor: brandCssVars.gold, color: C.primary, fontWeight: 600 }}
                 />
               )}
               {showEmployerWidgets && (

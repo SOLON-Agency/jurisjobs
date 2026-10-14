@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState, startTransition } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -290,7 +291,7 @@ export function JobsCarousel({ title, subtitle, description, jobs, autoScroll = 
                   border: "1px solid rgba(3, 23, 12, 0.1)",
                   transition: "border-color 0.2s ease, box-shadow 0.2s ease",
                   "&:hover": {
-                    borderColor: "#3E5C76",
+                    borderColor: brandCssVars.green,
                     boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)",
                   },
                 }}

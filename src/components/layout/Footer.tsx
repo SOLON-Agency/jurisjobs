@@ -21,7 +21,7 @@ export function Footer() {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: "background.paper",
+        backgroundColor: "white",
         mb: { xs: "10px", sm: 0 },
       }}
     >
@@ -49,7 +49,7 @@ export function Footer() {
           </Box>
 
           <Box component="nav" aria-label="Linkuri utile">
-            <Stack direction="row" spacing={3}>
+            <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" spacing={{ xs: 1, sm: 3 }}>
               {footerLinks.map((link) => (
                 <Typography
                   key={link.href}
@@ -57,7 +57,7 @@ export function Footer() {
                   href={link.href}
                   variant="body2"
                   sx={{
-                    color: "text.secondary",
+                    color: "text.primary",
                     textDecoration: "none",
                     textUnderlineOffset: 4,
                     transition: "color 0.2s ease, text-decoration-color 0.2s ease",

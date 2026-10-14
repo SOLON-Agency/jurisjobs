@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import React from "react";
 import Link from "next/link";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
@@ -41,7 +42,7 @@ export function BannerSection() {
           <Box
             sx={{
               borderRadius: 4,
-              bgcolor: "#03170C",
+              bgcolor: brandCssVars.forest,
               border: "1px solid rgba(195,174,97,0.2)",
               backdropFilter: "blur(8px)",
               p: { xs: 4, md: 6 },
@@ -71,7 +72,7 @@ export function BannerSection() {
                 variant="h3"
                 component="h2"
                 id="banner-cta-heading"
-                sx={{ color: "#F0EBD8", mb: 0.5 }}
+                sx={{ color: brandCssVars.cream, mb: 0.5 }}
               >
                 Hai pe {appSettings.name}
               </Typography>

@@ -14,6 +14,7 @@ import { isFeatureEnabled } from "@/lib/feature-flags";
 import "./globals.css";
 import { formatPageTitle, buildTitleTemplate } from "@/lib/page-title";
 import appSettings from "@/config/app.settings.json";
+import { brandCssProperties } from "@/theme/tokens";
 
 const saira = Saira({
   subsets: ["latin", "latin-ext"],
@@ -80,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ro" className={saira.variable}>
+    <html lang="ro" className={saira.variable} style={brandCssProperties}>
       <body style={{ fontFamily: "var(--font-saira), sans-serif" }}>
         <FavouritesFeatureRoot>
           <ThemeRegistry>

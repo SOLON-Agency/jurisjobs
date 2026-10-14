@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
@@ -71,8 +72,8 @@ export function AudienceSection() {
       sx={{
         position: "relative",
         py: { xs: 10, md: 14 },
-        bgcolor: "#03170C",
-        color: "#F0EBD8",
+        bgcolor: brandCssVars.forest,
+        color: brandCssVars.cream,
         overflow: "hidden",
       }}
     >
@@ -124,7 +125,7 @@ export function AudienceSection() {
             variant="h2"
             component="h2"
             sx={{
-              color: "#F0EBD8",
+              color: brandCssVars.cream,
               mb: 2,
               fontSize: { xs: "1.85rem", sm: "2.2rem", md: "2.6rem", lg: "3rem" },
             }}
@@ -213,7 +214,7 @@ export function AudienceSection() {
                     variant="h5"
                     component="h3"
                     sx={{
-                      color: "#F0EBD8",
+                      color: brandCssVars.cream,
                       fontSize: { xs: "1.15rem", md: "1.25rem" },
                     }}
                   >

@@ -23,6 +23,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { brandCssVars } from "@/theme/tokens";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { jobTypeLabels, experienceLevelLabels } from "@/lib/utils";
 import appSettings from "@/config/app.settings.json";
@@ -359,7 +360,7 @@ export function JobFilters() {
           top: 16,
           borderRadius: 2,
           border: "1px solid rgba(3, 23, 12, 0.1)",
-          bgcolor: "background.paper",
+          bgcolor: brandCssVars.nearWhite,
           overflow: "hidden",
         }}
       >
@@ -391,7 +392,7 @@ export function JobFilters() {
         borderRadius: 2,
         border: "1px solid",
         borderColor: mobileOpen ? "primary.main" : "divider",
-        bgcolor: "background.paper",
+        bgcolor: brandCssVars.nearWhite,
         overflow: "hidden",
         transition: "border-color 0.2s",
       }}

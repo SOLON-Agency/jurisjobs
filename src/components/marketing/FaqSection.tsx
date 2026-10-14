@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars, brandGradientGold } from "@/theme/tokens";
 import {
   Accordion,
   AccordionDetails,
@@ -14,9 +15,9 @@ import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import type { FaqPublicItem } from "@/services/faq.service";
 
-const BG = "#03170C";
+const BG = brandCssVars.forest;
 const GOLD = "rgba(195,174,97,0.9)";
-const CREAM = "#F0EBD8";
+const CREAM = brandCssVars.cream;
 const CREAM_55 = "rgba(240,235,216,0.55)";
 const CREAM_45 = "rgba(240,235,216,0.45)";
 
@@ -93,7 +94,7 @@ export function FaqSection({ items, variant = "default" }: FaqSectionProps) {
         <Box
           component="span"
           sx={{
-            background: "linear-gradient(135deg, #03170C 0%, #c3ae61 100%)",
+            background: brandGradientGold,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",

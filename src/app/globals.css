@@ -27,8 +27,8 @@
   clip-path: none;
   white-space: normal;
   z-index: 9999;
-  background: #03170c;
-  color: #f0ebd8;
+  background: var(--brand-forest);
+  color: var(--brand-cream);
   border-radius: 4px;
   font-weight: 600;
   font-size: 0.875rem;

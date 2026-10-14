@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars, brandGradient } from "@/theme/tokens";
 import React from "react";
 import { Box, Container, Paper, Typography } from "@mui/material";
 import { motion, useReducedMotion } from "framer-motion";
@@ -16,7 +17,7 @@ const features = [
     title: "Profile candidați",
     description:
       `Gestionează profilul tău și toate aplicațiile tale la toate joburile juridice - direct prin platforma ${appSettings.name}.`,
-    color: "#2d6a4f",
+    color: brandCssVars.green,
     lightBg: "rgba(45,106,79,0.06)",
     border: "rgba(45,106,79,0.15)",
   },
@@ -25,7 +26,7 @@ const features = [
     title: "Portal societăți juridice",
     description:
       "Explorează firmele de avocatură de top și răsfoiește toate posturile disponibile ale unei societăți într-un singur loc.",
-    color: "#c3ae61",
+    color: brandCssVars.gold,
     lightBg: "rgba(195,174,97,0.06)",
     border: "rgba(195,174,97,0.2)",
   },
@@ -34,7 +35,7 @@ const features = [
     title: "Căutare avansată",
     description:
       "Filtrează după locație, salariu, nivel de experiență, tip de contract, beneficii și altele. Găsești exact ce cauți.",
-    color: "#3E5C76",
+    color: brandCssVars.green,
     lightBg: "rgba(62,92,118,0.06)",
     border: "rgba(62,92,118,0.15)",
   },
@@ -43,7 +44,7 @@ const features = [
     title: "Alerte inteligente",
     description:
       "Salvează filtrele de căutare ca alerte și primești notificări când apar noi oportunități care corespund criteriilor tale.",
-    color: "#748CAB",
+    color: brandCssVars.green,
     lightBg: "rgba(116,140,171,0.06)",
     border: "rgba(116,140,171,0.15)",
   },
@@ -77,7 +78,7 @@ export function WhySection() {
             <Box
               component="span"
               sx={{
-                background: "linear-gradient(135deg, #03170C 0%, #3E5C76 100%)",
+                background: brandGradient,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

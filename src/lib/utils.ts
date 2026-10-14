@@ -1,3 +1,4 @@
+import { brandCssVars } from "@/theme/tokens";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -118,15 +119,15 @@ export const jobTypeLabels: Record<string, string> = {
  * palette. Spread into the MUI Chip `sx` prop alongside any local overrides.
  *
  * Colors come from palette.ts:
- *   full-time  → success   #2d6a4f (forest green)
+ *   full-time  → success (green)
  *   part-time  → warning   #a0882a (amber)
- *   contract   → secondary #3E5C76 (steel blue)
- *   internship → secondary.light #748CAB (sky blue)
- *   freelance  → accentGold #c3ae61 (gold, text darkened for contrast)
+ *   contract   → green
+ *   internship → green
+ *   freelance  → gold (text darkened for contrast)
  */
 export const jobTypeChipSx: Record<string, Record<string, string>> = {
   "full-time": {
-    color: "#2d6a4f",
+    color: brandCssVars.green,
     borderColor: "rgba(45,106,79,0.45)",
     bgcolor: "rgba(45,106,79,0.08)",
   },
@@ -136,12 +137,12 @@ export const jobTypeChipSx: Record<string, Record<string, string>> = {
     bgcolor: "rgba(160,136,42,0.08)",
   },
   contract: {
-    color: "#3E5C76",
+    color: brandCssVars.green,
     borderColor: "rgba(62,92,118,0.45)",
     bgcolor: "rgba(62,92,118,0.08)",
   },
   internship: {
-    color: "#5B7A94",
+    color: brandCssVars.green,
     borderColor: "rgba(116,140,171,0.5)",
     bgcolor: "rgba(116,140,171,0.1)",
   },

@@ -1,3 +1,4 @@
+import { brandCssVars } from "@/theme/tokens";
 import { Box, Container, Typography } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutlined";
 import { isFeatureEnabled } from "@/lib/feature-flags";
@@ -32,7 +33,7 @@ export function NewsletterSection() {
         >
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
             <MailOutlineIcon
-              sx={{ fontSize: { xs: 32, md: 40 }, color: "#F0EBD8" }}
+              sx={{ fontSize: { xs: 32, md: 40 }, color: brandCssVars.cream }}
               aria-hidden="true"
             />
             <Typography
@@ -48,10 +49,9 @@ export function NewsletterSection() {
 
           <Typography
             variant="body1"
-            sx={{ color: "#F0EBD8", maxWidth: 520, lineHeight: 1.7 }}
+            sx={{ color: brandCssVars.cream, maxWidth: 520, lineHeight: 1.7 }}
           >
-            Abonează-te și primești direct în inbox fiecare articol nou despre cariera
-            juridică, tendințe în recrutare și sfaturi pentru profesioniști din România.
+            Abonează-te pe email să primești cele mai recente noutăți.
           </Typography>
 
           <Box sx={{ width: "100%", maxWidth: 540 }}>

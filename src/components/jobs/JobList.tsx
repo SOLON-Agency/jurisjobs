@@ -227,7 +227,7 @@ export function JobList({
           gap={1}
           sx={{ mb: 2 }}
         >
-          <Typography variant="body2" color="text.secondary" role="status" aria-live="polite">
+          <Typography variant="body2" color="text.primary" role="status" aria-live="polite">
             {loading ? (
               <Skeleton variant="text" width={120} />
             ) : (
@@ -294,7 +294,7 @@ export function JobList({
           <Box sx={{ textAlign: "center", py: 10 }}>
             <WorkOutlineIcon sx={{ fontSize: 48, color: "text.secondary", mb: 1 }} />
             <Typography variant="h5" sx={{ mb: 0.5 }}>Nu au fost găsite locuri de muncă</Typography>
-            <Typography color="text.secondary">Încearcă să ajustezi filtrele de căutare.</Typography>
+            <Typography color="text.primary">Încearcă să ajustezi filtrele de căutare.</Typography>
             {appSettings.features.alerts && FILTER_KEYS.some((k) => !!searchParams.get(k)) && (
               <SaveSearchAsAlertCta />
             )}

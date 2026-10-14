@@ -1,5 +1,6 @@
 "use client";
 
+import { brandGradientGold, brandGradient } from "@/theme/tokens";
 import Link from "next/link";
 import { Container, Typography, Button, Box, useTheme } from "@mui/material";
 
@@ -7,8 +8,8 @@ export default function NotFound() {
   const theme = useTheme();
   const gradient =
     theme.palette.mode === "dark"
-      ? "linear-gradient(135deg, #748CAB 0%, #c3ae61 100%)"
-      : "linear-gradient(135deg, #03170C 0%, #3E5C76 100%)";
+      ? brandGradientGold
+      : brandGradient;
 
   return (
     <Container maxWidth="sm" sx={{ py: 16, textAlign: "center" }}>

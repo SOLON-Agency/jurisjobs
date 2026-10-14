@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars, brandGradientGold } from "@/theme/tokens";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
@@ -34,7 +35,7 @@ const advantages: readonly Advantage[] = [
       "Formulare de aplicare clare și adaptate fiecărui anunț",
       "Triere mai eficientă pentru recrutori și candidați",
     ],
-    color: "#c3ae61",
+    color: brandCssVars.gold,
     lightBg: "rgba(195,174,97,0.06)",
     border: "rgba(195,174,97,0.2)",
   },
@@ -50,7 +51,7 @@ const advantages: readonly Advantage[] = [
       "Reacție rapidă la anunțuri noi, înainte să se umple pipeline-ul",
       "Alertele pot fi activate sau oprite oricând din panoul de control",
     ],
-    color: "#3E5C76",
+    color: brandCssVars.green,
     lightBg: "rgba(62,92,118,0.06)",
     border: "rgba(62,92,118,0.18)",
   },
@@ -65,7 +66,7 @@ const advantages: readonly Advantage[] = [
       "Beneficii și bonusuri descrise explicit",
       "Așteptări aliniate între candidați și angajatori",
     ],
-    color: "#2d6a4f",
+    color: brandCssVars.green,
     lightBg: "rgba(45,106,79,0.06)",
     border: "rgba(45,106,79,0.18)",
   },
@@ -94,7 +95,7 @@ const advantages: readonly Advantage[] = [
       "Aplicații mai relevante pentru echipele de recrutare",
       "Vizibilitate echitabilă pentru profesioniștii activi pe platformă",
     ],
-    color: "#748CAB",
+    color: brandCssVars.green,
     lightBg: "rgba(116,140,171,0.08)",
     border: "rgba(116,140,171,0.2)",
   },
@@ -109,7 +110,7 @@ const advantages: readonly Advantage[] = [
       "Control asupra vizibilității profilului și a notificărilor",
       "Politici transparente de retenție și ștergere a datelor",
     ],
-    color: "#03170C",
+    color: brandCssVars.forest,
     lightBg: "rgba(3,23,12,0.04)",
     border: "rgba(3,23,12,0.12)",
   },
@@ -146,7 +147,7 @@ export function PlatformAdvantagesSection() {
             <Box
               component="span"
               sx={{
-                background: "linear-gradient(135deg, #03170C 0%, #c3ae61 100%)",
+                background: brandGradientGold,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

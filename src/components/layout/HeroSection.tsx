@@ -1,5 +1,6 @@
 "use client";
 
+import { brandColors, brandCssVars } from "@/theme/tokens";
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
@@ -7,7 +8,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { heroContainer, heroItem, resolveMotionDuration } from "@/lib/motion";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-const BG = "#03170C";
+const BG = brandColors.forest;
 
 const WAVES = [
   { offset: 0,              amplitude: 70, frequency: 0.003,  color: "rgba(195,174,97,0.9)",  opacity: 0.55 },
@@ -133,7 +134,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
-        bgcolor: BG,
+        bgcolor: brandCssVars.forest,
       }}
     >
       {/* Canvas background */}
@@ -148,25 +149,6 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
           height: "100%",
         }}
       />
-
-      {/* Radial glow overlays */}
-      <Box sx={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-        <Box sx={{
-          position: "absolute", top: 0, left: "50%",
-          transform: "translateX(-50%)",
-          width: 600, height: 600,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(195,174,97,0.06) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }} />
-        <Box sx={{
-          position: "absolute", bottom: 0, right: 0,
-          width: 400, height: 400,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(62,92,118,0.08) 0%, transparent 70%)",
-          filter: "blur(80px)",
-        }} />
-      </Box>
 
       {/* Content */}
       <Container
@@ -221,7 +203,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 lineHeight: 1.1,
-                color: "#F0EBD8",
+                color: brandCssVars.cream,
                 mb: 3,
                 mt: { xs: "110px", sm: "130px", md: "160px", lg: "220px" },
               }}
@@ -415,7 +397,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                       sx={{
                         fontSize: "1.85rem",
                         fontWeight: 800,
-                        color: "#F0EBD8",
+                        color: brandCssVars.cream,
                         lineHeight: 1,
                         mb: 0.5,
                       }}

@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars, brandGradient } from "@/theme/tokens";
 import React from "react";
 import Link from "next/link";
 import {
@@ -29,10 +30,10 @@ import { FaqSection } from "@/components/marketing/FaqSection";
 import type { FaqPublicItem } from "@/services/faq.service";
 
 // ── Brand tokens ──────────────────────────────────────────────────────────────
-const BG = "#03170C";
+const BG = brandCssVars.forest;
 const GOLD = "rgba(195,174,97,0.9)";
 const GOLD_FULL = "rgba(195,174,97,1)";
-const CREAM = "#F0EBD8";
+const CREAM = brandCssVars.cream;
 const CREAM_55 = "rgba(240,235,216,0.55)";
 const STEEL = "rgba(62,92,118,0.85)";
 
@@ -284,7 +285,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
               <Typography variant="h2" sx={{ mb: 2 }}>
                 Construit special pentru{" "}
                 <Box component="span" sx={{
-                  background: "linear-gradient(135deg, #03170C 0%, #3E5C76 100%)",
+                  background: brandGradient,
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
                 }}>
                   lumea juridică
@@ -356,7 +357,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
               <Typography variant="h2" sx={{ mb: 2 }}>
                 Găsește jobul perfect în{" "}
                 <Box component="span" sx={{
-                  background: "linear-gradient(135deg, #03170C 0%, #3E5C76 100%)",
+                  background: brandGradient,
                   WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
                 }}>
                   4 pași

@@ -1,9 +1,10 @@
 import { createTheme } from "@mui/material/styles";
 import { lightPalette } from "./palette";
 import { components } from "./components";
+import { brandFontFamily } from "./tokens";
 
 const typography = {
-  fontFamily: '"Saira", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: brandFontFamily,
   h1: { fontSize: "3rem", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.15 },
   h2: { fontSize: "2.25rem", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.2 },
   h3: { fontSize: "1.5rem", fontWeight: 700, lineHeight: 1.3 },
