@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Box, Container, Typography, Stack } from "@mui/material";
 import appSettings from "@/config/app.settings.json";
+import { brandCssVars } from "@/theme/tokens";
 
 const footerLinks = [
   // { label: "Anunțuri", href: "/jobs" },
@@ -21,7 +22,7 @@ export function Footer() {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: "white",
+        backgroundColor: brandCssVars.white,
         mb: { xs: "10px", sm: 0 },
       }}
     >

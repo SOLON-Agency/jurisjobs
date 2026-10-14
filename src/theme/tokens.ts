@@ -6,6 +6,7 @@ export const brandColors = {
   cream: "#f0ebd8",
   gold: "#c3ae61",
   nearWhite: "#f1f1f1",
+  white: "#ffffff",
   green: "#2d6a4f",
   /** Darker gold for readable text on light surfaces. */
   goldText: "#7a6420",
@@ -19,6 +20,7 @@ export const brandCssVars = {
   cream: "var(--brand-cream)",
   gold: "var(--brand-gold)",
   nearWhite: "var(--brand-near-white)",
+  white: "var(--brand-white)",
   green: "var(--brand-green)",
   goldText: "var(--brand-gold-text)",
 } as const;
@@ -29,6 +31,7 @@ export const brandCssProperties = {
   "--brand-cream": brandColors.cream,
   "--brand-gold": brandColors.gold,
   "--brand-near-white": brandColors.nearWhite,
+  "--brand-white": brandColors.white,
   "--brand-green": brandColors.green,
   "--brand-gold-text": brandColors.goldText,
 } as CSSProperties;

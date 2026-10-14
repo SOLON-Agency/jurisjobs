@@ -19,7 +19,7 @@ export const lightPalette = {
   info: { main: brandColors.green, contrastText: brandColors.cream },
   background: {
     default: brandColors.nearWhite,
-    paper: brandColors.cream,
+    paper: brandColors.white,
   },
   text: {
     primary: brandColors.forest,

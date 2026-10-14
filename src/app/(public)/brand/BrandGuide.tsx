@@ -252,7 +252,7 @@ export function BrandGuide() {
           <Typography role="status" aria-live="polite" sx={{ mt: 2, minHeight: 24, color: brandCssVars.forest }}>
             {copyStatus}
           </Typography>
-          <Paper variant="outlined" sx={{ mt: 3, p: { xs: 2, md: 2.5 }, borderRadius: 2, backgroundColor: brandCssVars.cream }}>
+          <Paper variant="outlined" sx={{ mt: 3, p: { xs: 2, md: 2.5 }, borderRadius: 2, backgroundColor: brandCssVars.white }}>
             <Typography component="h3" variant="subtitle1" sx={{ fontWeight: 700, color: brandCssVars.forest }}>
               Auriu pentru text
             </Typography>
@@ -365,7 +365,7 @@ export function BrandGuide() {
                   borderRadius: 3,
                   border: "1px solid",
                   borderColor: "divider",
-                  backgroundColor: brandCssVars.cream,
+                  backgroundColor: brandCssVars.white,
                   transition: prefersReducedMotion ? "none" : "transform 180ms ease, box-shadow 180ms ease",
                   "&:hover": { transform: prefersReducedMotion ? "none" : "translateY(-3px)", boxShadow: "0 16px 36px rgba(3,23,12,0.1)" },
                 }}
