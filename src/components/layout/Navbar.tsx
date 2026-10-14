@@ -137,10 +137,10 @@ export function Navbar() {
             }}
           >
             <Image
-              src="/jurisjobs-logo.png"
+              src="/jurisjobs-logo-horizontal-text-only.png"
               alt={appSettings.name}
-              width={48}
-              height={48}
+              width={100}
+              height={20}
               style={{ width: "auto", objectFit: "contain" }}
               priority
             />

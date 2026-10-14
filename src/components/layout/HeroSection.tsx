@@ -223,7 +223,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 lineHeight: 1.1,
                 color: "#F0EBD8",
                 mb: 3,
-                mt: 4
+                mt: { xs: "110px", sm: "130px", md: "160px", lg: "220px" },
               }}
             >
               Recrutare{" "}
