@@ -158,6 +158,8 @@ export function AdminUsersClient() {
           <Stack direction="row" alignItems="center" spacing={1.5}>
             <Avatar
               src={u.avatar_url ?? undefined}
+              alt={u.full_name ?? "Avatar utilizator"}
+              imgProps={{ alt: u.full_name ?? "Avatar utilizator" }}
               sx={{ width: 32, height: 32, flexShrink: 0 }}
               aria-hidden="true"
             >

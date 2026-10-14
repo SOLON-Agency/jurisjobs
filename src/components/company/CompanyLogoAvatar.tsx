@@ -31,13 +31,15 @@ export const CompanyLogoAvatar = ({
   }, [logoUrl]);
 
   const src = failed || !normalized ? undefined : normalized;
+  const computedAlt = alt && alt.trim().length > 0 ? alt : "Logo societate";
 
   return (
     <Avatar
       src={src}
-      alt={alt}
+      alt={computedAlt}
       variant={variant}
       imgProps={{
+        alt: computedAlt,
         onError: () => {
           setFailed(true);
         },

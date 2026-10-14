@@ -3,9 +3,10 @@ import { Suspense } from "react";
 import { Container, Box, CircularProgress } from "@mui/material";
 import { JobFilters } from "@/components/jobs/JobFilters";
 import { JobList } from "@/components/jobs/JobList";
+import { withTitlePrefix } from "@/lib/page-title";
 import appSettings from "@/config/app.settings.json";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withTitlePrefix({
   title: "Locuri de muncă juridice",
   description:
     "Răsfoiește sute de locuri de muncă pentru avocați, juriști și consilieri juridici. Filtrează după locație, tip de contract, salariu și beneficii.",
@@ -29,23 +30,11 @@ export const metadata: Metadata = {
     "max-snippet": -1,
     "max-image-preview": "large",
   },
-};
+});
 
 export default function JobsPage() {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* <Typography
-        variant="h1"
-        sx={{
-          fontSize: { xs: "1.5rem", md: "1.75rem" },
-          fontWeight: 700,
-          mb: 3,
-          color: "text.primary",
-        }}
-      >
-        Locuri de muncă juridice
-      </Typography> */}
-
       <Box
         sx={{
           display: "grid",
