@@ -448,7 +448,7 @@ export function ApplicationsClient() {
                   borderRadius: 2,
                   overflow: "hidden",
                   transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-                  "&:hover": { borderColor: "rgba(62, 92, 118, 0.35)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" },
+                  "&:hover": { borderColor: "color-mix(in srgb, var(--brand-green) 35%, transparent)", boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)" },
                 }}
               >
                 <Stack

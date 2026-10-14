@@ -7,7 +7,6 @@ import { AudienceSection } from "@/components/marketing/AudienceSection";
 // import { PricingSection } from "@/components/marketing/PricingSection";
 import { FaqSection } from "@/components/marketing/FaqSection";
 import { BlogPreviewSection } from "@/components/marketing/BlogPreviewSection";
-import { RecruitingAgenciesSection } from "@/components/marketing/RecruitingAgenciesSection";
 import { NewsletterSection } from "@/components/newsletter/NewsletterSection";
 import { createStaticClient } from "@/lib/supabase/static";
 import { getPublicCounts } from "@/services/stats.service";
@@ -74,11 +73,10 @@ export default async function HomePage() {
       <AudienceSection />
       {/* <PricingSection /> */}
       {/* <TestimonialsSection /> */}
-      <RecruitingAgenciesSection />
       <FaqSection items={faqHomeItems} />
-      <BannerSection />
       <BlogPreviewSection />
       <NewsletterSection />
+      <BannerSection />
     </>
   );
 }

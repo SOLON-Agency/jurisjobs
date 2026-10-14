@@ -22,7 +22,7 @@ ensure_npm_in_path() {
   if ! command -v npm >/dev/null 2>&1; then
     echo ""
     echo "❌  npm not found. Make sure Node.js is installed and on your PATH."
-    echo "   To bypass hook checks: SKIP_CODEGEN=1 SKIP_BUILD=1 SKIP_DEPLOY=1 SKIP_MIGRATIONS=1 git commit ..."
+    echo "   The pre-commit build check requires npm; fix your PATH before committing."
     echo ""
     exit 1
   fi

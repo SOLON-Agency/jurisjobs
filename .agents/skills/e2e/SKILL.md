@@ -1,7 +1,7 @@
 ---
 name: e2e
 description: >-
-  Author Puppeteer end-to-end and smoke tests for this jobboard repo under e2e/.
+  Author Puppeteer end-to-end and smoke tests for the jurisjobs repo under e2e/.
   Use when the user asks for /e2e, writes an e2e test, adds smoke coverage for a
   public page, documents a testcase, or mentions test:smoke, test:e2e, register
   flows, or e2e/tests suites.

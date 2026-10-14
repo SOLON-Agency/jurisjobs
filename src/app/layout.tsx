@@ -4,6 +4,7 @@ import { ThemeRegistry } from "@/theme/ThemeRegistry";
 import { ToastProvider } from "@/contexts/ToastContext";
 import { ReduxStoreProvider } from "@/components/providers/ReduxStoreProvider";
 import { FavouritesFeatureRoot } from "@/components/providers/FavouritesFeatureRoot";
+import { VercelAnalytics } from "@/components/providers/VercelAnalytics";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { VercelToolbar } from "@vercel/toolbar/next";
@@ -14,6 +15,7 @@ import { isFeatureEnabled } from "@/lib/feature-flags";
 import "./globals.css";
 import { formatPageTitle, buildTitleTemplate } from "@/lib/page-title";
 import appSettings from "@/config/app.settings.json";
+import { brandCssProperties } from "@/theme/tokens";
 
 const saira = Saira({
   subsets: ["latin", "latin-ext"],
@@ -80,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ro" className={saira.variable}>
+    <html lang="ro" className={saira.variable} style={brandCssProperties}>
       <body style={{ fontFamily: "var(--font-saira), sans-serif" }}>
         <FavouritesFeatureRoot>
           <ThemeRegistry>
@@ -103,6 +105,7 @@ export default function RootLayout({
           </ThemeRegistry>
         </FavouritesFeatureRoot>
         <AnalyticsProvider />
+        <VercelAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}

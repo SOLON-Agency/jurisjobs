@@ -1,5 +1,6 @@
 "use client";
 
+import { brandColors, brandCssVars } from "@/theme/tokens";
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
@@ -7,7 +8,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { heroContainer, heroItem, resolveMotionDuration } from "@/lib/motion";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-const BG = "#03170C";
+const BG = brandColors.forest;
 
 const WAVES = [
   { offset: 0,              amplitude: 70, frequency: 0.003,  color: "rgba(195,174,97,0.9)",  opacity: 0.55 },
@@ -24,7 +25,7 @@ export interface HeroCounts {
 }
 
 // ── Pills ─────────────────────────────────────────────────────────────────────
-const pills = ["Matchmaking inteligent", "Alerte personalizate", "Transparență salarială", "Candidați verificați"] as const;
+const pills = ["Matchmaking inteligent", "Gestionare candidaturi", "Alerte personalizate", "Transparență salarială", "Candidați verificați", "Feedback direct de la angajator"] as const;
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export function HeroSection({ }: { counts?: HeroCounts }) {
@@ -129,11 +130,11 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
       component="section"
       sx={{
         position: "relative",
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 66px)",
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
-        bgcolor: BG,
+        bgcolor: brandCssVars.forest,
       }}
     >
       {/* Canvas background */}
@@ -148,25 +149,6 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
           height: "100%",
         }}
       />
-
-      {/* Radial glow overlays */}
-      <Box sx={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-        <Box sx={{
-          position: "absolute", top: 0, left: "50%",
-          transform: "translateX(-50%)",
-          width: 600, height: 600,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(195,174,97,0.06) 0%, transparent 70%)",
-          filter: "blur(60px)",
-        }} />
-        <Box sx={{
-          position: "absolute", bottom: 0, right: 0,
-          width: 400, height: 400,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(62,92,118,0.08) 0%, transparent 70%)",
-          filter: "blur(80px)",
-        }} />
-      </Box>
 
       {/* Content */}
       <Container
@@ -221,8 +203,9 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 lineHeight: 1.1,
-                color: "#F0EBD8",
+                color: brandCssVars.cream,
                 mb: 3,
+                mt: { xs: "110px", sm: "130px", md: "160px", lg: "220px" },
               }}
             >
               Recrutare{" "}
@@ -248,16 +231,14 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
               sx={{
                 fontSize: { xs: "1.05rem", md: "1.25rem" },
                 color: "rgba(240,235,216,0.78)",
-                maxWidth: 680,
+                maxWidth: 730,
                 mx: "auto",
                 mb: 5,
                 lineHeight: 1.75,
               }}
             >
-              Pentru avocați, juriști și departamente in-house care caută cele mai bine plătite
-              posturi din piață — și pentru societăți care recrutează talent juridic de top.
-              Tehnologie de ultimă generație care potrivește competențele cu oportunitățile
-              potrivite, direct pe platformă, transparent și rapid.
+              Algoritmi inteligenți care potrivesc competențe juridice cu oportunități potrivite
+               - direct pe platformă, gratuit, transparent și rapid.
             </Typography>
           </motion.div>
 
@@ -284,8 +265,8 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                   letterSpacing: "0.04em",
                   bgcolor: "rgba(195,174,97,0.9)",
                   color: "white",
-                  "&:hover": { bgcolor: "rgba(195,174,97,1)", transform: "translateY(-1px)", boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
-                  transition: "all 0.2s",
+                  "&:hover": { bgcolor: "rgba(195,174,97,1)", boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
+                  transition: "background-color 0.2s, box-shadow 0.2s",
                 }}
               >
                 Creează anunț
@@ -308,9 +289,8 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                   "&:hover": {
                     borderColor: "rgba(240,235,216,0.5)",
                     bgcolor: "rgba(240,235,216,0.1)",
-                    transform: "translateY(-1px)",
                   },
-                  transition: "all 0.2s",
+                  transition: "border-color 0.2s, background-color 0.2s",
                 }}
               >
                 Explorează anunțuri
@@ -319,37 +299,69 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
           </motion.div>
           <br/>
           <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
 
           {/* Feature pills */}
           <motion.div variants={heroItem}>
-            <Stack
-              direction="row"
-              spacing={1.5}
-              justifyContent="center"
-              flexWrap="wrap"
-              sx={{ mb: 8, gap: 1.5 }}
+            <Box
+              sx={{
+                mb: 8,
+                mt: 8,
+                overflow: "hidden",
+                width: "100vw",
+                ml: "calc(50% - 50vw)",
+              }}
             >
-              {pills.map((pill) => (
-                <Box
-                  key={pill}
-                  sx={{
-                    px: 2.5,
-                    py: 0.75,
-                    borderRadius: 99,
-                    border: "1px solid rgba(240,235,216,0.15)",
-                    bgcolor: "rgba(240,235,216,0.05)",
-                    backdropFilter: "blur(6px)",
-                    color: "rgba(240,235,216,0.6)",
-                    fontSize: "0.72rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {pill}
-                </Box>
-              ))}
-            </Stack>
+              <motion.div
+                animate={reduced ? undefined : { x: ["0%", "calc(-50% - 6px)"] }}
+                transition={{
+                  duration: 34,
+                  ease: "linear",
+                  repeat: Infinity,
+                }}
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  width: "max-content",
+                }}
+              >
+                {[0, 1].map((group) => (
+                  <Stack
+                    key={group}
+                    direction="row"
+                    spacing={1.5}
+                    aria-hidden={group === 1}
+                    sx={{ flexShrink: 0 }}
+                  >
+                    {pills.map((pill) => (
+                      <Box
+                        key={`${group}-${pill}`}
+                        sx={{
+                          px: 2.5,
+                          py: 0.75,
+                          borderRadius: 99,
+                          border: "1px solid rgba(240,235,216,0.15)",
+                          bgcolor: "rgba(240,235,216,0.05)",
+                          backdropFilter: "blur(6px)",
+                          color: "rgba(240,235,216,0.6)",
+                          fontSize: "0.72rem",
+                          fontWeight: 600,
+                          letterSpacing: "0.18em",
+                          textTransform: "uppercase",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {pill}
+                      </Box>
+                    ))}
+                  </Stack>
+                ))}
+              </motion.div>
+            </Box>
           </motion.div>
 
           {/* Stats bar */}
@@ -385,7 +397,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                       sx={{
                         fontSize: "1.85rem",
                         fontWeight: 800,
-                        color: "#F0EBD8",
+                        color: brandCssVars.cream,
                         lineHeight: 1,
                         mb: 0.5,
                       }}

@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars, brandGradientGold } from "@/theme/tokens";
 import Link from "next/link";
 import { Box, Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -49,7 +50,7 @@ export function PricingSection() {
             <Box
               component="span"
               sx={{
-                background: "linear-gradient(135deg, #03170C 0%, #c3ae61 100%)",
+                background: brandGradientGold,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -95,7 +96,7 @@ export function PricingSection() {
                 right: -25,
                 transform: "rotate(35deg)",
                 bgcolor: "rgba(195,174,97,0.9)",
-                color: "#03170C",
+                color: brandCssVars.forest,
                 fontSize: "0.7rem",
                 fontWeight: 800,
                 letterSpacing: "0.18em",
@@ -181,11 +182,10 @@ export function PricingSection() {
                       fontWeight: 700,
                       bgcolor: "rgba(195,174,97,0.95)",
                       "&:hover": {
-                        bgcolor: "#c3ae61",
+                        bgcolor: brandCssVars.gold,
                         boxShadow: "0 10px 32px rgba(195,174,97,0.35)",
-                        transform: "translateY(-1px)",
                       },
-                      transition: "all 0.2s",
+                      transition: "background-color 0.2s, box-shadow 0.2s",
                     }}
                   >
                     Postează gratuit
@@ -242,7 +242,7 @@ export function PricingSection() {
                       }}
                     >
                       <CheckCircleOutlineIcon
-                        sx={{ color: "#2d6a4f", fontSize: 22, mt: "2px", flexShrink: 0 }}
+                        sx={{ color: brandCssVars.green, fontSize: 22, mt: "2px", flexShrink: 0 }}
                         aria-hidden
                       />
                       <Typography

@@ -6,7 +6,7 @@
 
 const { execSync } = require("child_process");
 
-// TEST shares the jobboard project until a dedicated preview project is provisioned.
+// TEST shares the jurisjobs project until a dedicated preview project is provisioned.
 const SUPABASE_TEST_REF = "uccivcdtfpevtykirkuw";
 const SUPABASE_MAIN_REF = "uccivcdtfpevtykirkuw";
 

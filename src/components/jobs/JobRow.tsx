@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import React from "react";
 import { truncate } from "@/lib/utils";
 import Link from "next/link";
@@ -62,9 +63,9 @@ export function JobRow({
         py: 2,
         border: "1px solid rgba(3, 23, 12, 0.1)",
         borderRadius: 2,
-        transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease",
+        transition: "border-color 0.2s ease, box-shadow 0.2s ease",
         "&:hover": {
-          border: "1px solid #3E5C76",
+          borderColor: brandCssVars.green,
           boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)",
         },
       }}

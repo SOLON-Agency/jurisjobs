@@ -1,3 +1,4 @@
+import { brandCssVars, brandGradient } from "@/theme/tokens";
 import type { Components, Theme } from "@mui/material/styles";
 
 export const components: Components<Theme> = {
@@ -30,30 +31,30 @@ export const components: Components<Theme> = {
       },
       contained: {
         "&:hover:not(.Mui-disabled)": {
-          backgroundColor: "linear-gradient(135deg, #0f4024 0%, #4d6e8a 100%)",
+          backgroundColor: brandGradient,
         },
       },
       containedPrimary: {
-        background: "linear-gradient(135deg, #03170C 0%, #3E5C76 100%)",
+        background: brandGradient,
         boxShadow: "0 2px 8px rgba(3, 23, 12, 0.3)",
-        color: "#F0EBD8",
+        color: brandCssVars.cream,
         "&:hover": {
-          background: "linear-gradient(135deg, #0f4024 0%, #4d6e8a 100%)",
+          background: brandGradient,
           boxShadow: "0 4px 16px rgba(3, 23, 12, 0.4)",
         },
       },
       containedSecondary: {
-        background: "#3E5C76",
-        color: "#F0EBD8",
+        background: brandCssVars.gold,
+        color: brandCssVars.forest,
         "&:hover": {
-          background: "#4d6e8a",
+          background: brandCssVars.gold,
         },
       },
       outlined: {
         borderColor: "rgba(3, 23, 12, 0.22)",
         "&:hover": {
-          borderColor: "#3E5C76",
-          backgroundColor: "rgba(62, 92, 118, 0.05)",
+          borderColor: brandCssVars.green,
+          backgroundColor: "color-mix(in srgb, var(--brand-green) 5%, transparent)",
         },
       },
     },
@@ -66,7 +67,7 @@ export const components: Components<Theme> = {
         backgroundImage: "none",
         transition: "border-color 0.2s ease, box-shadow 0.2s ease",
         "&:hover": {
-          border: "1px solid #3E5C76",
+          borderColor: brandCssVars.green,
           boxShadow: "0 4px 20px rgba(3, 23, 12, 0.08)",
         },
       },
@@ -80,7 +81,7 @@ export const components: Components<Theme> = {
         fontSize: "0.75rem",
       },
       outlined: {
-        borderColor: "rgba(62, 92, 118, 0.3)",
+        borderColor: "color-mix(in srgb, var(--brand-green) 30%, transparent)",
       },
     },
   },
@@ -93,10 +94,10 @@ export const components: Components<Theme> = {
             borderColor: "rgba(3, 23, 12, 0.15)",
           },
           "&:hover fieldset": {
-            borderColor: "#748CAB",
+            borderColor: brandCssVars.green,
           },
           "&.Mui-focused fieldset": {
-            borderColor: "#3E5C76",
+            borderColor: brandCssVars.green,
           },
         },
       },
@@ -117,11 +118,11 @@ export const components: Components<Theme> = {
   MuiAppBar: {
     styleOverrides: {
       root: {
-        backgroundColor: "#03170C",
+        backgroundColor: brandCssVars.forest,
         backdropFilter: "none",
         borderBottom: "1px solid rgba(240, 235, 216, 0.08)",
         boxShadow: "0 1px 6px rgba(0,0,0,0.3)",
-        color: "#F0EBD8",
+        color: brandCssVars.cream,
       },
     },
   },
@@ -146,10 +147,10 @@ export const components: Components<Theme> = {
           borderColor: "rgba(3, 23, 12, 0.15)",
         },
         "&:hover .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#748CAB",
+          borderColor: brandCssVars.green,
         },
         "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-          borderColor: "#3E5C76",
+          borderColor: brandCssVars.green,
         },
       },
     },

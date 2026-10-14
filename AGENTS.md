@@ -1,4 +1,4 @@
-# AGENTS.md — jobboard (LegalJobs)
+# AGENTS.md — jurisjobs (LegalJobs)
 
 Guidance for AI assistants and human contributors working on this repository.
 
@@ -15,7 +15,7 @@ Before changing routing, data fetching, or config:
 2. Heed deprecation warnings from `next build` and ESLint (`eslint-config-next`).
 3. Do not assume file locations or APIs from pre-v15 tutorials without verifying against this repo and current docs.
 
-**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; use Node `^22.22.2 || ^24.15.0 || >=26.0.0` as specified in `package.json`; pin MUI to v7 and TypeScript to ~5.9. ESLint 10 is in use; its config and lint run are verified, though `eslint-plugin-react`, `eslint-plugin-import`, and `eslint-plugin-jsx-a11y` still declare peer ranges that stop at ESLint 9 and npm reports peer override warnings.
+**Dependency upgrades:** use the project skill `/update-dependencies` (`.agents/skills/update-dependencies/`). Keep `next` and `eslint-config-next` aligned; use Node `^22.22.2 || ^24.15.0 || >=26.0.0` as specified in `package.json`; pin MUI to v7 and TypeScript to ~5.9. Keep ESLint on v9 while the React, import, and JSX accessibility plugins used by `eslint-config-next` declare peer ranges ending at ESLint 9.
 <!-- END:nextjs-agent-rules -->
 
 ---
@@ -43,7 +43,7 @@ Before changing routing, data fetching, or config:
 | Motion | Framer Motion |
 | Markdown | react-markdown |
 | Tests | Vitest + jsdom + Testing Library (`src/__tests__/`) |
-| Lint | ESLint 10 flat config, `eslint-config-next` (core-web-vitals + typescript) |
+| Lint | ESLint 9 flat config, `eslint-config-next` (core-web-vitals + typescript) |
 
 ---
 
@@ -530,6 +530,7 @@ Add tests for non-trivial logic (utils, services where mockable, critical UI beh
 5. **Accessibility:** Run through the WCAG AAA checklist in this document before considering any UI task complete.
 6. **Responsiveness:** Verify all four breakpoints (`xs` / `sm` / `md` / `lg`) before considering any UI task complete.
 7. **Copy:** Preserve Romanian UI tone where the rest of the screen is Romanian unless the task is explicitly to translate.
+8. **Git workflow:** Commit and push changes to the branch that is checked out when the task begins, unless the user explicitly instructs otherwise. Do not create or switch branches on your own. Keep required validation and pre-commit hooks enabled; if the build fails, do not commit or push the changes.
 
 ---
 

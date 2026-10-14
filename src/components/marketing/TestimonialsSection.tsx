@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars, brandGradientGold } from "@/theme/tokens";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
@@ -24,7 +25,7 @@ const testimonials: readonly Testimonial[] = [
     role: "Managing Partner",
     context: "Societate de avocatură, București",
     initials: "AP",
-    accent: "#c3ae61",
+    accent: brandCssVars.gold,
     bg: "rgba(195,174,97,0.08)",
   },
   {
@@ -34,7 +35,7 @@ const testimonials: readonly Testimonial[] = [
     role: "Head of Legal & Compliance",
     context: "Grup financiar, Cluj-Napoca",
     initials: "MR",
-    accent: "#3E5C76",
+    accent: brandCssVars.green,
     bg: "rgba(62,92,118,0.08)",
   },
   {
@@ -44,7 +45,7 @@ const testimonials: readonly Testimonial[] = [
     role: "Avocat definitiv",
     context: "Drept comercial, Timișoara",
     initials: "ID",
-    accent: "#2d6a4f",
+    accent: brandCssVars.green,
     bg: "rgba(45,106,79,0.08)",
   },
 ] as const;
@@ -80,7 +81,7 @@ export function TestimonialsSection() {
             <Box
               component="span"
               sx={{
-                background: "linear-gradient(135deg, #03170C 0%, #c3ae61 100%)",
+                background: brandGradientGold,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -128,9 +129,8 @@ export function TestimonialsSection() {
                   borderRadius: 3,
                   borderColor: "rgba(3,23,12,0.08)",
                   bgcolor: t.bg,
-                  transition: "all 0.25s",
+                  transition: "box-shadow 0.25s",
                   "&:hover": {
-                    transform: "translateY(-4px)",
                     boxShadow: "0 14px 40px rgba(3,23,12,0.08)",
                   },
                 }}
@@ -174,7 +174,7 @@ export function TestimonialsSection() {
                       alignItems: "center",
                       justifyContent: "center",
                       bgcolor: t.accent,
-                      color: "#03170C",
+                      color: brandCssVars.forest,
                       fontWeight: 800,
                       fontSize: "0.95rem",
                       letterSpacing: "0.04em",

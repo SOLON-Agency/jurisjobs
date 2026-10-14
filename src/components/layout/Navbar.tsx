@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -34,7 +35,7 @@ import { useSupabase } from "@/hooks/useSupabase";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
 import appSettings from "@/config/app.settings.json";
 
-const CREAM = "#F0EBD8";
+const CREAM = brandCssVars.cream;
 const CREAM_MUTED = "rgba(240, 235, 216, 0.65)";
 const CREAM_HOVER = "rgba(240, 235, 216, 0.12)";
 
@@ -112,7 +113,11 @@ export function Navbar() {
 
   return (
     <>
-      <AppBar position="sticky" elevation={0}>
+      <AppBar
+        position="sticky"
+        elevation={0}
+        sx={{ backgroundColor: brandCssVars.forest }}
+      >
         <Toolbar
           sx={{
             maxWidth: 1200,
@@ -137,10 +142,10 @@ export function Navbar() {
             }}
           >
             <Image
-              src="/logo-icon-light.png"
+              src="/jurisjobs-logo-horizontal-text-only.png"
               alt={appSettings.name}
-              width={48}
-              height={48}
+              width={100}
+              height={20}
               style={{ width: "auto", objectFit: "contain" }}
               priority
             />
@@ -277,7 +282,7 @@ export function Navbar() {
                       paper: {
                         sx: {
                           mt: 1,
-                          bgcolor: "#03170C",
+                          bgcolor: brandCssVars.forest,
                           border: "1px solid rgba(240,235,216,0.12)",
                           color: CREAM,
                           "& .MuiMenuItem-root": {
@@ -384,7 +389,7 @@ export function Navbar() {
           sx: {
             width: 280,
             pt: 2,
-            bgcolor: "#03170C",
+            bgcolor: brandCssVars.forest,
             color: CREAM,
             borderLeft: "1px solid rgba(240,235,216,0.08)",
           },

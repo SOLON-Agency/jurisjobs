@@ -1,3 +1,4 @@
+import { brandGradientGold } from "@/theme/tokens";
 import { Box, Container, Typography } from "@mui/material";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { createStaticClient } from "@/lib/supabase/static";
@@ -57,7 +58,7 @@ export async function BlogPreviewSection() {
             <Box
               component="span"
               sx={{
-                background: "linear-gradient(135deg, #03170C 0%, #c3ae61 100%)",
+                background: brandGradientGold,
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",

@@ -1,5 +1,6 @@
 "use client";
 
+import { brandCssVars } from "@/theme/tokens";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,13 +65,19 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
                 : "newsletter-hint",
               "aria-required": "true",
             }}
-            sx={{ bgcolor: "background.paper", borderRadius: 1 }}
+            sx={{
+              bgcolor: "#FFFFFF",
+              borderRadius: 1,
+              "& .MuiOutlinedInput-notchedOutline": { borderColor: brandCssVars.forest },
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": { borderColor: brandCssVars.forest },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: brandCssVars.forest, borderWidth: 2 },
+              "& input::placeholder": { color: brandCssVars.green, opacity: 1 },
+            }}
           />
           <Typography
             id="newsletter-hint"
             variant="caption"
-            color="text.secondary"
-            sx={{ mt: 0.75, display: "block" }}
+            sx={{ mt: 0.75, display: "block", color: brandCssVars.cream }}
           >
             Te poți dezabona oricând. Nu trimitem spam.
           </Typography>
@@ -82,7 +89,29 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
           size="large"
           disabled={isSubmitting}
           startIcon={isSubmitting ? <CircularProgress size={16} /> : undefined}
-          sx={{ minHeight: 56, minWidth: 140, whiteSpace: "nowrap", flexShrink: 0 }}
+          sx={{
+            minHeight: 56,
+            minWidth: 140,
+            whiteSpace: "nowrap",
+            flexShrink: 0,
+            bgcolor: brandCssVars.gold,
+            color: brandCssVars.forest,
+            transition: "background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease",
+            "&:hover": {
+              bgcolor: brandCssVars.gold,
+              boxShadow: "0 8px 18px rgba(3, 23, 12, 0.2)",
+              transform: "translateY(-2px)",
+            },
+            "&:active": {
+              boxShadow: "0 3px 8px rgba(3, 23, 12, 0.16)",
+              transform: "translateY(0)",
+            },
+            "@media (prefers-reduced-motion: reduce)": {
+              transition: "none",
+              "&:hover, &:active": { transform: "none" },
+            },
+            "&.Mui-disabled": { bgcolor: brandCssVars.gold, color: brandCssVars.forest },
+          }}
         >
           {isSubmitting ? "Se trimite…" : "Mă abonez"}
         </Button>
