@@ -257,6 +257,8 @@ export function Navbar() {
                   >
                     <Avatar
                       src={avatarUrl ?? undefined}
+                      alt={user.email ? `Avatar ${user.email}` : "Avatar utilizator"}
+                      imgProps={{ alt: user.email ? `Avatar ${user.email}` : "Avatar utilizator" }}
                       sx={{
                         width: 32,
                         height: 32,
@@ -357,6 +359,8 @@ export function Navbar() {
             {user && ( <IconButton onClick={redirectToDashboard} aria-label="Tabloul de bord">
               <Avatar
                 src={avatarUrl ?? undefined}
+                alt={user?.email ? `Avatar ${user.email}` : "Avatar utilizator"}
+                imgProps={{ alt: user?.email ? `Avatar ${user.email}` : "Avatar utilizator" }}
                 sx={{
                   width: 32,
                   height: 32,
