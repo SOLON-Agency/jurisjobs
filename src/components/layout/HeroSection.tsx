@@ -206,7 +206,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 lineHeight: 1.1,
                 color: brandCssVars.cream,
                 mb: 3,
-                mt: { xs: "110px", sm: "130px", md: "160px", lg: "220px" },
+                mt: { xs: "110px", sm: "130px", md: "160px", lg: "140px" },
               }}
             >
               Recrutare{" "}
