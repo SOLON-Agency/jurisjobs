@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { safeInternalPath } from "@/lib/auth-redirect";
 
 export const updateSession = async (request: NextRequest) => {
   let supabaseResponse = NextResponse.next({ request });
@@ -43,7 +44,9 @@ export const updateSession = async (request: NextRequest) => {
 
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
+    const next = new URL(safeInternalPath(request.nextUrl.searchParams.get("redirect")), request.nextUrl.origin);
+    url.pathname = next.pathname;
+    url.search = next.search;
     return NextResponse.redirect(url);
   }
 

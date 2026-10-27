@@ -7,17 +7,19 @@ import {
   Alert,
   AlertTitle,
   Box,
-  Button,
   CircularProgress,
   Container,
   Typography,
 } from "@mui/material";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import { JJButton } from "@/components/common/JJButton";
 import { useAuth } from "@/hooks/useAuth";
+import { authErrorMessage } from "@/lib/auth-errors";
 
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") ?? "";
+  const redirect = searchParams.get("redirect");
   const { resendVerification } = useAuth();
 
   const [sending, setSending] = useState(false);
@@ -28,10 +30,10 @@ function VerifyEmailContent() {
     if (!email) return;
     setSending(true);
     setError(null);
-    const { error: resendErr } = await resendVerification(email);
+    const { error: resendErr } = await resendVerification(email, redirect);
     setSending(false);
     if (resendErr) {
-      setError(resendErr.message);
+      setError(authErrorMessage(resendErr));
     } else {
       setSent(true);
     }
@@ -84,8 +86,8 @@ function VerifyEmailContent() {
 
       {/* Resend button */}
       {!sent && (
-        <Button
-          variant="contained"
+        <JJButton
+          appearance="primary"
           size="large"
           fullWidth
           disabled={sending || !email}
@@ -101,20 +103,20 @@ function VerifyEmailContent() {
           sx={{ mb: 1.5, py: 1.5 }}
         >
           {sending ? "Se trimite..." : "Retrimite e-mailul de confirmare"}
-        </Button>
+        </JJButton>
       )}
 
-      {/* Back to login */}
-      <Button
-        component={Link}
-        href="/login"
+      <JJButton
+        appearance="secondary"
         variant="outlined"
+        component={Link}
+        href={redirect ? `/login?redirect=${encodeURIComponent(redirect)}` : "/login"}
         fullWidth
         size="large"
         sx={{ py: 1.5 }}
       >
         Înapoi la conectare
-      </Button>
+      </JJButton>
 
       <Typography
         variant="caption"

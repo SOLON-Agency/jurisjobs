@@ -17,5 +17,12 @@ const PLACEHOLDER_ANON_KEY =
 export const createClient = () =>
   createBrowserClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL || PLACEHOLDER_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || PLACEHOLDER_ANON_KEY
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || PLACEHOLDER_ANON_KEY,
+    {
+      auth: {
+        // Passkeys ship enabled in supabase-js 2.118. The flag stays so the
+        // browser client documents the WebAuthn opt-in explicitly.
+        experimental: { passkey: true },
+      },
+    }
   );

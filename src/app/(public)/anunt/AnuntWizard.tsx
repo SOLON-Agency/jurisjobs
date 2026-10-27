@@ -22,6 +22,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { JJLink } from "@/components/common/JJLink";
 import { JJPasswordField } from "@/components/common/JJPasswordField";
 import CheckIcon from "@mui/icons-material/Check";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlined";
@@ -53,6 +54,7 @@ import { createCompany, updateCompany, uploadCompanyLogo } from "@/services/comp
 import { dispatchNotification } from "@/lib/notifications/dispatch";
 import { NOTIFICATION_TYPES } from "@/lib/notifications/types";
 import { createBenefit } from "@/services/benefits.service";
+import { authErrorMessage, isEmailNotConfirmed } from "@/lib/auth-errors";
 import { slugify, parseSupabaseError, formatSalary } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -138,7 +140,13 @@ function LoginInline({ supabase, onError }: {
       email: data.email,
       password: data.password,
     });
-    if (error) onError(error.message);
+    if (error) {
+      onError(
+        isEmailNotConfirmed(error)
+          ? "Confirmă adresa de e-mail înainte de publicare. Verifică și dosarul Spam."
+          : authErrorMessage(error)
+      );
+    }
   };
 
   return (
@@ -159,6 +167,9 @@ function LoginInline({ supabase, onError }: {
           error={!!errors.password}
           helperText={errors.password?.message}
         />
+        <JJLink href="/forgot-password" variant="body2" sx={{ color: "primary.main" }}>
+          Ai uitat parola?
+        </JJLink>
         <Button
           type="submit"
           variant="contained"
@@ -195,7 +206,7 @@ function RegisterInline({ supabase, emailRedirectTo, onError, onSuccess }: {
       options: { emailRedirectTo },
     });
     if (error) {
-      onError(error.message);
+      onError(authErrorMessage(error));
     } else {
       onSuccess(data.email);
     }

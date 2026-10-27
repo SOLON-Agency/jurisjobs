@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
+  Alert,
   Box,
   CircularProgress,
   Container,
-  Typography,
-  TextField,
-  Button,
-  Alert,
   Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
+import { JJButton } from "@/components/common/JJButton";
+import { JJLink } from "@/components/common/JJLink";
 import { JJPasswordField } from "@/components/common/JJPasswordField";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,20 +20,29 @@ import { loginSchema, type LoginFormData } from "@/components/forms/validations/
 
 
 import { useAuth } from "@/hooks/useAuth";
+import { authErrorMessage, isEmailNotConfirmed } from "@/lib/auth-errors";
+import { safeInternalPath } from "@/lib/auth-redirect";
+import { browserSupportsPasskeys, classifyPasskeyError } from "@/lib/passkeys";
 import appSettings from "@/config/app.settings.json";
 
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") ?? "/dashboard";
+  const redirect = safeInternalPath(searchParams.get("redirect"));
   const [error, setError] = useState<string | null>(
     searchParams.get("error") ? "Autentificare eșuată. Te rugăm să încerci din nou." : null
   );
-  const { user, signIn } = useAuth();
+  const [passkeyBusy, setPasskeyBusy] = useState(false);
+  const [passkeysAvailable, setPasskeysAvailable] = useState(false);
+  const { user, signIn, signInWithPasskey } = useAuth();
 
   useEffect(() => {
-    if (user) router.replace("/dashboard");
-  }, [user, router]);
+    if (user) router.replace(redirect);
+  }, [user, router, redirect]);
+
+  useEffect(() => {
+    setPasskeysAvailable(browserSupportsPasskeys());
+  }, []);
 
   const {
     register,
@@ -41,22 +50,42 @@ export function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
+    defaultValues: { email: searchParams.get("email") ?? "", password: "" },
   });
 
   const onSubmit = async (data: LoginFormData) => {
     setError(null);
     const { error: authError } = await signIn(data.email, data.password);
     if (authError) {
-      const code = (authError as { code?: string }).code;
-      if (code === "email_not_confirmed" || authError.message === "Email not confirmed") {
-        router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+      if (isEmailNotConfirmed(authError)) {
+        const verifyRedirect = redirect === "/dashboard" ? "" : `&redirect=${encodeURIComponent(redirect)}`;
+        router.push(`/verify-email?email=${encodeURIComponent(data.email)}${verifyRedirect}`);
         return;
       }
-      setError(authError.message);
+      setError(authErrorMessage(authError));
     } else {
       router.push(redirect);
       router.refresh();
     }
+  };
+
+  const onPasskey = async () => {
+    setError(null);
+    setPasskeyBusy(true);
+    const { error: authError } = await signInWithPasskey();
+    setPasskeyBusy(false);
+    if (!authError) {
+      router.push(redirect);
+      router.refresh();
+      return;
+    }
+    const failure = classifyPasskeyError(authError);
+    if (failure.kind === "cancelled") return;
+    if (failure.kind === "unconfirmed") {
+      router.push("/verify-email");
+      return;
+    }
+    setError(failure.text);
   };
 
   return (
@@ -94,6 +123,7 @@ export function LoginForm() {
             type="email"
             fullWidth
             required
+            autoComplete="username webauthn"
             error={!!errors.email}
             helperText={errors.email?.message}
             inputProps={{ "aria-required": "true", "aria-describedby": errors.email ? "login-email-error" : undefined }}
@@ -110,31 +140,48 @@ export function LoginForm() {
             inputProps={{ "aria-required": "true", "aria-describedby": errors.password ? "login-password-error" : undefined }}
             FormHelperTextProps={{ id: "login-password-error" }}
           />
-          <Button
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+            <JJLink href="/forgot-password" variant="body2" sx={{ color: "primary.main" }}>
+              Ai uitat parola?
+            </JJLink>
+          </Box>
+          <JJButton
             type="submit"
-            variant="contained"
+            appearance="primary"
             fullWidth
             size="large"
-            disabled={isSubmitting}
+            disabled={isSubmitting || passkeyBusy}
             startIcon={
               isSubmitting ? <CircularProgress size={18} color="inherit" /> : null
             }
             sx={{ py: 1.5 }}
           >
             {isSubmitting ? "Se conectează..." : "Conectare"}
-          </Button>
+          </JJButton>
         </Box>
+
+        {passkeysAvailable && (
+          <JJButton
+            type="button"
+            appearance="secondary"
+            variant="outlined"
+            fullWidth
+            size="large"
+            disabled={passkeyBusy || isSubmitting}
+            aria-busy={passkeyBusy}
+            onClick={() => void onPasskey()}
+            sx={{ mt: 2 }}
+            startIcon={passkeyBusy ? <CircularProgress size={18} color="inherit" /> : null}
+          >
+            {passkeyBusy ? "Se conectează..." : "Conectează-te cu o cheie de acces"}
+          </JJButton>
+        )}
 
         <Typography variant="body2" color="text.secondary" sx={{ mt: 3, textAlign: "center" }}>
           Nu ai cont?{" "}
-          <Typography
-            component={Link}
-            href="/register"
-            variant="body2"
-            sx={{ color: "primary.main", textDecoration: "none" }}
-          >
+          <JJLink href="/register" variant="body2" sx={{ color: "primary.main" }}>
             Creează unul
-          </Typography>
+          </JJLink>
         </Typography>
       </Paper>
     </Container>

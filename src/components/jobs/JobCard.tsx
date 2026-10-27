@@ -2,6 +2,7 @@
 
 import { societatePath } from "@/lib/paths";
 import Link from "next/link";
+import { JJLink } from "@/components/common/JJLink";
 import {
   Card,
   CardContent,
@@ -97,22 +98,20 @@ export function JobCard({
             </Stack>
           </Stack>
           {job.companies?.slug ? (
-            <Typography
-              component={Link}
+            <JJLink
               href={societatePath(job.companies.slug)}
               variant="body2"
               color="text.secondary"
               sx={{
                 position: "relative",
                 zIndex: 2,
-                textDecoration: "none",
                 wordBreak: "break-word",
                 overflowWrap: "break-word",
                 "&:hover": { color: "primary.main" },
               }}
             >
               {truncate(job.companies.name)}
-            </Typography>
+            </JJLink>
           ) : (
             <Typography variant="body2" color="text.secondary"
               sx={{ wordBreak: "break-word", overflowWrap: "break-word" }}>

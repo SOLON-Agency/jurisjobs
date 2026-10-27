@@ -1,23 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Alert,
   Box,
-  Button,
   CircularProgress,
   Container,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
+import { JJButton } from "@/components/common/JJButton";
+import { JJLink } from "@/components/common/JJLink";
 import { JJPasswordField } from "@/components/common/JJPasswordField";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterFormData } from "@/components/forms/validations/register.schema";
 import { useAuth } from "@/hooks/useAuth";
+import { authErrorMessage } from "@/lib/auth-errors";
+import { safeInternalPath } from "@/lib/auth-redirect";
 import appSettings from "@/config/app.settings.json";
 
 export function RegisterForm() {
@@ -29,7 +31,7 @@ export function RegisterForm() {
   // ?email= pre-fills the email field (e.g. when coming from the claim flow)
   const prefillEmail = searchParams.get("email") ?? "";
   // ?redirect= is where to send the user after successful registration
-  const redirectAfter = searchParams.get("redirect") ?? "/dashboard";
+  const redirectAfter = safeInternalPath(searchParams.get("redirect"));
 
   useEffect(() => {
     if (user) router.replace(redirectAfter);
@@ -46,9 +48,12 @@ export function RegisterForm() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setError(null);
-    const { data: authData, error: authError } = await signUp(data.email, data.password);
+    const { data: authData, error: authError } = await signUp(data.email, data.password, {
+      fullName: data.fullName,
+      redirectTo: redirectAfter,
+    });
     if (authError) {
-      setError(authError.message);
+      setError(authErrorMessage(authError));
       return;
     }
 
@@ -137,9 +142,9 @@ export function RegisterForm() {
             FormHelperTextProps={{ id: "register-confirm-password-error" }}
             sx={{ mb: 3 }}
           />
-          <Button
+          <JJButton
             type="submit"
-            variant="contained"
+            appearance="primary"
             fullWidth
             size="large"
             disabled={isSubmitting}
@@ -149,19 +154,18 @@ export function RegisterForm() {
             sx={{ py: 1.5 }}
           >
             {isSubmitting ? "Se creează contul..." : "Creează cont"}
-          </Button>
+          </JJButton>
         </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mt: 3, textAlign: "center" }}>
           Ai deja un cont?{" "}
-          <Typography
-            component={Link}
-            href="/login"
+          <JJLink
+            href={redirectAfter === "/dashboard" ? "/login" : `/login?redirect=${encodeURIComponent(redirectAfter)}`}
             variant="body2"
-            sx={{ color: "primary.main", textDecoration: "none" }}
+            sx={{ color: "primary.main" }}
           >
             Conectează-te
-          </Typography>
+          </JJLink>
         </Typography>
       </Paper>
     </Container>

@@ -1,15 +1,17 @@
-# Resend Email Templates — Unclaimed Companies
+# Unclaimed-company email copy
 
-Two templates must be created and **published** in the Resend dashboard
-([https://resend.com/emails/templates](https://resend.com/emails/templates))
-before the unclaimed-companies flow goes live.
+JurisJobs product name: `src/config/app.settings.json`.
 
-The template **ID / alias** must match exactly the strings used in the edge functions:
+These HTML samples are reference copy. They are **not** published Resend dashboard templates in the current sender.
 
-| Template alias | Edge function | Trigger |
-|---|---|---|
-| `unclaimed-company-welcome` | `notifications` (via admin wizard server action) | Admin creates a new unclaimed company |
-| `unclaimed-company-nudge` | `unclaimed-companies-nudge` | Daily Mon–Sat cron |
+| Email | What the code does today |
+|---|---|
+| Welcome, when an admin creates an unclaimed company | `src/app/dashboard/admin/unclaimed/new/actions.ts` posts `resend_template.id = "unclaimed-company-welcome"` to `notifications`. That function’s legacy path sends `body` HTML only and does not read `resend_template`, so this welcome HTML is not the message that goes out. |
+| Nudge, Monday–Saturday at 06:00 UTC | `unclaimed-companies-nudge` builds HTML with `buildEmail` and posts `to_email`, `subject`, and `body` to `notifications`. |
+
+Secrets the nudge path needs: `RESEND_API_KEY`, `RESEND_FROM`, `NEXT_PUBLIC_SITE_URL`, `CRON_SECRET`, `SUPABASE_SERVICE_ROLE_KEY`. Cron SQL is in `supabase/migrations/20260514180001_unclaimed_companies_cron.sql`.
+
+The samples below keep the variable names `{{companyName}}`, `{{claimUrl}}`, `{{code}}`, and `{{siteUrl}}`.
 
 ---
 
@@ -41,9 +43,7 @@ The template **ID / alias** must match exactly the strings used in the edge func
 
 ## Email copy
 
-The copy below is final and ready to paste into Resend's template editor.
-Subject lines are resolved in the edge function and forwarded as `subject`
-(Resend's `subject` field overrides the template default when present).
+Reference samples only. The nudge sender does not interpolate these `{{…}}` placeholders; it fills `buildEmail` in `index.ts`. The welcome sender does not send this HTML.
 
 ---
 
@@ -67,7 +67,7 @@ Subject lines are resolved in the edge function and forwarded as `subject`
 
         <!-- Header -->
         <tr><td style="background:#03170c;padding:28px 40px;">
-          <a href="{{siteUrl}}" style="color:#ffffff;font-size:22px;font-weight:700;text-decoration:none;">LegalJobs</a>
+          <a href="{{siteUrl}}" style="color:#ffffff;font-size:22px;font-weight:700;text-decoration:none;">JurisJobs</a>
         </td></tr>
 
         <!-- Body -->
@@ -77,7 +77,7 @@ Subject lines are resolved in the edge function and forwarded as `subject`
             Candidați caută <strong>{{companyName}}</strong> — chiar acum.
           </h1>
           <p style="margin:0 0 20px;color:#444;font-size:16px;line-height:1.6;">
-            Am creat un profil pentru <strong>{{companyName}}</strong> pe LegalJobs și am publicat un
+            Am creat un profil pentru <strong>{{companyName}}</strong> pe JurisJobs și am publicat un
             anunț în numele vostru, gratuit. Profilul este deja vizibil publicului și primește vizite.
           </p>
           <p style="margin:0 0 28px;color:#444;font-size:16px;line-height:1.6;">
@@ -112,7 +112,7 @@ Subject lines are resolved in the edge function and forwarded as `subject`
         <!-- Footer -->
         <tr><td style="background:#f4f4f5;padding:20px 40px;border-top:1px solid #e5e7eb;">
           <p style="margin:0;color:#aaa;font-size:12px;text-align:center;">
-            © LegalJobs · <a href="{{siteUrl}}" style="color:#aaa;">{{siteUrl}}</a>
+            © JurisJobs · <a href="{{siteUrl}}" style="color:#aaa;">{{siteUrl}}</a>
           </p>
         </td></tr>
       </table>
@@ -150,7 +150,7 @@ Subject lines are resolved in the edge function and forwarded as `subject`
 
         <!-- Header -->
         <tr><td style="background:#03170c;padding:28px 40px;">
-          <a href="{{siteUrl}}" style="color:#ffffff;font-size:22px;font-weight:700;text-decoration:none;">LegalJobs</a>
+          <a href="{{siteUrl}}" style="color:#ffffff;font-size:22px;font-weight:700;text-decoration:none;">JurisJobs</a>
         </td></tr>
 
         <!-- Urgency bar -->
@@ -214,7 +214,7 @@ Subject lines are resolved in the edge function and forwarded as `subject`
         <!-- Footer -->
         <tr><td style="background:#f4f4f5;padding:20px 40px;border-top:1px solid #e5e7eb;">
           <p style="margin:0;color:#aaa;font-size:12px;text-align:center;">
-            © LegalJobs · <a href="{{siteUrl}}" style="color:#aaa;">{{siteUrl}}</a>
+            © JurisJobs · <a href="{{siteUrl}}" style="color:#aaa;">{{siteUrl}}</a>
           </p>
         </td></tr>
       </table>
@@ -226,27 +226,13 @@ Subject lines are resolved in the edge function and forwarded as `subject`
 
 ---
 
-## Setup checklist
+## Setup
 
-1. [ ] Create template `unclaimed-company-welcome` in Resend → copy HTML above → **Publish**
-2. [ ] Create template `unclaimed-company-nudge` in Resend → copy HTML above → **Publish**
-3. [ ] Set Supabase secrets:
-   ```bash
-   supabase secrets set RESEND_API_KEY=re_...
-   supabase secrets set RESEND_FROM="LegalJobs <noreply@legaljobs.ro>"
-   supabase secrets set NEXT_PUBLIC_SITE_URL=https://legaljobs.ro
-   supabase secrets set CRON_SECRET=<strong-random-secret>
-   ```
-4. [ ] Set DB setting for pg_cron (SQL editor):
+1. Set Supabase secrets: `RESEND_API_KEY`, `RESEND_FROM` (for example `JurisJobs <noreply@yourdomain.com>`), `NEXT_PUBLIC_SITE_URL`, `CRON_SECRET`, `SUPABASE_SERVICE_ROLE_KEY`.
+2. Set the database settings the cron migration reads:
    ```sql
    ALTER DATABASE postgres SET "app.cron_secret" = '<same CRON_SECRET>';
    ALTER DATABASE postgres SET "app.supabase_url" = 'https://<project-ref>.supabase.co';
    ```
-5. [ ] Deploy edge functions:
-   ```bash
-   npm run supabase:deploy:all
-   ```
-6. [ ] Apply migrations:
-   ```bash
-   supabase db push
-   ```
+3. Deploy Edge Functions with `npm run supabase:deploy:all`.
+4. Apply migrations with `npm run supabase:migrate` (or `supabase db push`).

@@ -1,57 +1,131 @@
 # User Roles and Functionalities
 
-Repository snapshot: 2026-10-13. This is an implementation inventory for product research, not a claim that every feature is enabled in a deployed environment. Global roles come from the `public.user_role` enum in `supabase/migrations/20260423200000_user_roles.sql` and `src/types/database.ts`; labels, inheritance helpers, and UI limits are in `src/lib/roles.ts`. Feature switches are in `src/config/app.settings.json` and `src/flags.ts`.
+Repository snapshot: 2026-10-27. This is an implementation inventory for JurisJobs, not a claim that every feature is enabled in a deployed environment. Global roles come from the `public.user_role` enum and `src/lib/roles.ts`. Feature switches are in `src/config/app.settings.json` and `src/flags.ts`.
+
+Messages, SMS settings, and email opt-out are switched off, so they are not listed as working product features. Favourites exist only when the Vercel `favourites` flag is on.
+
+Employer, premium employer, and admin keep the Utilizator account (profile, applications, alerts, notifications). Those lines are not repeated under each role.
 
 ## Observed role model
 
 | Actor | Description | Access basis |
 | --- | --- | --- |
 | Visitor | No authenticated profile role | Public routes; auth and newsletter entry points |
-| `user` — Utilizator | Default registered role; candidate/personal account | Authenticated dashboard and self-owned records |
-| `employer` — Angajator | Hiring account with company/job tools | `isAtLeastEmployer`; UI limit of 1 active company and 3 published jobs |
-| `premium_employer` — Angajator Premium | Hiring account with the same visible toolset and higher limits | `isAtLeastEmployer`; `MAX_ACTIVE_COMPANIES` and `MAX_ACTIVE_JOBS` are unlimited (`null`) |
-| `admin` — Administrator | Platform operator; also passes employer checks | `requireAdminRole`, `isAtLeastEmployer`; unlimited UI company/job limits |
+| `user` — Utilizator | Default registered role; candidate account | Authenticated dashboard and self-owned records |
+| `employer` — Angajator | Hiring account | `isAtLeastEmployer`; UI limit of 1 active company and 3 published jobs |
+| `premium_employer` — Angajator Premium | Same hiring tools, higher limits | `isAtLeastEmployer`; company and job UI maxima are unlimited (`null`) |
+| `admin` — Administrator | Platform operator; also passes employer checks | `requireAdminRole`; unlimited company and job UI limits |
 
-`company_users` separately defines company-local membership roles `owner`, `admin`, and `member` (`src/types/database.ts`). These are **not** additional global account roles. A profile's role alone does not establish permission over a particular company; company membership and database RLS matter.
+`company_users` stores company-local labels `owner`, `admin`, and `member`. These are membership records, not extra global roles. The app does not give those three labels different actions. Any accepted member of a company can use that company’s hiring tools when their account role is employer or above. RLS still governs which company rows they can touch.
 
-## Shared capabilities
+## Visitor
 
-**Visitor — observed:** Read the marketing home page, how-it-works, published job listings/details, public company and user profiles, policy, and published blog/RSS (when blog is enabled); filter/search jobs; register or log in via email/password or supported OAuth; request the public posting wizard at `/anunt`; start the `/claim` flow; submit the newsletter form. The wizard's account step and the claim action require authentication before their final write. Evidence: `src/app/(public)`, `src/components/jobs/JobList.tsx`, `src/components/auth`, `src/app/(public)/anunt/AnuntWizard.tsx`, `src/app/(public)/claim/actions.ts`.
+- Read the marketing home page, live counts, and calls to action.
+- Read how-it-works, including candidate and employer steps.
+- Expand published FAQ entries on the home page and on how-it-works.
+- Read the privacy policy and the public brand page at `/brand`. The public footer does not currently link to `/brand`.
+- Search published jobs by keyword. Filter by city, contract, experience, salary, remote, and benefits, then sort, change view, and paginate.
+- Open a published job, its description, benefits, and similar jobs. Share the link, or copy the URL when the device cannot share.
+- Open a company page, its description, approved skills, and open jobs, plus the company’s external website when one is listed.
+- Open a profile the owner marked as public, and download a CV from that profile when one exists.
+- Read published blog posts, filter by tag, load more, and follow `/blog/rss.xml` while blog is enabled.
+- Subscribe to the newsletter with an email and no account.
+- Fill the public job and company wizard at `/anunt`. Publishing waits for a confirmed account.
+- Register with email and password, then confirm the email. Sign in with email and password. Resend the signup confirmation.
+- Approve or deny an OAuth consent request after signing in.
+- Open apply; the application is saved only after login.
+- Choose “save this search”; the alert is created only after login.
+- Enter a claim code at `/claim`; the company is claimed only after login.
 
-**Every authenticated global role — observed:** Use `/dashboard`; edit their own profile, avatar, CV, experience, education, and skills; view public profiles; apply to eligible jobs via external URL/email or an internal form; track and withdraw/archive their own applications; set notification preferences (email/browser; SMS UI is disabled); read/mark persisted notifications; create/manage saved-search alerts while enabled; save favourite jobs/companies only when the Vercel `favourites` flag evaluates true; use archive for their own archived applications when applicable. Evidence: dashboard navigation, profile/applications/alerts/archive clients, `ApplyButton`, `src/services/{profiles,applications,alerts,favourites}.service.ts`, notification components and settings. These are account capabilities, subject to the relevant RLS policies and data preconditions.
+## Utilizator (`user`)
 
-## Capabilities by persisted role
+- Open the candidate dashboard with progress, application stats, and charts.
+- Update name, title, bio, location, experience level, and whether the profile is public.
+- Set a profile photo. Upload a PDF CV and download it.
+- Add, edit, reorder, and delete work experience and education.
+- Add, reorder, and remove skills. A new name stays off the public profile until an admin approves it.
+- Open their own public profile when it is set to public.
+- Turn email and browser alerts on or off per type, and subscribe to browser push. Email cannot be turned off globally (`allowEmailNotificationOptOut` is false).
+- Read in-app notices and mark one or all as read.
+- Apply once through an external link, email, or the employer’s form.
+- See own applications, status, and submitted answers.
+- Withdraw an active application with a reason. The poster is notified.
+- Archive an application. If it is still active, it is withdrawn first. Restore an archived application to the active list.
+- Save a search and get notified when a matching job is published. Edit, pause, or archive own alerts, and restore archived ones.
+- Save jobs and companies, and review them, when the favourites flag is on.
+- Get an email and an in-app notice when approved skills overlap a company by at least two (`matchmaking.minOverlap`).
+- Resend the confirmation email from the dashboard while the address is unverified.
+- Sign out from the account menu.
 
-| Role | Additional implemented functionality | Important conditions |
-| --- | --- | --- |
-| `user` | Candidate dashboard widgets, own applications, profile/CV/skills and alerts; archive navigation appears after an archived application exists | `MAX_ACTIVE_JOBS` and `MAX_ACTIVE_COMPANIES` are `0`; no employer navigation |
-| `employer` | Create/edit/archive company profiles and logos, add company skills; create/edit/draft/schedule/publish/duplicate/archive/delete jobs and benefits; create/publish/edit/archive/delete custom application forms and inspect responses; view candidate lists per job or across jobs, filter/export, update application status; see employer dashboard widgets | UI checks cap active companies at 1 and published jobs at 3; company membership and RLS govern records; forms/alerts/archive/matchmaking depend on flags |
-| `premium_employer` | Same inspected hiring workflow as `employer` | Company/job UI maxima are unlimited; no other premium-only screen or distinct premium feature gate was found in inspected routes/navigation |
-| `admin` | All employer-gated dashboard pages plus user directory and role changes; approve/reject skills; create/edit/publish/delete FAQs; manage blog posts and newsletter notification; view/create unclaimed company records and issue claim links; edit/publish release announcements; use Edge Function test UI | Admin pages call `requireAdminRole`; admin RPCs in `20260423200000_user_roles.sql` check role; blog has a feature gate; ownership/RLS may still govern employer records |
+`MAX_ACTIVE_JOBS` and `MAX_ACTIVE_COMPANIES` are `0` for this role, so employer navigation stays hidden.
 
-Role evidence: `src/components/dashboard/DashboardNav.tsx`, `src/lib/server-guards.ts`, `src/app/dashboard/{company,jobs,forms,candidates,admin,blog,edge-functions}`, `src/app/dashboard/jobs/[id]/candidates/CandidatesClient.tsx`, `src/lib/roles.ts`. The candidate list can change an application's status, including rejection notification; per-job candidate view also offers CSV export. `src/app/dashboard/admin/releases/AdminReleasesClient.tsx` publishes a release and dispatches it to profile IDs.
+## Angajator (`employer`)
+
+Caps are enforced in the company and job screens: 1 active company and 3 published jobs. They are not enforced again when restoring from the archive or when publishing a draft from the list.
+
+- See hiring stats, received applications, job status, and the employer checklist. Candidate home widgets are hidden.
+- Create one active company, upload a logo, and become its owner.
+- Update the company profile and logo, and open the public page. Followers are notified of profile updates.
+- Add, remove, reorder, or propose competencies used for matchmaking.
+- Archive a company and restore it later.
+- Save a draft, publish now, or schedule publication, up to 3 published jobs.
+- Update a job, its benefits, and whether candidates apply by link, email, or form.
+- Publish a draft or set a live job back to draft. Followers and matching alerts are notified on publish.
+- Copy a job into a new draft. Benefits and the linked form are not copied.
+- Archive a job and restore it later. Permanently delete a job.
+- Create, edit, publish, archive, restore, and delete custom application forms.
+- Read, search, filter, export, and delete form submissions.
+- See candidates for one job or across jobs, filter them, and open a CV from the per-job list.
+- Mark an application reviewed, shortlisted, or rejected. Rejection notifies the candidate.
+- Download a CSV of candidates for one job.
+- Receive notices for new applications, withdrawals, company follows, and job events.
+
+Marketing copy on the homepage and pricing section still says visitors can publish up to 5 jobs for free. The employer cap in `src/lib/roles.ts` is 3.
+
+## Angajator Premium (`premium_employer`)
+
+Same hiring and candidate tools as Angajator. No separate premium screen or payment flow exists.
+
+- Create more than one active company.
+- Publish more than three jobs at the same time.
+
+## Administrator (`admin`)
+
+Also has the full Utilizator account and the full hiring toolset, with the same unlimited company and job caps as premium. The home dashboard shows both candidate and employer blocks.
+
+- List every account, including email, and search, filter, and sort them.
+- Set any account, including their own, to user, employer, premium employer, or admin.
+- Approve or reject skills so they can be picked and shown publicly.
+- Create, edit, show, hide, and delete FAQ entries for the home page and how-it-works.
+- Create, edit, publish, unpublish, archive, and delete blog posts, including drafts.
+- Email active subscribers the first time a post is published (`newsletter-notify`).
+- Create an unclaimed company and its first job, then copy a claim code and magic link.
+- Delete an unclaimed company and its jobs.
+- Edit the title and HTML of a release note before it is published.
+- Publish a release note and notify every user.
+- See every saved-search alert and who owns it. Changing someone else’s alert is not allowed.
+- Send test job-application, notification, and email calls from `/dashboard/edge-functions`.
 
 ## Feature availability and automatic behavior
 
 | Feature | Current checked-in state | Who sees or triggers it |
 | --- | --- | --- |
-| Forms, alerts, archive, blog, notifications, matchmaking | Enabled in `app.settings.json` | Relevant authenticated/public routes and backend jobs; blog admin is `admin` only |
-| Messages | Disabled; `/dashboard/messages` is placeholder text | Navigation hidden; do not treat as a working messaging product |
-| SMS notification settings | Disabled | Browser/email preference UI is available; SMS setting hidden |
-| Email notification opt-out | Disabled | Profile settings cannot offer full email opt-out |
-| Favourites | Vercel flag, local default `false` without `FLAGS` | Registered users when flag is on; `/dashboard/favourites` 404s when off |
-| Scheduled notifications and lifecycle | Edge Function source and cron SQL are checked in | System-triggered, not a human role: job lifecycle/expiry, daily digest, profile nudge, matching, release detection, unclaimed company nudge; deployment/cron health unverified |
+| Forms, alerts, archive, blog, notifications, matchmaking, edge-function test UI | Enabled in `app.settings.json` | Relevant public or authenticated routes; blog admin is `admin` only |
+| Messages | Disabled; `/dashboard/messages` is placeholder text | Navigation hidden |
+| SMS notification settings | Disabled | Email and browser preference UI is available |
+| Email notification opt-out | Disabled | Profile settings cannot turn email off globally |
+| Favourites | Vercel flag, local default off without `FLAGS` | Registered users when the flag is on |
+| Scheduled jobs | Cron SQL is checked in | System-triggered: job lifecycle, daily digest (05:00 UTC), profile nudge (05:05 UTC), job expiry (06:00 UTC), matchmaking (05:15 UTC), release detection (every 6 hours), unclaimed-company nudge (06:00 UTC, Monday–Saturday) |
 
-Notification events include account/profile, company/job/form, application, alert, release, and matchmaking categories (`src/lib/notifications/types.ts`). Delivery depends on the Edge dispatcher, channel configuration, recipient preferences, and runtime secrets. Admin's Edge Function page is a test console, not evidence of a successful live send.
+Notification type keys live in `src/lib/notifications/types.ts`. Delivery depends on the Edge dispatcher, channel configuration, recipient preferences, and runtime secrets. The admin Edge Function page is a test console, not evidence of a successful live send.
 
 ## Inferences
 
-- `premium_employer` currently appears to be a quota tier of the employer experience: both share navigation and guards, while `src/lib/roles.ts` differentiates maxima. A commercial entitlement or payment flow was not found in the inspected repository.
-- The public `/anunt` wizard is an acquisition path for prospective employers because it combines job, company, and account steps; the final allowed role transition and server-side quota checks need a focused review before changing that flow.
+- `premium_employer` is a quota tier of the employer experience. No checkout or payment flow is in this repository.
+- `/anunt` is an acquisition path: job, company, and account steps, with the write happening after authentication.
 
 ## Unknowns for product research
 
-- Whether any live Supabase policies or triggers differ from checked-in migrations, and whether every UI quota is enforced in the database.
-- Whether Vercel flags, notification channels, cron jobs, and Edge Functions are enabled and working in each deployment.
-- Whether company-local `owner`/`admin`/`member` capabilities are consistently differentiated across every service and RLS policy. Review the target company's policies before defining new member permissions.
-- Whether pricing, premium purchase/upgrade, or real-time messaging has an external implementation; this checkout does not establish one.
+- Whether live Supabase policies differ from checked-in migrations, and whether every UI quota is enforced in the database.
+- Whether Vercel flags, notification channels, cron jobs, and Edge Functions are enabled in each deployment. TEST and PROD currently share Supabase project `uccivcdtfpevtykirkuw`.
+- Whether pricing or real-time messaging exists outside this checkout. The messaging tables are present and the feature flag is off.

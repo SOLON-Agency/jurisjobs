@@ -308,7 +308,14 @@ export function AdminReleasesClient() {
                 </Typography>
                 <Paper
                   variant="outlined"
-                  sx={{ p: 2, maxHeight: 260, overflow: "auto", "& p": { mt: 0 } }}
+                  className="jj-prose"
+                  sx={{
+                    p: 2,
+                    maxHeight: 260,
+                    overflow: "auto",
+                    "& p": { mt: 0 },
+                    "& a": { color: "primary.main" },
+                  }}
                   dangerouslySetInnerHTML={{ __html: editBodyHtml }}
                 />
               </Box>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { JJLink } from "@/components/common/JJLink";
 import {
   Alert,
   Box,
@@ -254,9 +255,9 @@ export function ApplyButton({
               {!user && (
                 <Alert severity="info">
                   Trebuie să fii{" "}
-                  <Link href="/login" style={{ color: "inherit", fontWeight: 700 }}>
+                  <JJLink href="/login" sx={{ color: "inherit", fontWeight: 700 }}>
                     autentificat
-                  </Link>{" "}
+                  </JJLink>{" "}
                   pentru a aplica.
                 </Alert>
               )}

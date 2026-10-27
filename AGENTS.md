@@ -1,4 +1,4 @@
-# AGENTS.md — jurisjobs (LegalJobs)
+# AGENTS.md — JurisJobs
 
 Guidance for AI assistants and human contributors working on this repository.
 
@@ -22,7 +22,7 @@ Before changing routing, data fetching, or config:
 
 ## What this product is
 
-- **Name / brand:** Stored as **`name`** in `src/config/app.settings.json` (used in UI copy such as login subtitle). README may use a different trade name — **`app.settings.json` wins for in-app strings.**
+- **Name / brand:** **JurisJobs**, stored as `name` in `src/config/app.settings.json`. Use that name in docs, metadata, and new UI copy.
 - **Domain:** Legal-career job board (Romanian copy in metadata and many UI strings).
 - **Locale / market defaults:** `locale: "ro"`, `currency: "RON"` in app settings; keep new user-facing copy consistent unless explicitly internationalizing.
 
@@ -53,15 +53,11 @@ Before changing routing, data fetching, or config:
 - **`src/components/`** — Feature and layout UI (prefer **named exports** for shared components).
   - **`src/components/common/JJBanner.tsx`** — Shared CTA-section and contextual-notice presentation; see `src/PATTERNS.md` for its API.
   - **`src/components/common/JJButton.tsx`** and **`JJIconButton.tsx`** — Shared action and icon-only button foundations; use for new buttons and migrate legacy usages when editing them.
+  - **`src/components/common/JJLink.tsx`** — Shared textual link with animated underline hover; use for inline links (not buttons, logos, or card hit targets). Styles live in `src/styles/jj-link.css`.
   - **`src/components/forms/`** — All form components live here (not in `dashboard/` or co-located with trigger components).
-    - `AddEditCompany.tsx`, `AddEditForm.tsx`, `AddEditJob.tsx`, `AddEditExperience.tsx`, `AddEditEducation.tsx` — dashboard CRUD forms.
-    - `ApplicationForm.tsx` — job application drawer.
-    - **`src/components/forms/validations/`** — Zod schemas and TypeScript types, one file per form domain:
-      - `company.schema.ts` → `companySchema`, `CompanyFormData`
-      - `job.schema.ts` → `jobSchema`, `JobFormData`
-      - `experience.schema.ts` → `experienceSchema`, `ExperienceFormData`
-      - `education.schema.ts` → `educationSchema`, `EducationFormData`
-      - `form-builder.schema.ts` → `FieldType`, `FormField`, `FormBuilderData`, shared constants
+    - `AddEditCompany.tsx`, `AddEditJob.tsx`, `AddEditExperience.tsx`, `AddEditEducation.tsx`, `AddEditForm.tsx`, `AddEditBlogPost.tsx`, `AddEditFaq.tsx` — dashboard CRUD forms.
+    - `ApplicationForm.tsx`, `WithdrawApplicationForm.tsx` — job application and withdrawal.
+    - **`src/components/forms/validations/`** — one Zod schema per form domain, including job, company, profile, auth, alerts, blog, FAQ, newsletter, and applications.
 - **`src/services/`** — Data access: async functions that take a typed `SupabaseClient<Database>` (and other params); keep side effects and Supabase shape here rather than duplicating in pages.
 - **`src/hooks/`** — Client hooks (`useAuth`, `useSupabase`, etc.).
 - **`src/lib/`** — Supabase factories (`client`, `server`, `middleware`, `static`), utilities, SEO helpers.
@@ -121,7 +117,7 @@ Keep these aligned when patterns change; avoid documenting behaviour in only one
 
 ### Transactional email (Resend via Edge Functions)
 
-- **Job applications:** the **`job-application`** Edge Function (`supabase/functions/job-application/index.ts`) runs after a successful apply. It checks `profiles.notifications_email` for the applicant and the job poster, then calls **`notifications`** with Resend dashboard templates (`job-candidat` / `job-creator` by default; overridable via secrets). The applicant’s JWT is required; the function uses the service-role key only internally (never in the Next.js app).
+- **Job applications:** the **`job-application`** Edge Function (`supabase/functions/job-application/index.ts`) runs after a successful apply. The applicant’s JWT is required. It dispatches `application_new` through **`notifications`**. HTML is built in `_shared/templates/`, not in Resend dashboard templates. The function uses the service-role key only internally (never in the Next.js app).
 - **Other transactional mail:** **`send-email`** (`supabase/functions/send-email/index.ts`) — profile updated, company created, custom test email. Callers use `supabase.functions.invoke()` with the user session JWT so DB access stays under RLS.
 
 **`send-email` events** (pass as `event` in the JSON body):
@@ -147,7 +143,7 @@ void supabase.functions
 
 **Required Supabase secrets** (set with `supabase secrets set`):
 - `RESEND_API_KEY` — Resend API key
-- `RESEND_FROM` — verified sender, e.g. `"LegalJobs <noreply@yourdomain.com>"`
+- `RESEND_FROM` — verified sender, e.g. `"JurisJobs <noreply@yourdomain.com>"`
 - `NEXT_PUBLIC_SITE_URL` — canonical origin, e.g. `"https://legaljobs.ro"` (same value as the Next.js env var)
 - `VAPID_PRIVATE_KEY` — VAPID private key for Web Push (generated with `web-push generate-vapid-keys`)
 - `VAPID_SUBJECT` — VAPID contact URI, e.g. `"mailto:noreply@legaljobs.ro"`
@@ -166,15 +162,17 @@ void supabase.functions
 | `application-rejected` | **Active** | user JWT (recruiter) | Notifies candidate when application is rejected (`application_rejected`). |
 | `company-followers-notify` | **Active** | user JWT (recruiter) | Notifies company followers on profile update or new job. |
 | `alerts-job-match` | **Active** | user JWT (recruiter) | Notifies alert owners when a matching job is published. |
+| `newsletter-notify` | **Active** | user JWT (admin) | Emails active newsletter subscribers the first time a blog post is published. |
 | `notifications` | **Active** | user JWT **or** service-role key | Central dispatcher: accepts `{ type, recipients, data, channels?, idempotency_key? }`, fans out to channel senders, always inserts `public.notifications` row. |
 | `jobs-lifecycle` | **Active** | `CRON_SECRET` bearer | Daily cron; auto-publishes drafts and expires overdue jobs; notifies poster. |
 | `notifications-daily-digest` | **Active** | `CRON_SECRET` bearer | Daily cron (05:00); dispatches `daily_digest` to all users. |
 | `notifications-profile-nudge` | **Active** | `CRON_SECRET` bearer | Daily cron (05:05); nudges users with `completeness < 90`. |
 | `notifications-job-expiry-tomorrow` | **Active** | `CRON_SECRET` bearer | Daily cron (06:00); notifies poster + favouriters + candidates of expiring jobs. |
 | `notifications-release-detect` | **Active** | `CRON_SECRET` bearer | Every 6 h; compares `package.json` version to `app_state.last_announced_version`; inserts draft `app_release_announcements` on bump. |
-| `notifications-matchmaking` | **Active** | `CRON_SECRET` bearer | Daily cron (05:15); compares companies + profiles edited in last 24h by approved competency overlap; inserts/updates `public.matches`; re-notifies both sides only when overlap set changes. |
+| `notifications-matchmaking` | **Active** | `CRON_SECRET` bearer | Daily cron (05:15 UTC); compares companies + profiles edited in last 24h by approved competency overlap; inserts/updates `public.matches`; re-notifies both sides only when overlap set changes. |
+| `unclaimed-companies-nudge` | **Active** | `CRON_SECRET` bearer | Weekday cron (06:00 UTC, Monday–Saturday); emails contacts about unclaimed company profiles. |
 
-All functions use `verify_jwt = false` and validate auth inside the function.
+Every function listed in `supabase/config.toml` sets `verify_jwt = false` and validates auth inside the function.
 
 ### OpenAPI & Interactive Documentation
 
@@ -277,7 +275,7 @@ Local development uses **layered env files** (all gitignored except `*.example` 
 | `SUPABASE_ACCESS_TOKEN` | **`.env.local`** | Supabase CLI — deploy edge functions & db push |
 | `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | Vercel / `.env` | VAPID public key sent to browser for Web Push subscription |
 | `RESEND_API_KEY` | **Supabase Edge secrets only** | Transactional email via Resend (`send-email` function) |
-| `RESEND_FROM` | **Supabase Edge secrets only** | Verified sender address, e.g. `"LegalJobs <noreply@yourdomain.com>"` |
+| `RESEND_FROM` | **Supabase Edge secrets only** | Verified sender address, e.g. `"JurisJobs <noreply@yourdomain.com>"` |
 | `VAPID_PRIVATE_KEY` | **Supabase Edge secrets only** | VAPID private key used by `send-browser` to sign push payloads |
 | `VAPID_SUBJECT` | **Supabase Edge secrets only** | VAPID contact URI, e.g. `"mailto:noreply@legaljobs.ro"` |
 | `SUPABASE_SERVICE_ROLE_KEY` | **Supabase Edge secrets only** | Internal calls from `notifications` / `send-browser` / `send-sms` and cron fns; **never** add to Next.js / Vercel env |
@@ -313,6 +311,14 @@ Never commit secrets. Add new server-only variables to `.env.example` with a pla
 - Keep labels, loading/disabled states, `href`/`component`, form `type`, `startIcon` / `endIcon`, and event handlers unchanged when migrating. Do not convert an icon-only action into a text button or strip responsive labels.
 - App-defined wrappers must follow the `JJ` component naming rule. Keep MUI as the implementation primitive; do not mix the separate Tailwind/Radix button unless a feature explicitly requires its `asChild` behavior.
 - Update the examples and Pattern Index in `src/PATTERNS.md` when these APIs change. New and touched button instances should use these shared components; migrate the remaining legacy MUI instances incrementally without unrelated churn.
+
+### Reusable links (mandatory for textual links)
+
+- Use `JJLink` from `src/components/common/JJLink.tsx` for every **textual** navigation link (footer items, auth cross-links, company names, job titles in tables, `mailto:` / external URLs in copy). It applies the app-wide underline draw via the `jj-link` class (`src/styles/jj-link.css`).
+- **Do not** wrap `JJButton`, MUI `Button`/`MenuItem`/`Chip` link actions, logo/home image links, or full-row/card hit targets (`Box component={Link}`) — those keep their existing hover treatments.
+- Raw HTML prose (job descriptions, admin HTML preview) cannot use the component: add `className="jj-prose"` on the container and keep `& a { color: "primary.main" }` in `sx` where needed.
+- External `http(s)` links open in a new tab with `rel="noopener noreferrer nofollow"` and append a visually hidden ` (se deschide în tab nou)` unless `aria-label` is already set.
+- Update `src/PATTERNS.md` when the `JJLink` API changes.
 
 ### Form validation (mandatory for all forms)
 
@@ -375,14 +381,14 @@ showToast("A apărut o eroare.", "error", 5000); // error, longer duration
 
 ### `useNotifications` — persisted DB notification feed
 
-`useNotifications` (`src/hooks/useNotifications.ts`) reads and subscribes in real time to the `notifications` **database table**. It is the data source for `NotificationBell` in the dashboard navbar. It is **not** for transient UI feedback.
+`useNotifications` (`src/hooks/useNotifications.ts`) reads and subscribes in real time to the `notifications` **database table**. It is the data source for `JJNotificationBell` in the dashboard navbar. It is **not** for transient UI feedback.
 
 ```tsx
 import { useNotifications } from "@/hooks/useNotifications";
 const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
 ```
 
-Only use inside `NotificationBell` or a dedicated notification-feed component.
+Only use inside `JJNotificationBell` or a dedicated notification-feed component.
 
 ### Decision table
 

@@ -23,12 +23,11 @@ flowchart LR
     prodEnv[Production env vars]
     devEnv[Development env vars]
   end
-  subgraph supabase [Supabase projects]
-    testDb[uccivcdtfpevtykirkuw]
-    prodDb[uccivcdtfpevtykirkuw]
+  subgraph supabase [Supabase]
+    sharedDb["uccivcdtfpevtykirkuw (shared by test and main)"]
   end
-  testBranch --> previewEnv --> testDb
-  mainBranch --> prodEnv --> prodDb
+  testBranch --> previewEnv --> sharedDb
+  mainBranch --> prodEnv --> sharedDb
   devEnv --> localDev[Local npm run dev]
   testBranch --> localDev
   mainBranch --> localDev
@@ -43,7 +42,7 @@ flowchart LR
 3. **Locally**, `npm run vercel:env` and pre-commit always pull **Development** Vercel Flags — not Preview or Production flag values.
 4. **`NEXT_PUBLIC_TITLE_PREFIX`** drives the `[TEST] ` browser/social title prefix via `src/lib/page-title.ts` — do not hardcode `[TEST]` in page metadata.
 5. **Cursor MCP** (`.cursor/mcp.json`) is wired to the **jurisjobs** Supabase project (`uccivcdtfpevtykirkuw`).
-6. **Schema changes** must be applied to **both** Supabase projects when shipping migrations (test first, then main).
+6. **Schema changes** apply to Supabase project `uccivcdtfpevtykirkuw`. TEST and PROD share that project until a dedicated preview database exists, so a migration is not applied twice.
 
 ---
 
@@ -182,7 +181,7 @@ Use **separate** `FLAGS_SECRET` values per scope. See `.agents/skills/flags-sdk/
 
 ## Supabase Edge Function secrets
 
-Each Supabase project has its **own** Dashboard → Edge Functions → Secrets. Set on **both** projects:
+TEST and PROD currently share one Supabase project (`uccivcdtfpevtykirkuw`), so Edge Function secrets are set once on that project. Vercel Preview and Production still keep separate site URLs and flag values. When a second Supabase project is provisioned, set the same secret names there too.
 
 | Secret | Used by |
 |--------|---------|

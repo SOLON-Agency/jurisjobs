@@ -3,9 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, Container, Typography, Stack } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import appSettings from "@/config/app.settings.json";
 import { brandCssVars } from "@/theme/tokens";
+import { JJLink } from "@/components/common/JJLink";
 
 const footerLinks = [
   // { label: "Anunțuri", href: "/jobs" },
@@ -52,31 +53,19 @@ export function Footer() {
           <Box component="nav" aria-label="Linkuri utile">
             <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" spacing={{ xs: 1, sm: 3 }}>
               {footerLinks.map((link) => (
-                <Typography
+                <JJLink
                   key={link.href}
-                  component={Link}
                   href={link.href}
                   variant="body2"
                   sx={{
                     color: "text.primary",
-                    textDecoration: "none",
-                    textUnderlineOffset: 4,
-                    transition: "color 0.2s ease, text-decoration-color 0.2s ease",
-                    "&:hover": {
-                      color: "primary.main",
-                      textDecoration: "underline",
-                      textDecorationThickness: "2px",
-                    },
-                    "&:focus-visible": {
-                      color: "primary.main",
-                      textDecoration: "underline",
-                      textDecorationThickness: "2px",
-                      outline: "none",
-                    },
+                    transition: "color 0.2s ease",
+                    "&:hover": { color: "primary.main" },
+                    "&:focus-visible": { color: "primary.main" },
                   }}
                 >
                   {link.label}
-                </Typography>
+                </JJLink>
               ))}
             </Stack>
           </Box>

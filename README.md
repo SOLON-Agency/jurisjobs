@@ -1,6 +1,6 @@
-# LegalJobs — Platformă de carieră juridică
+# JurisJobs — Platformă de carieră juridică
 
-A production-grade job board for the Romanian legal industry built with **Next.js 16** (App Router, SSG/ISR) and **Supabase** (Auth, PostgreSQL, Storage).
+Job board for the Romanian legal market. The in-app name comes from `name` in `src/config/app.settings.json` (**JurisJobs**). Built with **Next.js 16** (App Router; most routes render on demand, with a few prerendered pages such as the sitemap, robots file, and some public detail pages) and **Supabase** (Auth, PostgreSQL, Storage, Realtime, Edge Functions).
 
 ---
 
@@ -25,11 +25,11 @@ A production-grade job board for the Romanian legal industry built with **Next.j
 
 ## Feature flags
 
-**Static product gates** — `src/config/app.settings.json` → `features` (blog, alerts, messages, notifications, archive, matchmaking, etc.). Use **`src/lib/feature-flags.ts`** (`isFeatureEnabled`, `assertFeatureEnabled`) in code; middleware may duplicate guards for sensitive routes (e.g. blog).
+**Static product gates** — `src/config/app.settings.json` → `features`. Checked in today: `forms`, `alerts`, `notifications`, `archiveJobs`, `edgeFunctions`, `blog`, and `matchmaking` are on (`matchmaking.minOverlap` is 2). `messages`, `smsNotifications`, and `allowEmailNotificationOptOut` are off. Use **`src/lib/feature-flags.ts`** (`isFeatureEnabled`, `assertFeatureEnabled`); middleware repeats the blog guard.
 
-**Runtime experimentation** — Job and company **favourites** use the Flags SDK (`src/flags.ts`, `favouritesFlag`) with `FLAGS` / `FLAGS_SECRET` from Vercel when configured — see **`/AGENTS.md`** and `.agents/skills/flags-sdk/SKILL.md`.
+**Runtime experimentation** — Job and company **favourites** use the Flags SDK (`src/flags.ts`, `favouritesFlag`) with `FLAGS` / `FLAGS_SECRET` from Vercel. Without `FLAGS`, favourites stay off and `/dashboard/favourites` is not available.
 
-Canonical brand name and numeric defaults live in the same JSON file (`name`, `brand`, `config`). UI copy remains Romanian in source.
+The same JSON file holds the product name (`name`: JurisJobs) and market defaults (`config`: locale `ro`, currency `RON`, salary bounds). UI copy stays Romanian.
 
 ---
 
@@ -117,28 +117,31 @@ Open [http://localhost:3000](http://localhost:3000).
 ```
 src/
 ├── app/
-│   ├── (public)/             # Marketing + job board (unauthenticated)
-│   ├── (auth)/               # login, register, verify-email, OAuth consent
-│   ├── dashboard/            # Protected app shell (middleware enforces session)
-│   ├── api/                  # Route handlers — currently jobs/apply-internal-form
-│   ├── layout.tsx            # Root layout: ThemeRegistry, ToastProvider, Navbar, Footer
+│   ├── (public)/             # Home, jobs, companies, profiles, blog, policy, brand, /anunt, /claim
+│   ├── (auth)/               # login, register, verify-email, OAuth consent, auth callback
+│   ├── dashboard/            # Session-protected shell (middleware)
+│   ├── api/                  # apply-internal-form, OpenAPI docs
+│   ├── newsletter/           # Newsletter server action
+│   ├── layout.tsx            # Theme, Redux, toast, favourites, analytics, navbar, footer
 │   ├── page.tsx              # Homepage
-│   └── …                     # sitemap, robots, error boundaries, flags discovery route
-├── components/               # Feature UI — see src/AGENTS.md Architecture Overview
-├── hooks/                    # useAuth, useSupabase, useAsyncData, useRole, useFavourites, …
-├── contexts/                 # ToastContext (global ephemeral feedback)
-├── lib/                      # Supabase factories, SEO, feature-flags, notifications helpers
-├── services/                 # *.service.ts — preferred home for .from / .rpc / storage (see src/AGENTS.md)
+│   └── …                     # sitemap, robots, error boundaries
+├── components/               # Feature UI — see src/AGENTS.md
+├── hooks/
+├── contexts/                 # ToastContext
+├── lib/                      # Supabase factories, roles, SEO, feature flags, notifications
+├── services/                 # *.service.ts — home for .from / .rpc / storage
+├── store/                    # Redux Toolkit + RTK Query
 ├── theme/
-├── types/
+├── types/                    # database.ts + generated database.zod.ts
 ├── config/
-│   └── app.settings.json
-├── AGENTS.md                 # /src patterns (companion to repo-root AGENTS.md)
-└── PATTERNS.md               # Pattern Index + snippets
+│   └── app.settings.json     # Name, locale, salary bounds, feature flags
+├── AGENTS.md
+└── PATTERNS.md
 
 supabase/
 ├── migrations/
-└── functions/                # Edge Functions (email, notifications, cron — see AGENTS.md)
+├── functions/                # 17 Edge Functions + _shared templates
+└── openapi.json              # Served at /api/docs
 ```
 
 **Implementor docs:** **`src/AGENTS.md`** (rules) · **`src/PATTERNS.md`** (examples + reference file paths per pattern).
@@ -151,34 +154,42 @@ Key tables (see Supabase Dashboard → Table Editor for the full schema):
 
 | Table | Purpose |
 |-------|---------|
-| `profiles` | Extends `auth.users` — candidate public profile |
-| `companies` | Company info + slug + logo |
-| `company_users` | Many-to-many with roles: `owner`, `admin`, `member` |
-| `job_listings` | Postings with full-text `search_vector`, RLS |
-| `applications` | Candidate ↔ job relation, status tracking |
-| `forms` / `form_fields` | Custom application form builder |
-| `form_responses` / `form_response_values` | Submitted form data |
-| `favorites` | Saved jobs per user |
-| `alerts` | Saved search filters |
-| `conversations` / `messages` | Real-time messaging |
-| `notifications` | Per-user notification feed |
-| `profile_experience` / `profile_education` / `skills` | CV sections |
+| `profiles` | Account extending `auth.users`, including global `user_role` |
+| `companies` / `company_users` | Company profile and membership (`owner`, `admin`, `member`) |
+| `company_claim_tokens` / `company_claim_nudge_log` | Unclaimed-company claim codes and nudge history |
+| `job_listings` / `job_benefits` | Postings, including full-text search |
+| `applications` | Candidate applications and status |
+| `forms` / `form_fields` / `form_responses` / `form_response_values` | Custom application forms and answers |
+| `favorites` / `company_favourites` | Saved jobs and saved companies |
+| `alerts` | Saved job searches |
+| `notifications` / `push_subscriptions` | In-app feed and Web Push endpoints |
+| `profile_experience` / `profile_education` / `profile_skills` / `skills` | CV sections and the shared skill catalog |
+| `blog_posts` / `newsletter_subscribers` / `faq` | Blog, newsletter, and public FAQ |
+| `matches` | Matchmaking overlaps between profiles and companies |
+| `app_release_announcements` / `app_state` | Release notes and the last announced version |
+| `conversations` / `messages` / `conversation_participants` | Messaging tables. The product flag `features.messages` is off and `/dashboard/messages` is a placeholder |
+
+Generated mirrors: `src/types/database.ts` and `src/types/database.zod.ts`.
 
 ### RPC functions (SECURITY DEFINER)
 
 | Function | Purpose |
 |----------|---------|
-| `application_notification_recipient(p_job_id)` | Returns the first company contact email/name for a job the calling user has applied to — used by Edge / server paths instead of a service-role client in the browser |
-| `is_company_member(p_company_id, p_min_role?)` | Checks company membership in RLS policies |
-| `company_has_no_owner(p_company_id)` | Guard for company creation |
-| `increment_company_visits(p_company_id)` | Fire-and-forget view counter |
-| `increment_company_engages(p_company_id)` | Fire-and-forget engagement counter |
+| `application_notification_recipient(p_job_id)` | Poster contact for a job the caller applied to |
+| `job_poster_recipient` | Poster contact used by notification functions |
+| `is_company_member(p_company_id, p_min_role?)` | Company membership check used by RLS |
+| `company_has_no_owner(p_company_id)` | Guard used while creating a company |
+| `claim_company` / `verify_claim_code` / `issue_company_claim_token` | Unclaimed-company claim flow |
+| `admin_list_users` / `admin_set_user_role` / `admin_set_skill_approval` | Admin user directory, role changes, and skill approval |
+| `increment_company_visits` / `increment_company_engages` | Company page counters |
+| `recompute_profile_completeness` | Profile completeness used by the nudge cron |
 
 ---
 
 ## Authentication
 
-- **Email/password** — sign-up, login, password recovery.
+- **Email/password** — sign-up, login, and password recovery. Forgot-password lives at `/forgot-password`; the e-mail link returns through `/auth/callback` and lands on `/reset-password`, where the new password is saved. Confirmation and recovery links keep a safe in-app `redirect`. Login and registration send people back to that path, including company claim.
+- **Passkeys (WebAuthn)** — hosted Auth has passkeys enabled. The login page offers “Conectează-te cu o cheie de acces” on browsers that support WebAuthn. Signed-in users with a confirmed email add, rename, and delete passkeys from **Dashboard → Profil**. The browser client opts in via `auth.experimental.passkey`. Local `supabase/config.toml` uses relying party id `localhost` only; the hosted relying party must stay the production domain (changing it invalidates existing passkeys, and localhost or a Vercel preview cannot share it).
 - **Email verification** — users land on `/dashboard` immediately after registration; an `EmailVerificationBanner` (in the dashboard layout) prompts them to verify and offers a one-click resend via `useAuth().resendVerification()`.
 - **Social OAuth** — `SocialButtons` component; callback at `/auth/callback`.
 - **Middleware-enforced routes** — `/dashboard/*` requires a valid session; `/login` and `/register` redirect authenticated users to `/dashboard`.
@@ -253,7 +264,7 @@ export function MyComponent() {
 
 ### 2 — `useNotifications` — persisted DB notification feed
 
-`useNotifications` reads and subscribes to the `notifications` table in real time. It powers the `NotificationBell` in the dashboard navbar. It is **not** for transient UI feedback.
+`useNotifications` reads and subscribes to the `notifications` table in real time. It powers `JJNotificationBell` in the dashboard navbar. It is **not** for transient UI feedback.
 
 ```tsx
 import { useNotifications } from "@/hooks/useNotifications";
@@ -261,7 +272,7 @@ import { useNotifications } from "@/hooks/useNotifications";
 const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
 ```
 
-Only use this hook inside `NotificationBell` or a dedicated notification-feed component.
+Only use this hook inside `JJNotificationBell` or a dedicated notification-feed component.
 
 ### What was removed
 
@@ -273,7 +284,9 @@ Only use this hook inside `NotificationBell` or a dedicated notification-feed co
 
 ### Dashboard — side drawer pattern
 
-All create/edit flows in the dashboard use `EditSideDrawer` (`src/components/layout/EditSideDrawer.tsx`), not separate pages.
+Several dashboard create/edit flows use `EditSideDrawer` (`src/components/layout/EditSideDrawer.tsx`). Company, job, profile, and application-form editing follow that pattern. `/dashboard/jobs/new` and `/dashboard/jobs/[id]/edit` only redirect to `/dashboard/jobs`.
+
+These flows are full pages instead of a drawer: `/dashboard/alerts/new`, `/dashboard/blog/new`, `/dashboard/blog/[id]/edit`, and `/dashboard/admin/unclaimed/new`.
 
 ```tsx
 import { EditSideDrawer } from "@/components/layout/EditSideDrawer";
@@ -290,8 +303,6 @@ import { EditSideDrawer } from "@/components/layout/EditSideDrawer";
 ```
 
 Used in: `dashboard/company`, `dashboard/jobs`, `dashboard/profile`, `dashboard/forms`.
-
-**Do not create separate `/new` or `/[id]/edit` pages** for entities managed in the dashboard.
 
 ### Wizard / public forms — full-page steps
 
@@ -394,10 +405,11 @@ Set these secrets in the Supabase Dashboard → Edge Functions → Secrets:
 | Secret | Used by |
 |--------|---------|
 | `SUPABASE_SERVICE_ROLE_KEY` | All notification Edge Functions (`notifications`, `job-application`, etc.) |
-| `CRON_SECRET` | `jobs-lifecycle` — scheduler must send `Authorization: Bearer <value>` |
-| `RESEND_API_KEY` | `send-email`, `notifications` |
-| `RESEND_FROM` | `send-email`, `notifications` |
-| `NEXT_PUBLIC_SITE_URL` | All Edge Functions that build email links |
+| `CRON_SECRET` | Scheduled functions (`jobs-lifecycle`, digests, nudges, matchmaking, release detect, unclaimed-company nudge) |
+| `RESEND_API_KEY` | `send-email`, `notifications`, `newsletter-notify` |
+| `RESEND_FROM` | Verified sender, for example `JurisJobs <noreply@yourdomain.com>` |
+| `NEXT_PUBLIC_SITE_URL` | Edge Functions that build email links |
+| `VAPID_PRIVATE_KEY` / `VAPID_SUBJECT` | `send-browser` |
 
 ---
 
@@ -410,12 +422,13 @@ Fișiere cheie pentru copy-ul de interfață:
 | Fișier | Conținut |
 |--------|----------|
 | `src/lib/utils.ts` | Etichete contract, experiență, formatare dată/salariu |
-| `src/components/layout/` | Navbar, Footer, HeroSection, FeaturesSection, JobCtaBanner |
+| `src/components/layout/` | Navbar, Footer, HeroSection, WhySection |
+| `src/components/marketing/` | Homepage sections, including pricing and FAQ |
 | `src/components/jobs/` | Filtre, liste, detalii, formular aplicare |
-| `src/components/auth/` | LoginForm, SocialButtons |
-| `src/app/(auth)/register/page.tsx` | Înregistrare |
+| `src/components/blog/` and `src/components/newsletter/` | Blog and newsletter signup |
+| `src/components/auth/` | LoginForm, RegisterForm, SocialButtons |
 | `src/app/(public)/anunt/AnuntWizard.tsx` | Wizard publicare anunț |
-| `src/app/dashboard/` | Paginile din tabloul de bord (segment protejat de middleware) |
+| `src/app/dashboard/` | Tabloul de bord (segment protejat de middleware) |
 
 ---
 

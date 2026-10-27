@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "LegalJobs API & Edge Functions",
+    "title": "JurisJobs API & Edge Functions",
     "version": "1.0.0",
-    "description": "Machine-readable OpenAPI 3.0 specification for LegalJobs Supabase Edge Functions and API route handlers.\n\n### API Versioning Strategy\n- **URL Path Versioning:** All Edge Functions follow standard URL path versioning (`/functions/v1/<function-name>`).\n- **Breaking Changes:** If a breaking interface change is required, a new version path (`/functions/v2/<function-name>`) will be introduced while maintaining the previous version during a deprecation window.\n- **Non-breaking Changes:** Additive fields to requests/responses remain within the existing `/v1` path.\n- **Deprecation Policy:** Deprecated endpoints will be marked with `deprecated: true` in this OpenAPI specification prior to removal."
+    "description": "Machine-readable OpenAPI 3.0 specification for JurisJobs Supabase Edge Functions and API route handlers.\n\n### API Versioning Strategy\n- **URL Path Versioning:** All Edge Functions follow standard URL path versioning (`/functions/v1/<function-name>`).\n- **Breaking Changes:** If a breaking interface change is required, a new version path (`/functions/v2/<function-name>`) will be introduced while maintaining the previous version during a deprecation window.\n- **Non-breaking Changes:** Additive fields to requests/responses remain within the existing `/v1` path.\n- **Deprecation Policy:** Deprecated endpoints will be marked with `deprecated: true` in this OpenAPI specification prior to removal."
   },
   "servers": [
     {
@@ -343,7 +343,7 @@
           },
           "message": {
             "type": "string",
-            "example": "Ai primire nouă pe LegalJobs!"
+            "example": "Ai primire nouă pe JurisJobs!"
           }
         }
       },
@@ -356,7 +356,7 @@
         "properties": {
           "subject": {
             "type": "string",
-            "example": "Noutăți LegalJobs"
+            "example": "Noutăți JurisJobs"
           },
           "content": {
             "type": "string",

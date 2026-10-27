@@ -48,6 +48,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { dispatchNotification } from "@/lib/notifications/dispatch";
 import { NOTIFICATION_TYPES } from "@/lib/notifications/types";
 import type { Tables } from "@/types/database";
+import { JJPasskeySettings } from "@/components/profile/JJPasskeySettings";
 import { NotificationsSettings } from "./NotificationsSettings";
 
 export function ProfileClient() {
@@ -351,6 +352,10 @@ export function ProfileClient() {
           </Box>
         </Paper>
       ) : null}
+
+      <Box sx={{ mt: 3 }}>
+        <JJPasskeySettings />
+      </Box>
 
       <Box sx={{ mt: 3 }}>
         <EditSkills

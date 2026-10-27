@@ -2,7 +2,7 @@
 name: update-dependencies
 description: >-
   Update all npm dependencies and devDependencies to the latest versions that
-  keep this jurisjobs (LegalJobs) platform fully functional. Use when the user
+  keep this JurisJobs platform fully functional. Use when the user
   asks for /update-dependencies, dependency bumps, npm outdated, ncu, or
   upgrading Next/MUI/React packages while preserving lint, tests, and build.
 disable-model-invocation: true
@@ -43,7 +43,7 @@ Then **re-pin** packages that must stay below “latest” for functionality (ed
 |---------|--------|
 | `@mui/material` / `@mui/icons-material` | Stay on **latest v7** until a dedicated MUI v9 migration. v9 removes system props (`alignItems`, `fontWeight`, …) and legacy `*Outline` icons. If icons were already migrated to `*Outlined`, that is fine on v7. |
 | `typescript` | Cap at **`~5.9.x`** (or max allowed by `typescript-eslint` from `eslint-config-next`, currently `<6.1.0`). Do not jump to TS 7 while Next’s ESLint stack rejects it. |
-| `eslint` | Use **`^9.39.5`** while the React, import, and JSX accessibility plugins used by `eslint-config-next@16.4.0` declare peer ranges ending at ESLint 9. Recheck those ranges before adopting a newer major; do not suppress peer warnings with npm overrides or `legacy-peer-deps`. |
+| `eslint` | Use **`^9.39.5`** while the React, import, and JSX accessibility plugins used by `eslint-config-next@16.4.3` declare peer ranges ending at ESLint 9. Recheck those ranges before adopting a newer major; do not suppress peer warnings with npm overrides or `legacy-peer-deps`. |
 | `@supabase/ssr` / `supabase-js` | ≥0.12 / recent clients throw if URL/key missing. Browser + static clients use build-time placeholders (`client.ts`, `static.ts`) so `next build` prerender works without secrets. |
 | Icon imports | If MUI v9 is intentionally adopted: rename 23 legacy `*Outline` → `*Outlined` (see MUI upgrade guide). |
 

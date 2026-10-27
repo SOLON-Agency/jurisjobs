@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, startTransition } from "react";
-import Link from "next/link";
+import { JJLink } from "@/components/common/JJLink";
 import {
   Alert,
   Box,
@@ -509,9 +509,9 @@ export function ApplicationForm({
         ) : !user ? (
           <Alert severity="info" sx={{ mb: 2 }}>
             Trebuie să fii{" "}
-            <Link href="/login" style={{ color: "inherit", fontWeight: 700 }}>
+            <JJLink href="/login" sx={{ color: "inherit", fontWeight: 700 }}>
               autentificat
-            </Link>{" "}
+            </JJLink>{" "}
             pentru a aplica la acest loc de muncă.
           </Alert>
         ) : (
@@ -535,6 +535,7 @@ export function ApplicationForm({
                   {descriptionExpanded ? (
                     isHtml ? (
                       <Box
+                        className="jj-prose"
                         dangerouslySetInnerHTML={{ __html: job.description }}
                         sx={{
                           fontSize: "0.875rem",

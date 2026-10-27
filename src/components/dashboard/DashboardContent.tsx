@@ -23,6 +23,7 @@ import BookmarkOutlinedIcon from "@mui/icons-material/BookmarkOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutlined";
+import { JJLink } from "@/components/common/JJLink";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import TouchAppOutlinedIcon from "@mui/icons-material/TouchAppOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -672,15 +673,21 @@ export function DashboardContent({
             isAdmin={isAdmin}
           />
           {!profileComplete && (
-            <Button
-              component={Link}
+            <JJLink
               href="/dashboard/profile"
-              size="small"
-              startIcon={<PersonOutlineIcon />}
-              sx={{ mt: 1.5, color: C.goldOnDark, fontWeight: 600, pl: 0, "&:hover": { bgcolor: "transparent", textDecoration: "underline" } }}
+              sx={{
+                mt: 1.5,
+                color: C.goldOnDark,
+                fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 0.5,
+                fontSize: "0.8125rem",
+              }}
             >
+              <PersonOutlineIcon fontSize="small" aria-hidden />
               Completează profilul tău
-            </Button>
+            </JJLink>
           )}
         </Box>
       </Paper>

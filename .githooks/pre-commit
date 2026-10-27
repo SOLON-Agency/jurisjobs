@@ -18,9 +18,9 @@
 #      If `_shared/` changed, redeploy everything. Target project matches branch.
 #   6. Push Supabase migrations when any `supabase/migrations/*.sql` is staged.
 #
-# Branch → Supabase: see docs/ENVIRONMENTS.md
-#   test → aofjdbonfqjkosbgzsbx (Vercel Preview)
-#   main → uccivcdtfpevtykirkuw (Vercel Production)
+# Branch → Supabase: see docs/ENVIRONMENTS.md and scripts/lib/environment-targets.js
+#   test and main → uccivcdtfpevtykirkuw until a dedicated preview project exists
+#   test deploys with the Vercel Preview site URL; main uses Production
 #
 # Opt-outs (set to 1 to skip individual steps):
 #   SKIP_ENV_SYNC=1         bypass branch env sync

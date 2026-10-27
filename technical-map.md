@@ -1,6 +1,6 @@
 # Repository Technical Map
 
-Repository snapshot: 2026-10-13, branch `main`. This map describes checked-in implementation and local metadata; it does not assert that external services are deployed or healthy. See [user-roles-and-functionalities.md](user-roles-and-functionalities.md) for the role inventory.
+Repository snapshot: 2026-10-27. This map describes the checked-in JurisJobs implementation. It does not assert that external services are deployed or healthy. See [user-roles-and-functionalities.md](user-roles-and-functionalities.md) for the role inventory.
 
 ## Structure
 
@@ -9,23 +9,23 @@ Repository snapshot: 2026-10-13, branch `main`. This map describes checked-in im
 | Area | Current responsibility | Evidence |
 | --- | --- | --- |
 | Root | One private `jurisjobs` npm package; no workspace manifest or nested package manifest found | `package.json`, `package-lock.json`, root file inventory |
-| `src/app` | Next.js App Router: public and auth route groups, protected `/dashboard`, one application API route, newsletter action, metadata, sitemap, robots | `src/app/**`, `middleware.ts` |
+| `src/app` | Next.js App Router: public and auth route groups, protected `/dashboard`, application and docs API routes, newsletter action, metadata, sitemap, robots | `src/app/**`, `middleware.ts` |
 | `src/components`, `src/theme`, `src/contexts` | MUI/Emotion UI, shared and feature components, theme, toast and favourites providers | `src/app/layout.tsx`, `src/components/**` |
 | `src/services`, `src/hooks`, `src/lib`, `src/store` | Typed Supabase data access; client hooks; client/server/static Supabase factories, role/SEO/notification helpers; Redux Toolkit with an RTK Query employer dashboard endpoint | Representative files in each directory |
 | `src/types`, `src/config` | Generated database TypeScript/Zod types and application settings | `src/types/database*.ts`, `src/config/app.settings.json`, `package.json` scripts |
 | `supabase` | SQL migrations, seed, local CLI config, Deno Edge Functions and shared notification templates | `supabase/config.toml`, `supabase/migrations/**`, `supabase/functions/**` |
 | `scripts`, `e2e`, `src/__tests__` | Environment/codegen/deployment scripts, Puppeteer smoke/full suites, Vitest unit/component tests | `package.json`, test files |
-| `docs`, `AGENTS.md`, `src/AGENTS.md`, `src/PATTERNS.md` | Environment and contributor guidance | Named files |
+| `docs`, `AGENTS.md`, `src/AGENTS.md`, `src/PATTERNS.md`, `user-roles-and-functionalities.md` | Environment, contributor, and role guidance. Product name is JurisJobs | Named files |
 
-Git is the version-control system. The working tree was clean before this documentation was written (`git status --short --branch` showed `main...origin/main`). `git ls-files` reported 425 tracked paths. The checkout had no `node_modules` directory.
+Git is the version-control system. The npm package name stays `jurisjobs`; the product name is JurisJobs.
 
 ## Stack
 
-**Observed facts.** TypeScript strict mode and JavaScript tooling run on Node `>=22.12.0`; local Node was `v22.15.0` and npm `10.9.2`. `package.json` pins Next.js `16.3.3`, React/React DOM `19.2.8`, and `eslint-config-next` `16.3.3`. The UI uses MUI 7, Emotion, Tailwind CSS 4, Framer Motion, TipTap, Recharts, and `react-markdown`. Forms use React Hook Form, Zod 4, and `@hookform/resolvers`. Supabase provides auth, Postgres, storage, Realtime, and Edge Functions. Resend is used by Edge Function email flows. Vitest 4/jsdom/Testing Library and Puppeteer are the test stacks. Evidence: `package.json`, `src/app/globals.css`, `src/app/layout.tsx`, `src/store/jobBoardApi.ts`, `supabase/functions`.
+**Observed facts.** TypeScript strict mode. `package.json` `engines` accepts Node `^22.22.2 || ^24.15.0 || >=26.0.0`. The app pins Next.js `16.4.3`, React and React DOM `19.2.8`, and `eslint-config-next` `16.4.3`. The UI uses MUI 7, Emotion, Tailwind CSS 4, Framer Motion, TipTap, Recharts, and `react-markdown`. Forms use React Hook Form, Zod 4, and `@hookform/resolvers`. Supabase provides auth, Postgres, storage, Realtime, and Edge Functions. Resend is used by Edge Function email flows. Vitest 4, jsdom, Testing Library, and Puppeteer are the test stacks. Evidence: `package.json`, `src/app/globals.css`, `src/app/layout.tsx`, `src/store/jobBoardApi.ts`, `supabase/functions`.
 
 ## Package & Dependency Model
 
-**Observed facts.** npm is indicated by `package-lock.json` and CI's `npm ci`; no package workspaces, export map, peer dependency declaration, or optional dependency declaration appears in the root manifest. The root package is private and has no library entry point. Supabase Edge Functions are source under this repository, rather than another npm package. `tsconfig.json` maps `@/*` to `./src/*`, uses `moduleResolution: "bundler"`, and excludes `supabase/functions` from the Next.js TypeScript program. `vitest.config.ts` duplicates the alias for tests.
+**Observed facts.** npm is indicated by `package-lock.json` and CI's `npm ci`. The root package is private, has no library entry point, and has no workspaces. `overrides` force the vendored `braces` package and `@vercel/cli-config`'s `zod` onto the app's Zod. Supabase Edge Functions are source in this repository. `tsconfig.json` maps `@/*` to `./src/*` and excludes `supabase/functions` from the Next.js TypeScript program. `vitest.config.ts` duplicates the alias for tests.
 
 **Inference.** This is one deployable Next.js application plus a separately deployed Supabase backend, not an npm workspace monorepo. The package graph is centralized in the root lockfile.
 
@@ -35,7 +35,7 @@ Git is the version-control system. The working tree was clean before this docume
 
 | Feature | Web entry points | Data/backend ownership |
 | --- | --- | --- |
-| Marketing and discovery | `/`, `/how-it-works`, `/jobs`, `/jobs/[slug]`, `/societate/[slug]`, `/users/[slug]`, `/policy` | `src/components/layout`, `marketing`, `jobs`, `companies`, `profile`; jobs/companies/profiles/stats/FAQ services; public Supabase reads |
+| Marketing and discovery | `/`, `/how-it-works`, `/brand`, `/jobs`, `/jobs/[slug]`, `/societate/[slug]`, `/users/[slug]`, `/policy` | `src/components/layout`, `marketing`, `jobs`, `companies`, `profile`; jobs/companies/profiles/stats/FAQ services; public Supabase reads |
 | Blog and newsletter | `/blog`, `/blog/[slug]`, `/blog/rss.xml`, home newsletter section | Blog/newsletter services, `src/app/newsletter/actions.ts`, admin blog actions, `newsletter-notify` Edge Function |
 | Identity and onboarding | `/login`, `/register`, `/verify-email`, `/auth/callback`, `/oauth/consent`, `/anunt`, `/claim` | `useAuth`, Supabase Auth, public posting wizard, claim server action and claim RPC; middleware refresh/redirect |
 | Personal dashboard/profile | `/dashboard`, `/dashboard/profile` | Dashboard aggregates, profile/education/experience/skills services, avatar/CV storage, notification preferences, match display |
@@ -82,9 +82,7 @@ The 17 checked-in deployable Edge Function entry points (`supabase/functions/<sl
 
 ## Validation
 
-**Observed commands:** `npm run dev`, `npm run build`, `npm run start`, `npm run lint` (zero warnings), `npm test` (Vitest run), `npm run test:watch`, `npm run test:smoke -- --url=<URL>`, `npm run test:e2e -- --url=<URL>`, and `npm run codegen`. `tsconfig.json` uses `noEmit`; no separate type-check or formatter script is declared. Build performs Next.js compilation/type validation. Vitest covers `src/**/*.{test,spec}.{ts,tsx}` plus script tests in jsdom; `src/__tests__/setup.ts` initializes Testing Library. Puppeteer suites live under `e2e/tests`, with smoke/full runners and generated results/screenshots.
-
-No install, build, lint, test, or codegen command was run during this read-only reconnaissance: `node_modules` was absent, and install/build/test workflows may create local output. Only read-only Git, file, Node/npm-version, and inventory commands were executed.
+**Observed commands:** `npm run dev`, `npm run build`, `npm run start`, `npm run lint` (zero warnings), `npm test` (Vitest run), `npm run test:watch`, `npm run test:smoke -- --url=<URL>`, `npm run test:e2e -- --url=<URL>`, and `npm run codegen`. `tsconfig.json` uses `noEmit`. The production build type-checks the Next.js app. Vitest covers `src/**/*.{test,spec}.{ts,tsx}` plus script tests in jsdom. Puppeteer suites live under `e2e/tests`.
 
 ## CI/CD
 
@@ -98,19 +96,19 @@ Start with `AGENTS.md`, `src/AGENTS.md`, `src/PATTERNS.md`, `package.json`, `doc
 
 **Observed facts**
 
-- The executable branch mapping sends both `test` and `main` to the same Supabase project (`scripts/lib/environment-targets.js`), while `docs/ENVIRONMENTS.md` still says schema changes must be applied to “both” projects and `.githooks/pre-commit` comments name an older test ref. The executable script is the operative local target; remote Vercel/Supabase state was not checked.
-- `supabase/config.toml` lists `verify_jwt = false` for only some function slugs, whereas root `AGENTS.md` describes all functions that way. Inspect the exact function config and in-function auth before changing or deploying one.
-- Role navigation is a visibility hint; server page guards are applied on selected employer/admin pages and admin actions, while some nested pages have no direct role guard. RLS and service checks must be inspected for each write. Company roles (`owner`, `admin`, `member`) are distinct from profile `user_role`.
-- The `messages` route exists as placeholder content while its navigation flag is off. `next.config.ts` accepts any HTTPS image hostname, broader than the narrower host statement in `AGENTS.md`.
-- The public homepage copy says “5” free postings while `MAX_ACTIVE_JOBS.employer` is `3` and `MAX_ACTIVE_COMPANIES.employer` is `1` in `src/lib/roles.ts`. The UI limit is evident; database enforcement of those specific maxima was not established here.
-- Existing legacy direct Supabase queries and form/error patterns coexist with newer documented conventions. Follow the target area's code and the service lint boundary when planning changes.
+- TEST and PROD both resolve to Supabase project `uccivcdtfpevtykirkuw` (`scripts/lib/environment-targets.js` and `docs/ENVIRONMENTS.md`). Vercel Preview and Production remain separate scopes. Remote health was not rechecked in this documentation pass.
+- Every Edge Function entry in `supabase/config.toml` sets `verify_jwt = false`. Each function validates its own JWT, service-role bearer, or `CRON_SECRET`.
+- Role navigation is a visibility hint. Server page guards cover selected employer and admin pages. RLS and service checks still govern writes. Company membership labels are distinct from profile `user_role`.
+- The `messages` route is placeholder content while `features.messages` is off. `next.config.ts` accepts any HTTPS image hostname, which is broader than a single Supabase storage host.
+- Homepage and pricing copy say “5” free job posts. `MAX_ACTIVE_JOBS.employer` is `3` and `MAX_ACTIVE_COMPANIES.employer` is `1` in `src/lib/roles.ts`.
+- Some dashboard screens still call Supabase directly. New data access belongs in `src/services/`. The ESLint `.from()` boundary documents the allowlist.
 
 ## Unknowns / Escalations
 
-- **Unknown:** live database schema, deployed Edge Function versions, Vercel flags, secrets, cron health, and whether the configured test/production environments actually have independent data. No external system was accessed.
-- **Unknown:** full effective RLS behavior for every feature and whether all advertised role quotas are enforced server-side; this requires a feature-specific SQL and live-state review.
-- **Unknown:** current lint/test/build status. Dependencies are not installed in this checkout, and validation was intentionally not run.
+- **Unknown:** live database schema versus this checkout, deployed Edge Function versions, Vercel flag values, secrets, and cron health.
+- **Unknown:** whether every UI quota is also enforced by RLS. Marketing copy still advertises 5 free jobs while the employer UI cap is 3.
+- **Unknown:** current lint status of files this documentation pass did not change. `npm run build` has succeeded on Next.js 16.4.3 in this checkout.
 
 ## Modification Readiness
 
-**READY for planning a specific change.** Relevant entry points, conventions, environment constraints, and validation commands are mapped. Before implementation, inspect the exact feature's RLS/migrations and resolve any role, quota, or environment ambiguity material to that change. This reconnaissance did not modify application code, configuration, dependencies, generated artifacts, environment files, or Git history.
+**READY for planning a specific change.** Entry points, conventions, environment constraints, and validation commands are mapped. Before implementation, inspect that feature's RLS and migrations.

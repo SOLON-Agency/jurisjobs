@@ -3,6 +3,7 @@
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import { Box } from "@mui/material";
+import { JJLink } from "@/components/common/JJLink";
 import { slugify } from "@/lib/blog/markdown";
 import type { Components } from "react-markdown";
 
@@ -36,21 +37,14 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
         </h3>
       );
     },
-    // Safe external links
-    a({ href, children, ...props }) {
-      const isExternal = href?.startsWith("http");
+    a({ href, children }) {
+      if (!href) {
+        return <span>{children}</span>;
+      }
       return (
-        <a
-          href={href}
-          rel="noopener noreferrer nofollow"
-          target={isExternal ? "_blank" : undefined}
-          {...props}
-        >
+        <JJLink href={href} color="primary">
           {children}
-          {isExternal && (
-            <span className="sr-only"> (se deschide în tab nou)</span>
-          )}
-        </a>
+        </JJLink>
       );
     },
     // Optimised images via next/image
@@ -125,12 +119,6 @@ export function MarkdownRenderer({ markdown }: MarkdownRendererProps) {
           },
         },
         "& hr": { borderColor: "divider", my: 3 },
-        "& a": {
-          color: "primary.main",
-          textDecoration: "underline",
-          textUnderlineOffset: "2px",
-          "&:hover": { opacity: 0.8 },
-        },
         "& strong": { fontWeight: 700 },
         "& em": { fontStyle: "italic" },
         "& img": { maxWidth: "100%", borderRadius: 2, my: 2 },

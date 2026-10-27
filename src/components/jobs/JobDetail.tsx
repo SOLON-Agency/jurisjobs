@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { JJLink } from "@/components/common/JJLink";
 import ReactMarkdown from "react-markdown";
 import {
   Box,
@@ -258,6 +258,7 @@ export function JobDetail({
                   </Typography>
                 </Stack>
                 <Box
+                  className="jj-prose"
                   dangerouslySetInnerHTML={{ __html: section.html }}
                   sx={{
                     "& p": { mb: 1.5, lineHeight: 1.75, color: "text.secondary" },
@@ -381,19 +382,19 @@ export function JobDetail({
               sx={{ mb: 1.5 }}
               fallback={<WorkOutlineIcon sx={{ fontSize: 30, color: "text.secondary" }} />}
             />
-            <Typography
-              variant="subtitle1"
-              fontWeight={700}
-              component={job.companies?.slug ? Link : "span"}
-              href={job.companies?.slug ? societatePath(job.companies.slug) : undefined}
-              sx={{
-                textDecoration: "none",
-                color: "inherit",
-                "&:hover": { textDecoration: "underline" },
-              }}
-            >
-              {job.companies?.name ?? "Societate"}
-            </Typography>
+            {job.companies?.slug ? (
+              <JJLink
+                href={societatePath(job.companies.slug)}
+                variant="subtitle1"
+                sx={{ color: "inherit", fontWeight: 700 }}
+              >
+                {job.companies?.name ?? "Societate"}
+              </JJLink>
+            ) : (
+              <Typography variant="subtitle1" fontWeight={700}>
+                {job.companies?.name ?? "Societate"}
+              </Typography>
+            )}
             {job.companies?.description && (
               <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
                 {job.companies.description.slice(0, 80)}

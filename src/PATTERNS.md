@@ -23,7 +23,7 @@ Reference implementations — when introducing a new feature, prefer mirroring a
 | Auth in server component | `app/dashboard/page.tsx` | `lib/supabase/server.ts`, `getUser()` |
 | Auth in client component | `components/jobs/ApplyButton.tsx` | `hooks/useAuth.ts` |
 | Ephemeral toast / snackbar | `app/dashboard/jobs/JobsClient.tsx` | `contexts/ToastContext.tsx` → **`useToast`** |
-| Persisted in-app notification feed | `components/notifications/NotificationBell.tsx` | `hooks/useNotifications.ts` |
+| Persisted in-app notification feed | `components/notifications/JJNotificationBell.tsx` | `hooks/useNotifications.ts` |
 | Animation with reduced-motion | `components/jobs/JobsCarousel.tsx` | `lib/motion.ts` |
 | API route handler | `app/api/jobs/apply-internal-form/route.ts` | `lib/api.ts` |
 | Typed notification dispatch | `lib/notifications/dispatch.ts` | `supabase.functions.invoke("notifications", …)` |
@@ -34,6 +34,7 @@ Reference implementations — when introducing a new feature, prefer mirroring a
 | Bordered card | `components/dashboard/DashboardContent.tsx` | `components/common/BorderedCard.tsx` |
 | Reusable CTA / notice banner | `app/page.tsx`, `components/dashboard/JJEmailVerificationBanner.tsx` | `components/common/JJBanner.tsx` |
 | Reusable text and icon buttons | `components/layout/HeroSection.tsx`, `components/jobs/JobFilters.tsx` | `components/common/JJButton.tsx`, `components/common/JJIconButton.tsx` |
+| Reusable textual links (underline hover) | `components/layout/Footer.tsx`, `components/auth/LoginForm.tsx` | `components/common/JJLink.tsx`, `styles/jj-link.css` (`.jj-prose` for raw HTML) |
 | Page layout container | `app/(public)/jobs/page.tsx` | `components/common/PageContainer.tsx` |
 | Error boundary | `app/error.tsx` | `app/dashboard/error.tsx` |
 | Feature flag (static, JSON) | `lib/feature-flags.ts`, `middleware.ts` | `config/app.settings.json` |
@@ -94,6 +95,29 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 ```
 
 Primary buttons use a full-pill shape; secondary buttons use a less-rounded shape. The default derives primary styling from MUI `contained` and secondary styling from `outlined` / `text`; specify `appearance` when intent differs. Icon-only controls require descriptive `aria-label` values and retain at least a 44 × 44 px target. During migration preserve loading, form `type`, disabled, link, tooltip, pressed-state, and responsive behavior. See `/AGENTS.md` → *Reusable buttons* and `src/AGENTS.md` → *Shared Button components*.
+
+---
+
+## Reusable Links
+
+Use `JJLink` for textual links so hover/focus underline motion stays consistent. Button links, logos, and card/row hit targets stay on `JJButton`, MUI `Button`, or `component={Link}` wrappers.
+
+```tsx
+import { JJLink } from "@/components/common/JJLink";
+
+<JJLink href="/register" variant="body2" sx={{ color: "primary.main" }}>
+  Creează unul
+</JJLink>
+
+<JJLink href="https://example.com" variant="caption" color="text.secondary">
+  example.com
+</JJLink>
+
+{/* HTML from TipTap / CMS — class on container, not per <a> */}
+<Box className="jj-prose" dangerouslySetInnerHTML={{ __html: html }} sx={{ "& a": { color: "primary.main" } }} />
+```
+
+External URLs open in a new tab and include screen-reader text for the new tab unless `aria-label` is set. See `/AGENTS.md` → *Reusable links* and `src/AGENTS.md` → *Shared Link component*.
 
 ---
 

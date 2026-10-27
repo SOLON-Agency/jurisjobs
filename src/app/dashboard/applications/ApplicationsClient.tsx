@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { JJLink } from "@/components/common/JJLink";
 import {
   Box,
   Button,
@@ -481,13 +482,11 @@ export function ApplicationsClient() {
                           flexWrap="wrap"
                           useFlexGap
                         >
-                          <Typography
-                            component={Link}
+                          <JJLink
                             href={`/jobs/${job.slug}`}
                             variant="subtitle2"
-                            fontWeight={700}
                             sx={{
-                              textDecoration: "none",
+                              fontWeight: 700,
                               color: "text.primary",
                               "&:hover": { color: "primary.main" },
                               maxWidth: "100%",
@@ -497,7 +496,7 @@ export function ApplicationsClient() {
                             onClick={(e) => e.stopPropagation()}
                           >
                             {job.title}
-                          </Typography>
+                          </JJLink>
                           {job.job_type && (
                             <Chip
                               label={

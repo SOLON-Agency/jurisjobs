@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { JJLink } from "@/components/common/JJLink";
 import {
   Typography,
   Button,
@@ -455,22 +456,17 @@ export function CompanyClient() {
                   {company.website && (
                     <Stack direction="row" spacing={0.5} alignItems="center">
                       <LanguageIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-                      <Typography
-                        variant="caption"
-                        component="a"
+                      <JJLink
                         href={company.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        variant="caption"
                         sx={{
                           color: "text.secondary",
-                          textDecoration: "none",
                           wordBreak: "break-all",
                           overflowWrap: "break-word",
-                          "&:hover": { textDecoration: "underline" },
                         }}
                       >
                         {company.website}
-                      </Typography>
+                      </JJLink>
                     </Stack>
                   )}
                 </Stack>

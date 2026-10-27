@@ -249,7 +249,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
         preheader: subject,
         bodyHtml: `
           <p>Salut,</p>
-          <p>Compania <strong>${company.name}</strong> are un profil pe LegalJobs pe care nu l-ai revendicat încă.</p>
+          <p>Compania <strong>${company.name}</strong> are un profil pe JurisJobs pe care nu l-ai revendicat încă.</p>
           ${infoTable([
             detailRow("Companie", company.name),
             detailRow("Candidați (7 zile)", String(applicationsLast7d ?? 0)),

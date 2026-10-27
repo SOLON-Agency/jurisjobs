@@ -27,7 +27,7 @@ Set these with `supabase secrets set --env-file .env.production` or via the Supa
 | `SUPABASE_SERVICE_ROLE_KEY` | Allows the function to read/write `job_listings` and resolve poster contacts |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin used in email links, e.g. `https://legaljobs.ro` |
 | `RESEND_API_KEY` | Required by the `notifications` function for email delivery |
-| `RESEND_FROM` | Verified sender, e.g. `LegalJobs <noreply@legaljobs.ro>` |
+| `RESEND_FROM` | Verified sender, e.g. `JurisJobs <noreply@yourdomain.com>` |
 
 ## Scheduling (Supabase Cron)
 

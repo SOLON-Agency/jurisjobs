@@ -21,6 +21,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { JJLink } from "@/components/common/JJLink";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SearchIcon from "@mui/icons-material/Search";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -244,15 +245,14 @@ export function CandidatesClient() {
                   {name}
                 </Typography>
                 {email && (
-                  <Typography
+                  <JJLink
+                    href={`mailto:${email}`}
                     variant="caption"
                     color="text.secondary"
-                    component="a"
-                    href={`mailto:${email}`}
-                    sx={{ textDecoration: "none", display: "block", "&:hover": { color: "primary.main" } }}
+                    sx={{ display: "block", "&:hover": { color: "primary.main" } }}
                   >
                     {email}
-                  </Typography>
+                  </JJLink>
                 )}
               </Box>
             </Stack>

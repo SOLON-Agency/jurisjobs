@@ -24,29 +24,37 @@ Companion to `/AGENTS.md` at the repo root. Use this file for code-level pattern
 ```
 src/
   app/                  # Next.js App Router
-    (auth)/             # Login, register, verify-email, OAuth consent
-    (public)/           # Public-facing job board pages
-    api/                # Route Handlers (POST /api/jobs/apply-internal-form)
+    (auth)/             # Login, register, verify-email, OAuth consent, auth callback
+    (public)/           # Jobs, companies, profiles, blog, policy, brand, /anunt, /claim
+    api/                # POST /api/jobs/apply-internal-form, GET /api/docs
     dashboard/          # Authenticated dashboard (middleware protects /dashboard/*)
+    newsletter/         # Newsletter server action
   components/
+    alerts/             # Saved-search alerts
     auth/               # LoginForm, RegisterForm, SocialButtons
-    common/             # Shared presentational: PageContainer, BorderedCard, EmptyState, FormFieldError
+    blog/               # Public and editor blog UI
+    common/             # JJBanner, JJButton, JJIconButton, PageContainer, EmptyState, …
+    companies/          # Public company page pieces
+    company/            # Logo and company skills editor
     dashboard/          # DashboardContent, DashboardNav, DashboardPageHeader, JJEmailVerificationBanner
     editor/             # RichTextEditor (TipTap)
-    forms/              # CRUD forms (AddEditJob, AddEditCompany, AddEditEducation, AddEditExperience,
-    │                   #             ApplicationForm, WithdrawApplicationForm, AddEditForm)
-    │   validations/    # Zod schemas — ONE file per domain
-    jobs/               # JobCard, JobDetail, JobList, JobRow, JobFilters, JobsCarousel,
-    │                   # ApplyButton, JobTags, JobDetailWrapper
+    forms/              # AddEditJob, AddEditCompany, AddEditEducation, AddEditExperience,
+    │                   # AddEditForm, AddEditBlogPost, AddEditFaq, ApplicationForm,
+    │                   # WithdrawApplicationForm
+    │   validations/    # Zod schemas — one file per form domain
+    jobs/               # JobCard, JobDetail, JobList, JobRow, JobFilters, ApplyButton, …
     layout/             # Navbar, Footer, HeroSection, WhySection, EditSideDrawer
-    notifications/      # NotificationBell
+    marketing/          # Homepage sections (pricing, FAQ, audience, blog preview)
+    newsletter/         # Newsletter signup
+    notifications/      # JJNotificationBell
     profile/            # EditSkills, EducationTimeline, ExperienceTimeline
+    providers/          # Redux, favourites flag, Vercel Analytics
   hooks/                # Client-only custom hooks
-  store/                # Redux Toolkit store, RTK Query API slices (Supabase-backed queries)
-  lib/                  # Shared utilities (non-React)
-  services/             # All Supabase queries live here, NOT in pages/components
-  theme/                # MUI theme (palette, components overrides, ThemeRegistry)
-  types/                # database.ts (+ codegen), database.zod.ts (supazod), index.ts (app types)
+  store/                # Redux Toolkit store and RTK Query (`jobBoardApi`)
+  lib/                  # Supabase factories, roles, SEO, feature flags, notifications
+  services/             # Supabase queries live here, not in pages
+  theme/                # MUI theme and ThemeRegistry
+  types/                # database.ts, database.zod.ts, index.ts
 ```
 
 ---
@@ -234,6 +242,14 @@ All app-defined React components use the `JJ` prefix in both the exported identi
 - Use `JJIconButton` from `@/components/common/JJIconButton` for icon-only actions. Supply a meaningful `aria-label` and retain tooltips, toggle/pressed state, and minimum touch target.
 - Migrate touched MUI buttons without changing behavior or removing customized styles; keep form submit, loading, route link, dialog, and responsive semantics intact. Do not use a text button wrapper for icon-only controls.
 - See `/AGENTS.md` → *Reusable buttons* and the `Reusable Buttons` section in `src/PATTERNS.md` for guidance. Update both documents when this API changes.
+
+### Shared Link component
+
+- Use `JJLink` from `@/components/common/JJLink` for inline/text links. It composes MUI `Link` with `next/link` for internal paths (`/…`, `#…`), native `<a>` for `http(s)`, `mailto:`, and `tel:`.
+- Underline motion is CSS-only (`.jj-link` in `src/styles/jj-link.css`): 2px bar in `currentColor`, draws left-to-right on hover/focus, retracts right-to-left on leave; `prefers-reduced-motion` disables transition duration.
+- Focus: visible `:focus-visible` outline (3px, 3px offset) in addition to the underline bar.
+- For CMS/HTML blobs, use `className="jj-prose"` on the wrapper instead of `JJLink` per anchor.
+- Do not use `JJLink` for button-styled actions, navbar items, logos, or block links that wrap cards/rows.
 
 ---
 

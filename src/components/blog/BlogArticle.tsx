@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Box, Breadcrumbs, Container, Divider, Stack, Typography } from "@mui/material";
+import { JJLink } from "@/components/common/JJLink";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
@@ -26,12 +26,12 @@ export function BlogArticle({ post }: BlogArticleProps) {
         aria-label="Cale navigare"
         sx={{ mb: 3, fontSize: "0.875rem" }}
       >
-        <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>
+        <JJLink href="/" sx={{ color: "inherit" }}>
           Acasă
-        </Link>
-        <Link href="/blog" style={{ color: "inherit", textDecoration: "none" }}>
+        </JJLink>
+        <JJLink href="/blog" sx={{ color: "inherit" }}>
           Blog
-        </Link>
+        </JJLink>
         <Typography variant="body2" color="text.primary" noWrap sx={{ maxWidth: "100%" }}>
           {post.title}
         </Typography>
