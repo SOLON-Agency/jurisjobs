@@ -122,7 +122,7 @@ function EmptyArchive({ title = "Niciun element arhivat", description = "Element
       <Typography variant="h6" sx={{ mb: 0.5 }}>
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" >
         {description}
       </Typography>
     </Paper>
@@ -193,7 +193,7 @@ function RestoreButton({ onClick, sx }: { onClick: () => void; sx?: SxProps<Them
 export function ArchiveClient() {
   if (!appSettings.features.archiveJobs) {
     return (
-      <Typography variant="body1" color="text.secondary">
+      <Typography variant="body1" >
         Funcționalitatea de arhivare nu este activată.
       </Typography>
     );
@@ -339,7 +339,7 @@ function ArchiveContent() {
                     <Typography variant="subtitle2" fontWeight={700} sx={archiveTitleSx}>
                       {company.name}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={archiveMetaSx}>
+                    <Typography variant="caption"  sx={archiveMetaSx}>
                       Arhivat {company.archived_at ? formatDate(company.archived_at) : "—"}
                     </Typography>
                   </Box>
@@ -377,7 +377,7 @@ function ArchiveContent() {
                       </Typography>
                       <JobTags job={job} />
                     </Stack>
-                    <Typography variant="caption" color="text.secondary" sx={archiveMetaSx}>
+                    <Typography variant="caption"  sx={archiveMetaSx}>
                       {job.companies?.name ?? "—"} • Arhivat{" "}
                       {job.archived_at ? formatDate(job.archived_at) : "—"}
                     </Typography>
@@ -425,7 +425,7 @@ function ArchiveContent() {
                           sx={{ height: 20, fontSize: "0.65rem", fontWeight: 600 }}
                         />
                       </Stack>
-                      <Typography variant="caption" color="text.secondary" sx={archiveMetaSx}>
+                      <Typography variant="caption"  sx={archiveMetaSx}>
                         {job?.companies?.name ?? "—"} • Aplicat {formatDate(app.applied_at)} • Arhivat{" "}
                         {app.archived_at ? formatDate(app.archived_at) : "—"}
                       </Typography>
@@ -455,7 +455,7 @@ function ArchiveContent() {
                     <Typography variant="subtitle2" fontWeight={700} sx={{ ...archiveTitleSx, mb: 0.25 }}>
                       {form.name}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={archiveMetaSx}>
+                    <Typography variant="caption"  sx={archiveMetaSx}>
                       Arhivat {form.archived_at ? formatDate(form.archived_at) : "—"}
                     </Typography>
                   </Box>
@@ -491,7 +491,7 @@ function ArchiveContent() {
                     />
                     <Typography
                       variant="caption"
-                      color="text.secondary"
+                      
                       sx={{ ...archiveMetaSx, mt: 0.5 }}
                     >
                       Arhivat {alert.archived_at ? formatDate(alert.archived_at) : "—"}

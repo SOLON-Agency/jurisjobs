@@ -102,7 +102,7 @@ export function LoginForm() {
         </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
+          
           sx={{ mb: 4, textAlign: "center" }}
         >
           Conectează-te la contul tău {appSettings.name}
@@ -177,10 +177,10 @@ export function LoginForm() {
           </JJButton>
         )}
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 3, textAlign: "center" }}>
+        <Typography variant="body2"  sx={{ mt: 3, textAlign: "center" }}>
           Nu ai cont?{" "}
           <JJLink href="/register" variant="body2" sx={{ color: "primary.main" }}>
-            Creează unul
+            Creează un cont {appSettings.name}
           </JJLink>
         </Typography>
       </Paper>

@@ -22,7 +22,7 @@ export default async function NewBlogPostPage() {
           </Typography>
         }
         subtitle={
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Creează un articol nou pentru blog
           </Typography>
         }

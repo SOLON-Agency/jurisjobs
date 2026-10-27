@@ -341,7 +341,7 @@ export function EdgeFunctionsClient() {
           </Typography>
         }
         subtitle={
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Apel experimental către funcții Edge (Supabase). Parametrii pot fi aleși din listă sau introduși
             manual (UUID). Răspunsul brut JSON este afișat sub fiecare acțiune.
           </Typography>
@@ -365,7 +365,7 @@ export function EdgeFunctionsClient() {
                 job-application
               </Typography>
             </Stack>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" >
               Body: <code>{"{ job_id }"}</code>. Necesită candidatură existentă pentru acel job.
             </Typography>
             <FormLabel id="job-app-source-label">Sursă parametru</FormLabel>
@@ -459,7 +459,7 @@ export function EdgeFunctionsClient() {
                 notifications
               </Typography>
             </Stack>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" >
               Destinatarul este un user id. Mod HTML sau template Resend (variabile JSON).
             </Typography>
             <FormLabel id="notif-recipient-label">Recipient</FormLabel>
@@ -629,13 +629,13 @@ export function EdgeFunctionsClient() {
               </Select>
             </FormControl>
             {sendEvent === "profile_updated" ? (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 Fără parametri suplimentari — folosește profilul contului autentificat.
               </Typography>
             ) : null}
             {sendEvent === "company_created" ? (
               <Stack spacing={2}>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" >
                   Parametru: <code>company_id</code> — trebuie să fii membru al societății.
                 </Typography>
                 <FormLabel id="send-co-src-label">Sursă company_id</FormLabel>
@@ -687,7 +687,7 @@ export function EdgeFunctionsClient() {
                 <Alert severity="warning">Cont fără e-mail — nu poți testa custom_email.</Alert>
               ) : (
                 <Stack spacing={2}>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" >
                     Destinatarul trebuie să fie e-mailul contului: <strong>{user.email}</strong>
                   </Typography>
                   <TextField

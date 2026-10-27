@@ -106,7 +106,6 @@ export function BlogCard({ post, priority = false }: BlogCardProps) {
           {post.excerpt && (
             <Typography
               variant="body2"
-              color="text.secondary"
               sx={{
                 mb: 2,
                 flexGrow: 1,
@@ -130,16 +129,16 @@ export function BlogCard({ post, priority = false }: BlogCardProps) {
             gap={1}
             sx={{ mt: "auto" }}
           >
-            <Stack direction="row" alignItems="center" spacing={0.5}>
-              <Typography variant="caption" color="text.secondary" fontWeight={500}>
+            {/* <Stack direction="row" alignItems="center" spacing={0.5}>
+              <Typography variant="caption"  fontWeight={500}>
                 Admin
               </Typography>
-            </Stack>
+            </Stack> */}
             <Stack direction="row" spacing={2} alignItems="center">
               {post.published_at && (
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <CalendarTodayIcon sx={{ fontSize: 13, color: "text.disabled" }} />
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" >
                     <time dateTime={post.published_at}>
                       {formatDate(post.published_at)}
                     </time>
@@ -149,7 +148,7 @@ export function BlogCard({ post, priority = false }: BlogCardProps) {
               {post.reading_time_minutes && (
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <AccessTimeIcon sx={{ fontSize: 13, color: "text.disabled" }} />
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" >
                     {post.reading_time_minutes} min
                   </Typography>
                 </Stack>

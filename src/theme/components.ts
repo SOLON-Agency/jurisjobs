@@ -1,5 +1,11 @@
-import { brandCssVars, brandGradient } from "@/theme/tokens";
+import { keyframes } from "@emotion/react";
+import { brandCssVars, brandGradient, brandPrimaryButtonGradient } from "@/theme/tokens";
 import type { Components, Theme } from "@mui/material/styles";
+
+const primaryGradientShift = keyframes`
+  from { background-position: 0% center; }
+  to { background-position: 100% center; }
+`;
 
 export const components: Components<Theme> = {
   MuiCssBaseline: {
@@ -39,12 +45,20 @@ export const components: Components<Theme> = {
         },
       },
       containedPrimary: {
-        background: brandGradient,
+        backgroundImage: brandPrimaryButtonGradient,
+        backgroundSize: "200% auto",
+        backgroundPosition: "left center",
+        animation: `${primaryGradientShift} 3s ease-in-out infinite alternate`,
         boxShadow: "0 2px 8px rgba(3, 23, 12, 0.3)",
         color: brandCssVars.cream,
+        transition: "box-shadow 0.2s ease",
         "&:hover": {
-          background: brandGradient,
+          animationDuration: "1.5s",
           boxShadow: "0 4px 16px rgba(3, 23, 12, 0.4)",
+        },
+        "@media (prefers-reduced-motion: reduce)": {
+          animation: "none",
+          transition: "none",
         },
       },
       containedSecondary: {
@@ -103,16 +117,23 @@ export const components: Components<Theme> = {
   },
   MuiInputBase: {
     styleOverrides: {
-      input: {
-        color: "primary.main",
-      },
+      input: ({ theme }) => ({
+        color: theme.palette.primary.main,
+        "&::placeholder": {
+          color: theme.palette.primary.main,
+          opacity: 1,
+        },
+      }),
     },
   },
   MuiFormHelperText: {
     styleOverrides: {
-      root: {
-        color: "primary.main",
-      },
+      root: ({ theme }) => ({
+        color: theme.palette.primary.main,
+        "&.Mui-error": {
+          color: theme.palette.error.main,
+        },
+      }),
     },
   },
   MuiTextField: {
@@ -172,6 +193,9 @@ export const components: Components<Theme> = {
   },
   MuiSelect: {
     styleOverrides: {
+      select: ({ theme }) => ({
+        color: theme.palette.primary.main,
+      }),
       outlined: {
         "& .MuiOutlinedInput-notchedOutline": {
           borderColor: "rgba(3, 23, 12, 0.15)",
@@ -183,6 +207,13 @@ export const components: Components<Theme> = {
           borderColor: brandCssVars.green,
         },
       },
+    },
+  },
+  MuiNativeSelect: {
+    styleOverrides: {
+      select: ({ theme }) => ({
+        color: theme.palette.primary.main,
+      }),
     },
   },
 };

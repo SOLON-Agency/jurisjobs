@@ -204,7 +204,7 @@ export function ResponsesClient() {
                 {response.respondent_name || "Anonim"}
               </Typography>
               {response.respondent_email && (
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" >
                   {response.respondent_email}
                 </Typography>
               )}
@@ -221,7 +221,7 @@ export function ResponsesClient() {
         ),
         hideBelow: "sm",
         cell: (response) => (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {formatDate(response.created_at)}
           </Typography>
         ),
@@ -274,7 +274,7 @@ export function ResponsesClient() {
               </Typography>
             )}
             <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 {responses.length} {responses.length === 1 ? "răspuns" : "răspunsuri"}
               </Typography>
               {form && (
@@ -386,7 +386,7 @@ export function ResponsesClient() {
         >
           <InboxOutlinedIcon sx={{ fontSize: 52, color: "text.secondary", mb: 1.5 }} />
           <Typography variant="h6" sx={{ mb: 0.5 }}>Niciun răspuns</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {search || dateFrom || dateTo || jobId
               ? "Niciun răspuns nu corespunde filtrelor selectate."
               : "Formularul nu a primit niciun răspuns încă."}
@@ -428,7 +428,7 @@ export function ResponsesClient() {
                           <Box key={field.id}>
                             <Typography
                               variant="caption"
-                              color="text.secondary"
+                              
                               sx={{
                                 display: "block",
                                 mb: isCheckbox && tags.length > 0 ? 0.5 : 0,

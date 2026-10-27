@@ -102,7 +102,7 @@ export function AlertForm({
         />
 
         <Divider>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             Filtre
           </Typography>
         </Divider>
@@ -197,10 +197,10 @@ export function AlertForm({
             Interval salarial
           </Typography>
           <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" >
               {fmt(sliderValue[0])}
             </Typography>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" >
               {fmt(sliderValue[1])}{sliderValue[1] === SALARY_MAX ? "+" : ""}
             </Typography>
           </Stack>
@@ -230,7 +230,7 @@ export function AlertForm({
             Număr minim de beneficii
           </Typography>
           <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-            <Typography variant="caption" color="text.secondary">Minim</Typography>
+            <Typography variant="caption" >Minim</Typography>
             <Typography variant="caption" fontWeight={700} color={minBenefits > 0 ? "primary.main" : "text.secondary"}>
               {minBenefits === 0 ? "Orice" : `${minBenefits}+`}
             </Typography>

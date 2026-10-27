@@ -22,6 +22,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import CardGiftcardOutlinedIcon from "@mui/icons-material/CardGiftcardOutlined";
+import { JJButton } from "@/components/common/JJButton";
 import { JJLink } from "@/components/common/JJLink";
 import { JJPasswordField } from "@/components/common/JJPasswordField";
 import CheckIcon from "@mui/icons-material/Check";
@@ -151,7 +153,7 @@ function LoginInline({ supabase, onError }: {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 999 } }}>
         <TextField
           {...register("email")}
           label="E-mail"
@@ -167,10 +169,12 @@ function LoginInline({ supabase, onError }: {
           error={!!errors.password}
           helperText={errors.password?.message}
         />
-        <JJLink href="/forgot-password" variant="body2" sx={{ color: "primary.main" }}>
-          Ai uitat parola?
-        </JJLink>
-        <Button
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <JJLink href="/forgot-password" variant="body2" sx={{ color: "primary.main" }}>
+            Ai uitat parola?
+          </JJLink>
+        </Box>
+        <JJButton
           type="submit"
           variant="contained"
           size="large"
@@ -178,7 +182,7 @@ function LoginInline({ supabase, onError }: {
           startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : null}
         >
           {isSubmitting ? "Se conectează..." : "Conectare"}
-        </Button>
+        </JJButton>
       </Stack>
     </Box>
   );
@@ -214,7 +218,7 @@ function RegisterInline({ supabase, emailRedirectTo, onError, onSuccess }: {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{ "& .MuiOutlinedInput-root": { borderRadius: 999 } }}>
         <TextField
           {...register("email")}
           label="E-mail"
@@ -237,7 +241,7 @@ function RegisterInline({ supabase, emailRedirectTo, onError, onSuccess }: {
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword?.message}
         />
-        <Button
+        <JJButton
           type="submit"
           variant="contained"
           size="large"
@@ -245,7 +249,7 @@ function RegisterInline({ supabase, emailRedirectTo, onError, onSuccess }: {
           startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : null}
         >
           {isSubmitting ? "Se creează contul..." : "Creează cont gratuit"}
-        </Button>
+        </JJButton>
       </Stack>
     </Box>
   );
@@ -273,25 +277,27 @@ function UpgradeAuthGate({ supabase, emailRedirectTo, onRegistered }: {
           Publică anunțul
         </Typography>
       </Stack>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+      <Typography variant="body2" sx={{ mb: 2.5 }}>
         Creează un cont gratuit sau conectează-te pentru a publica anunțul. Anunțul tău este salvat și te așteptăm.
       </Typography>
 
       <Stack direction="row" spacing={1} sx={{ mb: 2.5 }}>
-        <Button
+        <JJButton
           variant={mode === "register" ? "contained" : "outlined"}
+          appearance={mode === "register" ? "primary" : "secondary"}
           onClick={() => { setMode("register"); setError(null); }}
           sx={{ flex: 1 }}
         >
           Cont nou
-        </Button>
-        <Button
+        </JJButton>
+        <JJButton
           variant={mode === "login" ? "contained" : "outlined"}
+          appearance={mode === "login" ? "primary" : "secondary"}
           onClick={() => { setMode("login"); setError(null); }}
           sx={{ flex: 1 }}
         >
           Am deja cont
-        </Button>
+        </JJButton>
       </Stack>
 
       {error && (
@@ -352,7 +358,7 @@ function ConfirmationStep({
                 {companyData.name}
               </Typography>
               {companyData.industry && (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2">
                   {companyData.industry}
                   {companyData.size ? ` · ${companyData.size} angajați` : ""}
                 </Typography>
@@ -360,7 +366,7 @@ function ConfirmationStep({
               {companyData.location && (
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.disabled" }} />
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption">
                     {companyData.location}
                   </Typography>
                 </Stack>
@@ -401,7 +407,7 @@ function ConfirmationStep({
             {jobData.location && (
               <Stack direction="row" alignItems="center" spacing={0.5}>
                 <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-                <Typography variant="caption" color="text.secondary" fontWeight={500}>
+                <Typography variant="caption" fontWeight={500}>
                   {jobData.location}
                 </Typography>
               </Stack>
@@ -416,7 +422,6 @@ function ConfirmationStep({
         {descriptionText && (
           <Typography
             variant="body2"
-            color="text.secondary"
             sx={{
               display: "-webkit-box",
               WebkitLineClamp: 4,
@@ -434,12 +439,21 @@ function ConfirmationStep({
             <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
               <Typography variant="h3" fontWeight={700}>Beneficii</Typography>
               <Chip
-                label={jobBenefits.length}
-                size="small"
-                color="success"
-                variant="outlined"
-                sx={{ height: 20, fontSize: "0.7rem", fontWeight: 700 }}
-              />
+              icon={<CardGiftcardOutlinedIcon sx={{ fontSize: "12px !important" }} />}
+              label={jobBenefits.length === 1 ? "1 beneficiu" : `${jobBenefits.length} beneficii`}
+              size="small"
+              variant="outlined"
+              sx={{
+                height: 18,
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                color: "success.main",
+                borderColor: "rgba(46,125,50,0.4)",
+                bgcolor: "rgba(46,125,50,0.06)",
+                "& .MuiChip-icon": { color: "success.main", ml: "4px" },
+                "& .MuiChip-label": { pr: "6px" },
+              }}
+            />
             </Stack>
             <Stack spacing={1.25}>
               {jobBenefits.map((b, i) => (
@@ -455,18 +469,11 @@ function ConfirmationStep({
         {jobData.application_method === "url" && jobData.application_url && (
           <>
             <Divider sx={{ my: 1.5 }} />
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption">
               Candidații vor aplica la:{" "}
-              <Typography
-                component="a"
-                href={jobData.application_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="caption"
-                sx={{ color: "primary.main" }}
-              >
+              <JJLink href={jobData.application_url} variant="caption" sx={{ color: "primary.main" }}>
                 {jobData.application_url}
-              </Typography>
+              </JJLink>
             </Typography>
           </>
         )}
@@ -511,7 +518,7 @@ function PublishingOverlay({ message }: { message: string }) {
     </Typography>
     <Typography
       variant="body1"
-      color="text.secondary"
+      
       textAlign="center"
       sx={{ minHeight: 28, transition: "opacity 0.3s" }}
     >
@@ -784,13 +791,28 @@ export function AnuntWizard() {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="caption" color="text.secondary" display="block" sx={{ lineHeight: 1.2 }}>
+              <Typography variant="caption"  display="block" sx={{ lineHeight: 1.2 }}>
                 Pasul {step + 1} din {STEP_LABELS.length}
               </Typography>
               <Typography variant="body2" fontWeight={700}>
                 {STEP_LABELS[step]}
               </Typography>
             </Box>
+            <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                
+                <Button
+                  variant="contained"
+                  endIcon={<ArrowForwardIcon />}
+                  onClick={handleNext}
+                  sx={{ px: 4 }}
+                >
+                  Continuă
+                </Button>
+              </Stack>
           </Box>
 
           {/* Desktop: vertical step navigation */}
@@ -855,9 +877,40 @@ export function AnuntWizard() {
                       >
                         {label}
                       </Typography>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption">
                         {STEP_DESCRIPTIONS[i]}
                       </Typography>
+                      {isActive && isLast && (
+                        <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
+                          <JJButton
+                            variant="outlined"
+                            appearance="secondary"
+                            size="small"
+                            startIcon={<ArrowBackIcon />}
+                            onClick={() => setStep(1)}
+                            sx={{ flex: 1, px: 1 }}
+                          >
+                            Înapoi
+                          </JJButton>
+                          <JJButton
+                            variant="contained"
+                            appearance="primary"
+                            size="small"
+                            endIcon={<ArrowForwardIcon />}
+                            disabled={publishing}
+                            onClick={() => {
+                              if (canPublish) {
+                                void handlePublish();
+                              } else {
+                                document.getElementById("wizard-step-action")?.scrollIntoView({ block: "center" });
+                              }
+                            }}
+                            sx={{ flex: 1, px: 1 }}
+                          >
+                            Continuă
+                          </JJButton>
+                        </Stack>
+                      )}
                     </Box>
                   </Box>
 
@@ -891,7 +944,7 @@ export function AnuntWizard() {
                 <Typography variant="h5" fontWeight={800} sx={{ mb: 0.5 }}>
                   Detalii anunț de angajare
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography variant="body2" sx={{ mb: 3 }}>
                   Descrie postul pe care îl oferi. Cu cât ești mai specific, cu atât atragi candidații mai potriviți.
                 </Typography>
                 <AddEditJob
@@ -935,7 +988,7 @@ export function AnuntWizard() {
                 <Typography variant="h5" fontWeight={800} sx={{ mb: 0.5 }}>
                   Societatea ta
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography variant="body2"  sx={{ mb: 3 }}>
                   Candidații vor vedea aceste informații alături de anunțul tău.
                 </Typography>
                 <AddEditCompany
@@ -967,7 +1020,7 @@ export function AnuntWizard() {
                 <Typography variant="h5" fontWeight={800} sx={{ mb: 0.5 }}>
                   Verifică și publică
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                <Typography variant="body2" sx={{ mb: 3 }}>
                   Acesta este cum va arăta anunțul tău. Poți edita orice detaliu înainte de publicare.
                 </Typography>
 
@@ -987,7 +1040,7 @@ export function AnuntWizard() {
                   onEditCompany={() => setStep(1)}
                 />
 
-                <Box sx={{ mt: 3 }}>
+                <Box id="wizard-step-action" sx={{ mt: 3 }}>
                   {isAnonymous && !isPendingConfirmation && (
                     <UpgradeAuthGate
                       supabase={supabase}
@@ -1007,7 +1060,7 @@ export function AnuntWizard() {
                       <strong>{registeredEmail}</strong>. După ce apeși pe link, vei fi
                       redirecționat înapoi aici și anunțul tău va fi publicat automat.
                       <br />
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" >
                         Verifică și dosarul Spam dacă nu primești e-mailul.
                       </Typography>
                     </Alert>

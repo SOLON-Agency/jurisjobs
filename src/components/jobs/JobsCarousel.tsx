@@ -242,7 +242,7 @@ export function JobsCarousel({ title, subtitle, description, jobs, autoScroll = 
           </Stack>
         </Stack>
         {description && (
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" >
             {description}
           </Typography>
         )}
@@ -307,7 +307,7 @@ export function JobsCarousel({ title, subtitle, description, jobs, autoScroll = 
                     <Typography variant="subtitle1" fontWeight={700}>
                       {truncate(job.title, 20)}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption">
                       {truncate(job.companies?.name ?? "", 30)}
                     </Typography>
                   </Stack>
@@ -316,13 +316,13 @@ export function JobsCarousel({ title, subtitle, description, jobs, autoScroll = 
                 <JobTags job={job} sx={{ mb: 1 }} />
 
                 <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2">
                     {formatSalary(job.salary_min, job.salary_max)}
                   </Typography>
                   {job.benefits_count > 0 && (
                       <Stack direction="row" alignItems="center" spacing={1}>
-                        <CardGiftcardOutlinedIcon sx={{ fontSize: 16, color: "success.main" }} />
-                        <Typography variant="body2" fontWeight={600} color="success.main">
+                        <CardGiftcardOutlinedIcon sx={{ fontSize: 16 }} />
+                        <Typography variant="body2" fontWeight={600}>
                           {job.benefits_count} {job.benefits_count === 1 ? "beneficiu" : "beneficii"}
                         </Typography>
                       </Stack>

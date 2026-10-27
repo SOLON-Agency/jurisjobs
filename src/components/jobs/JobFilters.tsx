@@ -296,7 +296,7 @@ export function JobFilters() {
         <Collapse id="filter-benefits" in={open.benefits}>
           <Box sx={{ pb: 2, px: 1 }}>
             <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-              <Typography variant="caption" color="text.secondary">Minim</Typography>
+              <Typography variant="caption" >Minim</Typography>
               <Typography variant="caption" fontWeight={700} color={minBenefits > 0 ? "primary.main" : "text.secondary"}>
                 {minBenefits === 0 ? "Orice" : `${minBenefits}+`}
               </Typography>

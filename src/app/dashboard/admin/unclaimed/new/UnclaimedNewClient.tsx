@@ -156,7 +156,7 @@ export function UnclaimedNewClient() {
           <Typography variant="h5" fontWeight={700}>
             Societate creată cu succes!
           </Typography>
-          <Typography color="text.secondary">
+          <Typography >
             Emailul de invitație a fost trimis la{" "}
             <strong>{result.companyEmail}</strong>. Societatea{" "}
             <strong>{result.companyName}</strong> va apărea în listele publice
@@ -253,7 +253,7 @@ export function UnclaimedNewClient() {
           <Typography variant="subtitle1" fontWeight={700} gutterBottom>
             Detalii societate nerevendicată
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+          <Typography variant="body2"  sx={{ mb: 3 }}>
             Câmpul <strong>Email societate</strong> este obligatoriu — la această
             adresă vor fi trimise notificările zilnice de revendicare.
           </Typography>
@@ -279,7 +279,7 @@ export function UnclaimedNewClient() {
           <Typography variant="subtitle1" fontWeight={700} gutterBottom>
             Primul anunț de angajare
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+          <Typography variant="body2"  sx={{ mb: 3 }}>
             Anunțul va fi publicat imediat și apare în listele publice ca orice
             alt anunț.
           </Typography>
@@ -314,30 +314,30 @@ export function UnclaimedNewClient() {
 
           <Stack spacing={2} divider={<Divider />}>
             <Box>
-              <Typography variant="caption" color="text.secondary" textTransform="uppercase">
+              <Typography variant="caption"  textTransform="uppercase">
                 Societate
               </Typography>
               <Typography fontWeight={600}>{companyData.name}</Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 {companyData.email}
               </Typography>
               {companyData.location && (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" >
                   {companyData.location}
                 </Typography>
               )}
             </Box>
             <Box>
-              <Typography variant="caption" color="text.secondary" textTransform="uppercase">
+              <Typography variant="caption"  textTransform="uppercase">
                 Anunț
               </Typography>
               <Typography fontWeight={600}>{jobData.title}</Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 Publicare: {jobData.published_at} · Expiră: {jobData.expires_at}
               </Typography>
             </Box>
             <Box>
-              <Typography variant="caption" color="text.secondary" textTransform="uppercase">
+              <Typography variant="caption"  textTransform="uppercase">
                 Ce se întâmplă la submit
               </Typography>
               <Typography variant="body2" sx={{ mt: 0.5 }}>

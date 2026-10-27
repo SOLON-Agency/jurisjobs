@@ -179,7 +179,7 @@ export function AdminUsersClient() {
           onClick: () => handleSort("email"),
         },
         cell: (u) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {u.email}
           </Typography>
         ),
@@ -212,7 +212,7 @@ export function AdminUsersClient() {
           onClick: () => handleSort("created_at"),
         },
         cell: (u) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {formatDate(u.created_at)}
           </Typography>
         ),
@@ -258,7 +258,7 @@ export function AdminUsersClient() {
     <>
       <Stack sx={{ mb: 3 }} spacing={0.5}>
         <Typography variant="h3">Utilizatori</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           {users.length} utilizator{users.length !== 1 ? "i" : ""} înregistrat{users.length !== 1 ? "i" : ""}
         </Typography>
       </Stack>
@@ -316,7 +316,7 @@ export function AdminUsersClient() {
       {filtered.length === 0 ? (
         <Paper sx={{ p: 5, textAlign: "center", border: "1px solid rgba(3, 23, 12, 0.1)", borderRadius: 2 }}>
           <GroupOutlinedIcon sx={{ fontSize: 52, color: "text.secondary", mb: 1.5 }} />
-          <Typography color="text.secondary">
+          <Typography >
             Niciun utilizator nu corespunde filtrelor.
           </Typography>
         </Paper>
@@ -329,7 +329,7 @@ export function AdminUsersClient() {
         />
       )}
 
-      <Typography variant="caption" color="text.secondary" sx={{ mt: 1.5, display: "block" }}>
+      <Typography variant="caption"  sx={{ mt: 1.5, display: "block" }}>
         {filtered.length} din {users.length} utilizator{users.length !== 1 ? "i" : ""}
       </Typography>
     </>

@@ -379,7 +379,7 @@ export function ApplicationsClient() {
           </Typography>
         }
         subtitle={
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Toate candidaturile trimise de tine.
           </Typography>
         }
@@ -413,7 +413,7 @@ export function ApplicationsClient() {
           <Typography variant="h6" sx={{ mb: 0.5 }}>
             Nicio aplicație
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Nu ai trimis nicio candidatură încă. Răsfoiește locurile de muncă
             disponibile.
           </Typography>
@@ -511,14 +511,14 @@ export function ApplicationsClient() {
                         <Typography
                           variant="subtitle2"
                           fontWeight={700}
-                          color="text.secondary"
+                          
                         >
                           Loc de muncă șters
                         </Typography>
                       )}
                       <Typography
                         variant="caption"
-                        color="text.secondary"
+                        
                         sx={{ display: "block" }}
                       >
                         {job?.companies?.name ?? "—"} •{" "}
@@ -588,7 +588,7 @@ export function ApplicationsClient() {
                           <Typography
                             variant="caption"
                             fontWeight={700}
-                            color="text.secondary"
+                            
                             sx={{ display: "block", mb: 0.5 }}
                           >
                             Motiv retragere
@@ -607,7 +607,7 @@ export function ApplicationsClient() {
                           <Typography
                             variant="caption"
                             fontWeight={700}
-                            color="text.secondary"
+                            
                             sx={{ display: "block", mb: 0.5, mt: 1 }}
                           >
                             Răspunsuri formular
@@ -634,7 +634,7 @@ export function ApplicationsClient() {
                                 <Box key={label}>
                                   <Typography
                                     variant="caption"
-                                    color="text.secondary"
+                                    
                                     sx={{
                                       display: "block",
                                       mb: tags.length > 0 ? 0.5 : 0,

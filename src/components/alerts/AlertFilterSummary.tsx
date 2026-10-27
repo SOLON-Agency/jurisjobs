@@ -39,7 +39,7 @@ export function AlertFilterSummary({ filters, sx }: AlertFilterSummaryProps) {
 
   if (chips.length === 0) {
     return (
-      <Typography variant="caption" color="text.secondary">
+      <Typography variant="caption" >
         Toate anunțurile
       </Typography>
     );

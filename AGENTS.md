@@ -52,6 +52,7 @@ Before changing routing, data fetching, or config:
 - **`src/app/`** — App Router: route groups `(public)`, `(auth)`; plain `dashboard/` segment; API route handlers under `src/app/api/`.
 - **`src/components/`** — Feature and layout UI (prefer **named exports** for shared components).
   - **`src/components/common/JJBanner.tsx`** — Shared CTA-section and contextual-notice presentation; see `src/PATTERNS.md` for its API.
+  - **`src/components/common/JJCard.tsx`** — Extensible outlined card surface with an animated, reduced-motion-aware border hover effect; see `src/PATTERNS.md`.
   - **`src/components/common/JJButton.tsx`** and **`JJIconButton.tsx`** — Shared action and icon-only button foundations; use for new buttons and migrate legacy usages when editing them.
   - **`src/components/common/JJLink.tsx`** — Shared textual link with animated underline hover; use for inline links (not buttons, logos, or card hit targets). Styles live in `src/styles/jj-link.css`.
   - **`src/components/forms/`** — All form components live here (not in `dashboard/` or co-located with trigger components).
@@ -306,7 +307,7 @@ Never commit secrets. Add new server-only variables to `.env.example` with a pla
 
 ### Reusable buttons (mandatory)
 
-- Use `JJButton` from `src/components/common/JJButton.tsx` for every text/action button. Choose `appearance="primary"` for full-pill primary actions and `appearance="secondary"` for less-rounded secondary/filter actions. It preserves MUI `ButtonProps`, link composition, submit behavior, and `sx` customization.
+- Use `JJButton` from `src/components/common/JJButton.tsx` for every text/action button. Both `appearance="primary"` and `appearance="secondary"` use the same full-pill shape; choose appearance for the visual treatment. It preserves MUI `ButtonProps`, link composition, submit behavior, and `sx` customization.
 - Use `JJIconButton` from `src/components/common/JJIconButton.tsx` for icon-only controls. Give every control a meaningful `aria-label`; preserve tooltips, pressed state, disabled state, and a minimum 44 × 44 px touch target.
 - Keep labels, loading/disabled states, `href`/`component`, form `type`, `startIcon` / `endIcon`, and event handlers unchanged when migrating. Do not convert an icon-only action into a text button or strip responsive labels.
 - App-defined wrappers must follow the `JJ` component naming rule. Keep MUI as the implementation primitive; do not mix the separate Tailwind/Radix button unless a feature explicitly requires its `asChild` behavior.

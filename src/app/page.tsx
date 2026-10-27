@@ -19,7 +19,7 @@ export const revalidate = 86400;
 
 const SEO_TITLE = `${appSettings.name}`;
 const SEO_DESCRIPTION =
-  `${appSettings.name} este platforma premium de recrutare dedicată exclusiv pieței juridice din România: avocați, juriști, departamente in-house și agenții de recrutare. Matchmaking inteligent, alerte personalizate, transparență salarială, candidați verificați și conformitate GDPR. Publici până la 5 anunțuri complet gratuit.`;
+  `${appSettings.name} este platforma premium de recrutare dedicată exclusiv pieței juridice din România: avocați, juriști, departamente in-house și agenții de recrutare. Matchmaking inteligent, alerte personalizate, transparență salarială, candidați verificați și conformitate GDPR. Publici anunțuri nelimitate gratuit la lansare.`;
 
 export const metadata: Metadata = {
   title: formatPageTitle(SEO_TITLE),
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: formatPageTitle(SEO_TITLE),
     description:
-      "Platforma premium de carieră juridică din România. Matchmaking inteligent, transparență salarială și candidați verificați. Publici până la 5 anunțuri gratuit.",
+      "Platforma premium de carieră juridică din România. Matchmaking inteligent, transparență salarială și candidați verificați. Publici anunțuri nelimitate gratuit la lansare.",
     url: "/",
     type: "website",
     locale: "ro_RO",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: formatPageTitle(SEO_TITLE),
     description:
-      "Recrutare juridică inteligentă pentru avocați, juriști și echipe in-house. Matchmaking AI, alerte personalizate și 5 anunțuri gratuite.",
+      "Recrutare juridică inteligentă pentru avocați, juriști și echipe in-house. Matchmaking AI, alerte personalizate și anunțuri nelimitate gratuit la lansare.",
   },
 };
 

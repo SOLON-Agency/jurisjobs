@@ -170,7 +170,6 @@ function JJCtaBanner({
                               py: 1.5,
                               fontWeight: 700,
                               bgcolor: brandCssVars.gold,
-                              color: brandCssVars.forest,
                               "&:hover": { bgcolor: brandCssVars.cream },
                             }
                           : {

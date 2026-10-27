@@ -18,7 +18,6 @@ import {
   Switch,
   RadioGroup,
   Radio,
-  FormLabel,
   Tooltip,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -48,6 +47,7 @@ import {
   type BenefitItem,
 } from "@/services/benefits.service";
 import { jobSchema, type JobFormData } from "@/components/forms/validations/job.schema";
+import { JJButton } from "@/components/common/JJButton";
 import type { Tables } from "@/types/database";
 import appSettings from "@/config/app.settings.json";
 
@@ -525,8 +525,8 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
           {/* ── Benefits ─────────────────────────────────────────────────── */}
           <Box>
             <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
-              <CardGiftcardOutlinedIcon sx={{ fontSize: 18, color: "text.secondary" }} />
-              <Typography variant="h4" color="text.secondary">
+              <CardGiftcardOutlinedIcon sx={{ fontSize: 18 }} />
+              <Typography variant="h4">
                 Beneficii
               </Typography>
               {benefits.length > 0 && (
@@ -670,26 +670,33 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
               size="small"
               placeholder="ex. Asigurare medicală privată"
               fullWidth
+              sx={{
+                "& .MuiOutlinedInput-root": { height: 48, pr: 0 },
+                "& .MuiOutlinedInput-input": { pr: 0 },
+              }}
               slotProps={{
                 input: {
                   endAdornment: (
-                    <InputAdornment position="end">
-                      <Button
+                    <InputAdornment position="end" sx={{ height: "calc(100% + 2px)", maxHeight: "none" }}>
+                      <JJButton
                         size="small"
                         variant="contained"
+                        appearance="primary"
                         disableElevation
                         onClick={addBenefit}
                         disabled={!newBenefit.trim()}
                         sx={{
                           minWidth: 0,
+                          minHeight: 0,
+                          height: "95%",
                           px: 1.5,
-                          py: 0.5,
-                          fontSize: "0.75rem",
+                          py: 0,
+                          fontSize: "0.85rem",
                           borderRadius: 1,
                         }}
                       >
                         Adaugă
-                      </Button>
+                      </JJButton>
                     </InputAdornment>
                   ),
                 },
@@ -703,8 +710,8 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
             render={({ field }) => (
               <FormControl component="fieldset">
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
-                  <AssignmentOutlinedIcon sx={{ fontSize: 18, color: "text.secondary" }} />
-                 <Typography variant="h4" color="text.secondary">
+                  <AssignmentOutlinedIcon sx={{ fontSize: 18 }} />
+                 <Typography variant="h4">
                     Modalitatea de aplicare a candidaților
                  </Typography>
                 </Stack>
@@ -791,7 +798,7 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
               </Stack>
             ) : (
               <Stack direction="row" spacing={2} alignItems="center">
-                <Typography variant="body2" color="text.secondary" sx={{ flex: 1 }}>
+                <Typography variant="body2"  sx={{ flex: 1 }}>
                   Niciun formular creat pentru această societate.
                 </Typography>
                 <Button

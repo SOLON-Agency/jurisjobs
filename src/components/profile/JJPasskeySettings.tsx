@@ -152,7 +152,7 @@ export function JJPasskeySettings() {
           <Typography variant="h6" component="h2">
             Chei de acces
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Conectează-te cu Face ID, amprenta sau cheia dispozitivului, fără parolă.
           </Typography>
         </Box>
@@ -188,11 +188,11 @@ export function JJPasskeySettings() {
       )}
 
       {loading ? (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           Se încarcă cheile de acces…
         </Typography>
       ) : passkeys.length === 0 ? (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           Nu ai nicio cheie de acces.
         </Typography>
       ) : (
@@ -217,7 +217,7 @@ export function JJPasskeySettings() {
                 <Box>
                   <Typography variant="body1">{label}</Typography>
                   {created && (
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" >
                       Adăugată la {created}
                     </Typography>
                   )}

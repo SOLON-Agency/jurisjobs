@@ -33,6 +33,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { getProfileAvatar } from "@/services/profiles.service";
 import { useSupabase } from "@/hooks/useSupabase";
 import { JJNotificationBell } from "@/components/notifications/JJNotificationBell";
+import { JJButton } from "@/components/common/JJButton";
 import appSettings from "@/config/app.settings.json";
 
 const CREAM = brandCssVars.cream;
@@ -316,28 +317,33 @@ export function Navbar() {
                   >
                     Conectare
                   </Button> */}
-                  <Button
+                  <JJButton
                     component={Link}
                     href="/register"
                     variant="outlined"
+                    appearance="secondary"
                     size="small"
                     sx={{
                       color: CREAM,
                       borderColor: "rgba(240,235,216,0.45)",
-                      borderRadius: 5,
                       px: 2.5,
                       py: 0.75,
                       fontSize: "0.8rem",
                       fontWeight: 500,
                       whiteSpace: "nowrap",
-                      "&:hover": {
-                        borderColor: CREAM,
-                        bgcolor: CREAM_HOVER,
+                      transition: "box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease",
+                      "&:hover, &:focus-visible": {
+                        borderColor: brandCssVars.gold,
+                        bgcolor: "rgba(195,174,97,0.08)",
+                        boxShadow: "0 0 16px 2px rgba(195,174,97,0.2)",
+                      },
+                      "@media (prefers-reduced-motion: reduce)": {
+                        transition: "none",
                       },
                     }}
                   >
                     Înregistrare
-                  </Button>
+                  </JJButton>
                 </>
               )}
             </Box>

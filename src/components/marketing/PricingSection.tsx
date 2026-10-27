@@ -12,7 +12,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import appSettings from "@/config/app.settings.json";
 
 const includedFeatures: readonly string[] = [
-  "Până la 5 anunțuri de angajare active simultan",
+  "Anunțuri de angajare nelimitate",
   "Profil de societate complet: logo, descriere și domenii de practică",
   "Control total asupra vizibilității profilului societății",
   "Acces la dashboard-ul de anunțuri și aplicații în timp real",
@@ -39,7 +39,7 @@ export function PricingSection() {
               mb: 1.5,
             }}
           >
-            Acces gratuit pentru societăți juridice
+            Acces gratuit la lansare pentru societăți juridice
           </Typography>
           <Typography
             id="pricing-section-heading"
@@ -57,13 +57,12 @@ export function PricingSection() {
                 backgroundClip: "text",
               }}
             >
-              până la 5 anunțuri
+              anunțuri nelimitate
             </Box>{" "}
             {/* complet gratuit */}
           </Typography>
           <Typography
             variant="body1"
-            color="text.secondary"
             sx={{ lineHeight: 1.75, fontSize: { xs: "1rem", md: "1.1rem" } }}
           >
             Începi într-un singur minut, fără card de credit și fără angajament permanent.
@@ -146,26 +145,25 @@ export function PricingSection() {
                         textTransform: "uppercase",
                       }}
                     >
-                      Gratuit
+                      Gratuit la lansare
                     </Typography>
                     <Typography variant="h5" component="h3" sx={{ color: "text.primary" }}>
-                      5 anunțuri
+                      Nelimitat
                     </Typography>
                   </Box>
                 </Stack>
 
                 <Typography
                   variant="body1"
-                  color="text.secondary"
                   sx={{ lineHeight: 1.75, mb: 2.5 }}
                 >
-                  Publică până la 5 anunțuri active simultan pe {appSettings.name} și
-                  începe să primești candidaturi de la profesioniști din domeniul juridic. 
+                  Publică gratuit, la lansare, oricâte anunțuri de angajare dorești pe {appSettings.name} și
+                  începe să primești candidaturi de la profesioniști din domeniul juridic.
                   <br/>
                   Fără costuri ascunse.
                 </Typography>
 
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3, fontStyle: "italic" }}>
+                <Typography variant="body2"  sx={{ mb: 3, fontStyle: "italic" }}>
                   Fără reclame, fără spam, fără paywalls. Control total asupra notificărilor.
                 </Typography>
 
@@ -178,9 +176,6 @@ export function PricingSection() {
                     size="large"
                     endIcon={<ArrowForwardIcon />}
                     sx={{
-                      px: 4,
-                      py: 1.6,
-                      borderRadius: 99,
                       fontWeight: 700,
                       bgcolor: "rgba(195,174,97,0.95)",
                       "&:hover": {

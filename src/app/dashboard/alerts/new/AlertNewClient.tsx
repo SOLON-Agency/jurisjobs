@@ -59,7 +59,7 @@ export function AlertNewClient() {
       <Typography variant="h3" sx={{ mb: 0.5 }}>
         Creează alertă
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+      <Typography variant="body2"  sx={{ mb: 3 }}>
         Vei primi un email ori de câte ori apar anunțuri noi care corespund filtrelor tale.
       </Typography>
 

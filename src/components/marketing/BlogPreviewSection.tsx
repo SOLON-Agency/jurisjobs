@@ -69,7 +69,7 @@ export async function BlogPreviewSection() {
           </Typography>
           <Typography
             variant="body1"
-            color="text.secondary"
+            
             sx={{ lineHeight: 1.75, fontSize: { xs: "1rem", md: "1.1rem" } }}
           >
             Analize, tendințe și sfaturi practice despre piața juridică din România.

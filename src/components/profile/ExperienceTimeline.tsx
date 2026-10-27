@@ -80,7 +80,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                   {item.title} ({item.company})
                 </Typography>
                 {item.description && (
-                  <Typography variant="body2" color="text.secondary"
+                  <Typography variant="body2" 
                     sx={{ mt: 0.75, lineHeight: 1.7, whiteSpace: "pre-wrap", width: "100%", overflowWrap: "break-word", wordBreak: "break-word" }}>
                     {item.description}
                   </Typography>

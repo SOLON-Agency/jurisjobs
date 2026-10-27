@@ -130,7 +130,7 @@ const CustomTooltip = ({
   return (
     <Paper sx={{ px: 1.5, py: 1, border: "1px solid rgba(3, 23, 12, 0.1)", boxShadow: 3, minWidth: 120 }}>
       {label && (
-        <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 0.5 }}>
+        <Typography variant="caption"  sx={{ display: "block", mb: 0.5 }}>
           {label}
         </Typography>
       )}
@@ -210,11 +210,11 @@ function StatCard({ label, value, icon, accentColor, href, sublabel }: StatCardP
         <Typography variant="h4" fontWeight={800} sx={{ color: accentColor, lineHeight: 1, fontSize: "1.6rem" }}>
           {value}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25, fontWeight: 500 }}>
+        <Typography variant="body2"  sx={{ mt: 0.25, fontWeight: 500 }}>
           {label}
         </Typography>
         {sublabel && (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {sublabel}
           </Typography>
         )}
@@ -271,7 +271,7 @@ function ChartCard({
         {title}
       </Typography>
       {subtitle && (
-        <Typography variant="caption" color="text.secondary" sx={{ display: "block", mb: 2 }}>
+        <Typography variant="caption"  sx={{ display: "block", mb: 2 }}>
           {subtitle}
         </Typography>
       )}

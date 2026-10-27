@@ -101,7 +101,7 @@ export function JobCard({
             <JJLink
               href={societatePath(job.companies.slug)}
               variant="body2"
-              color="text.secondary"
+              
               sx={{
                 position: "relative",
                 zIndex: 2,
@@ -113,7 +113,7 @@ export function JobCard({
               {truncate(job.companies.name)}
             </JJLink>
           ) : (
-            <Typography variant="body2" color="text.secondary"
+            <Typography variant="body2" 
               sx={{ wordBreak: "break-word", overflowWrap: "break-word" }}>
               {truncate(job.companies?.name ?? "")}
             </Typography>
@@ -123,7 +123,7 @@ export function JobCard({
       <Stack direction="row" spacing={0.5} justifyContent="space-between" alignItems="flex-end" sx={{ mb: 1 }}>
         <Stack direction="column" spacing={0.5} alignItems="flex-start">
           <Stack direction="row" spacing={0.5} alignItems="center">
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" >
               {job.published_at ? timeAgo(job.published_at) : "Ciornă"}{" "}
               {job.location && "în "}
             </Typography>{" "}
@@ -132,7 +132,7 @@ export function JobCard({
                 <LocationOnOutlinedIcon
                   sx={{ fontSize: 16, color: "text.secondary" }}
                 />
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" >
                   {job.location}
                 </Typography>
               </Stack>

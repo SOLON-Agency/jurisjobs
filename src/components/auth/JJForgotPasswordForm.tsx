@@ -42,7 +42,7 @@ export function JJForgotPasswordForm() {
         <Typography variant="h3" component="h1" sx={{ mb: 1, textAlign: "center" }}>
           Resetează parola
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 4, textAlign: "center" }}>
+        <Typography variant="body2"  sx={{ mb: 4, textAlign: "center" }}>
           Îți trimitem un link pe e-mail ca să alegi o parolă nouă pentru {appSettings.name}.
         </Typography>
 
@@ -87,7 +87,7 @@ export function JJForgotPasswordForm() {
           </Box>
         )}
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 3, textAlign: "center" }}>
+        <Typography variant="body2"  sx={{ mt: 3, textAlign: "center" }}>
           <JJLink href="/login" variant="body2" sx={{ color: "primary.main" }}>
             Înapoi la conectare
           </JJLink>

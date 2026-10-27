@@ -79,12 +79,12 @@ export function EducationTimeline({ items }: EducationTimelineProps) {
                   sx={{ lineHeight: 1.3, mt: range ? 0 : 0 }}>
                   {item.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary"
+                <Typography variant="body2" 
                   sx={{ fontWeight: 500, mb: item.description ? 0.75 : 0 }}>
                   {item.institution}
                 </Typography>
                 {item.description && (
-                  <Typography variant="body2" color="text.secondary"
+                  <Typography variant="body2" 
                     sx={{ lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
                     {item.description}
                   </Typography>

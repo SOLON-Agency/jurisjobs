@@ -40,7 +40,7 @@ export function EmptyState({ title, description, action, icon }: EmptyStateProps
           {title}
         </Typography>
         {description && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {description}
           </Typography>
         )}

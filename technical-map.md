@@ -100,13 +100,13 @@ Start with `AGENTS.md`, `src/AGENTS.md`, `src/PATTERNS.md`, `package.json`, `doc
 - Every Edge Function entry in `supabase/config.toml` sets `verify_jwt = false`. Each function validates its own JWT, service-role bearer, or `CRON_SECRET`.
 - Role navigation is a visibility hint. Server page guards cover selected employer and admin pages. RLS and service checks still govern writes. Company membership labels are distinct from profile `user_role`.
 - The `messages` route is placeholder content while `features.messages` is off. `next.config.ts` accepts any HTTPS image hostname, which is broader than a single Supabase storage host.
-- Homepage and pricing copy say “5” free job posts. `MAX_ACTIVE_JOBS.employer` is `3` and `MAX_ACTIVE_COMPANIES.employer` is `1` in `src/lib/roles.ts`.
+- Job postings have no role-based count limit at launch. `MAX_ACTIVE_COMPANIES.employer` remains `1` in `src/lib/roles.ts`.
 - Some dashboard screens still call Supabase directly. New data access belongs in `src/services/`. The ESLint `.from()` boundary documents the allowlist.
 
 ## Unknowns / Escalations
 
 - **Unknown:** live database schema versus this checkout, deployed Edge Function versions, Vercel flag values, secrets, and cron health.
-- **Unknown:** whether every UI quota is also enforced by RLS. Marketing copy still advertises 5 free jobs while the employer UI cap is 3.
+- **Unknown:** whether company-count quotas are enforced by RLS in addition to the UI.
 - **Unknown:** current lint status of files this documentation pass did not change. `npm run build` has succeeded on Next.js 16.4.3 in this checkout.
 
 ## Modification Readiness

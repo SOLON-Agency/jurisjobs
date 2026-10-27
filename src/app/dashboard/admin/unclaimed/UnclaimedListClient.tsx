@@ -75,7 +75,7 @@ export function UnclaimedListClient({ initialCompanies }: Props) {
         header: "Email",
         hideBelow: "sm",
         cell: (company) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {company.email ?? "—"}
           </Typography>
         ),
@@ -100,7 +100,7 @@ export function UnclaimedListClient({ initialCompanies }: Props) {
         header: "Publicat",
         hideBelow: "md",
         cell: (company) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {formatDate(company.latestJobPublishedAt)}
           </Typography>
         ),
@@ -110,7 +110,7 @@ export function UnclaimedListClient({ initialCompanies }: Props) {
         header: "Adăugat",
         hideBelow: "lg",
         cell: (company) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {formatDate(company.created_at)}
           </Typography>
         ),
@@ -168,7 +168,7 @@ export function UnclaimedListClient({ initialCompanies }: Props) {
         sx={{ p: 6, textAlign: "center", borderStyle: "dashed", borderRadius: 2 }}
       >
         <WorkOutlineIcon sx={{ fontSize: 48, color: "text.disabled", mb: 1 }} />
-        <Typography color="text.secondary">
+        <Typography >
           Nu există societăți nerevendicate. Creează una cu butonul de mai sus.
         </Typography>
       </Paper>

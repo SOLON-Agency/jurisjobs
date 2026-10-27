@@ -6,7 +6,6 @@ import { JJLink } from "@/components/common/JJLink";
 import {
   Alert,
   Box,
-  Button,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -35,6 +34,7 @@ import {
   notifyJobApplication,
 } from "@/services/applications.service";
 import { ApplicationForm } from "@/components/forms/ApplicationForm";
+import { JJButton } from "@/components/common/JJButton";
 import type { Tables } from "@/types/database";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -102,7 +102,7 @@ export function ApplyButton({
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
-  const commonSx = { borderRadius: 5, fontWeight: 700, ...sx };
+  const commonSx = { fontWeight: 700, ...sx };
 
   // ── Existing application check (prefetch) ────────────────────────────────────
   useEffect(() => {
@@ -126,17 +126,18 @@ export function ApplyButton({
   // ── No application method → link to job page ──────────────────────────────
   if (!job.application_url && !job.application_form_id) {
     return !isSmallScreen ? (
-      <Button
+      <JJButton
         component={Link}
         href={`/jobs/${job.slug}`}
         variant={variant}
+        appearance="primary"
         size={size}
         fullWidth={fullWidth}
         endIcon={<AutoAwesomeIcon />}
         sx={commonSx}
       >
         {label}
-      </Button>
+      </JJButton>
     ) : null;
   }
 
@@ -200,9 +201,10 @@ export function ApplyButton({
 
   if (alreadyApplied) {
     return (
-      <Button
+      <JJButton
         disabled
         variant="outlined"
+        appearance="secondary"
         color="success"
         size={size}
         fullWidth={fullWidth}
@@ -211,15 +213,16 @@ export function ApplyButton({
         sx={{ ...commonSx, ...iconOnlySx }}
       >
         {isSmallScreen ? null : "Aplicat"}
-      </Button>
+      </JJButton>
     );
   }
 
   return (
     <>
-      <Button
+      <JJButton
         onClick={isExternalUrl ? handleConfirmOpen : () => setDrawerOpen(true)}
         variant={variant}
+        appearance="primary"
         size={size}
         fullWidth={fullWidth}
         endIcon={<AutoAwesomeIcon />}
@@ -227,7 +230,7 @@ export function ApplyButton({
         sx={{ ...commonSx, ...iconOnlySx }}
       >
         {isSmallScreen ? null : label}
-      </Button>
+      </JJButton>
 
       {/* ── External URL confirmation dialog ──────────────────────────────── */}
       <Dialog
@@ -244,7 +247,7 @@ export function ApplyButton({
           {confirmed ? (
             <Stack alignItems="center" spacing={2} sx={{ py: 2, textAlign: "center" }}>
               <CheckCircleOutlineIcon sx={{ fontSize: 52, color: "success.main" }} />
-              <Typography color="text.secondary">
+              <Typography >
                 {isEmailApplication
                   ? "Candidatura a fost înregistrată. Clientul tău de email s-a deschis cu subiectul pre-completat."
                   : "Candidatura a fost înregistrată. Link-ul s-a deschis într-o fereastră nouă."}
@@ -261,7 +264,7 @@ export function ApplyButton({
                   pentru a aplica.
                 </Alert>
               )}
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 {isEmailApplication
                   ? "Vei trimite un email direct angajatorului. Clientul tău de email se va deschide cu adresa și subiectul pre-completate:"
                   : "Vei fi redirecționat către site-ul extern al angajatorului pentru a finaliza aplicația:"}
@@ -286,7 +289,7 @@ export function ApplyButton({
                 )}
                 <Typography
                   variant="caption"
-                  color="text.secondary"
+                  
                   sx={{ fontFamily: "monospace" }}
                 >
                   {job.application_url}
@@ -304,7 +307,7 @@ export function ApplyButton({
                 >
                   <Typography
                     variant="caption"
-                    color="text.secondary"
+                    
                     display="block"
                     sx={{ mb: 0.25 }}
                   >
@@ -325,25 +328,26 @@ export function ApplyButton({
 
         <DialogActions sx={{ px: 3, pb: 2.5, gap: 1 }}>
           {confirmed ? (
-            <Button
+            <JJButton
               variant="outlined"
+              appearance="secondary"
               onClick={() => setConfirmOpen(false)}
-              sx={{ borderRadius: 5 }}
             >
               Închide
-            </Button>
+            </JJButton>
           ) : (
             <>
-              <Button
+              <JJButton
                 variant="outlined"
+                appearance="secondary"
                 onClick={() => setConfirmOpen(false)}
                 disabled={confirming}
-                sx={{ borderRadius: 5 }}
               >
                 Anulează
-              </Button>
-              <Button
+              </JJButton>
+              <JJButton
                 variant="contained"
+                appearance="primary"
                 onClick={handleConfirmApply}
                 disabled={confirming || !user}
                 endIcon={
@@ -355,14 +359,14 @@ export function ApplyButton({
                     <OpenInNewIcon />
                   )
                 }
-                sx={{ borderRadius: 5, fontWeight: 700 }}
+                sx={{ fontWeight: 700 }}
               >
                 {confirming
                   ? "Se înregistrează..."
                   : isEmailApplication
                     ? "Deschide email"
                     : "Continuă"}
-              </Button>
+              </JJButton>
             </>
           )}
         </DialogActions>

@@ -17,14 +17,6 @@ export const ROLE_ORDER: UserRole[] = [
   "admin",
 ];
 
-/** Max active (published, non-archived) job listings per role. null = unlimited. */
-export const MAX_ACTIVE_JOBS: Record<UserRole, number | null> = {
-  user: 0,
-  employer: 3,
-  premium_employer: null,
-  admin: null,
-};
-
 /** Max active (non-archived) companies per role. null = unlimited. */
 export const MAX_ACTIVE_COMPANIES: Record<UserRole, number | null> = {
   user: 0,

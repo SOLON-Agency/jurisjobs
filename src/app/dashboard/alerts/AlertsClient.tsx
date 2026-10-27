@@ -67,7 +67,7 @@ function RowSkeleton() {
 export function AlertsClient() {
   if (!appSettings.features.alerts) {
     return (
-      <Typography variant="body1" color="text.secondary">
+      <Typography variant="body1" >
         Funcționalitatea de alerte nu este activată.
       </Typography>
     );
@@ -164,7 +164,7 @@ function AlertsContent() {
       <DashboardPageHeader
         title={<Typography variant="h3">Alerte</Typography>}
         subtitle={
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Primești email când apar anunțuri noi care corespund căutărilor tale.
           </Typography>
         }
@@ -195,7 +195,7 @@ function AlertsContent() {
           <Typography variant="h6" sx={{ mb: 0.5 }}>
             Nicio alertă configurată
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography variant="body2"  sx={{ mb: 2 }}>
             Creează o alertă pentru a fi notificat când apar anunțuri noi care îți corespund.
           </Typography>
           <Button variant="outlined" startIcon={<AddIcon />} onClick={openCreate} sx={{ minHeight: 44 }}>
@@ -411,7 +411,7 @@ function AlertRow({ alert, showOwner, onEdit, onToggleActive, onArchive }: Alert
         <AlertFilterSummary filters={filters} sx={{ mt: 0.5 }} />
 
         {showOwner && alert.profiles && (
-          <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: "block" }}>
+          <Typography variant="caption"  sx={{ mt: 0.5, display: "block" }}>
             Proprietar: {alert.profiles.full_name ?? "—"}
           </Typography>
         )}

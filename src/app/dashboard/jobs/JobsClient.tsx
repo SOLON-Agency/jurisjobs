@@ -11,7 +11,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Tooltip,
   Alert,
   type SelectChangeEvent,
 } from "@mui/material";
@@ -19,8 +18,6 @@ import AddIcon from "@mui/icons-material/Add";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutlined";
 import { useAuth } from "@/hooks/useAuth";
 import { useSupabase } from "@/hooks/useSupabase";
-import { useRole } from "@/hooks/useRole";
-import { MAX_ACTIVE_JOBS } from "@/lib/roles";
 import { createJob, updateJob, deleteJob, archiveJob } from "@/services/jobs.service";
 import { createBenefit } from "@/services/benefits.service";
 import { slugify, parseSupabaseError } from "@/lib/utils";
@@ -62,7 +59,6 @@ export function JobsClient() {
   const supabase = useSupabase();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { role } = useRole();
   const { showToast } = useToast();
 
   const {
@@ -74,10 +70,6 @@ export function JobsClient() {
 
   const jobs = useMemo(() => dashboardData?.jobs ?? [], [dashboardData?.jobs]);
   const companies = useMemo(() => dashboardData?.companies ?? [], [dashboardData?.companies]);
-
-  const activeJobCount = jobs.filter((j) => j.status === "published").length;
-  const maxJobs = MAX_ACTIVE_JOBS[role];
-  const atJobLimit = maxJobs !== null && activeJobCount >= maxJobs;
 
   const invalidateEmployerJobs = useCallback(() => {
     if (!user?.id) return;
@@ -150,15 +142,6 @@ export function JobsClient() {
       try {
         const appUrl = data.application_method === "url" ? (data.application_url || null) : null;
         const appFormId = data.application_method === "form" ? (data.form_id || null) : null;
-
-        // Enforce active job limit when creating a published job
-        if (!editingJob && status === "published" && atJobLimit && maxJobs !== null) {
-          setMessage({
-            type: "error",
-            text: `Ai atins limita de ${maxJobs} anunțuri active. Arhivează un anunț sau treci la un plan superior.`,
-          });
-          return;
-        }
 
         if (editingJob) {
           const companyName =
@@ -273,8 +256,6 @@ export function JobsClient() {
       invalidateEmployerJobs,
       user,
       showToast,
-      atJobLimit,
-      maxJobs,
     ]
   );
 
@@ -400,24 +381,13 @@ export function JobsClient() {
             )}
 
             {companies.length > 0 && (
-              <Tooltip
-                title={
-                  atJobLimit
-                    ? `Ai atins limita de ${maxJobs} anunț${maxJobs === 1 ? "" : "uri"} active. Arhivează un anunț sau treci la un plan superior.`
-                    : ""
-                }
+              <Button
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={openCreate}
               >
-                <span>
-                  <Button
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    onClick={openCreate}
-                    disabled={atJobLimit}
-                  >
-                    Anunț nou
-                  </Button>
-                </span>
-              </Tooltip>
+                Anunț nou
+              </Button>
             )}
           </>
         }
@@ -427,7 +397,7 @@ export function JobsClient() {
         <Paper sx={{ p: 4, border: "1px solid rgba(3, 23, 12, 0.1)", borderRadius: 2, textAlign: "center" }}>
           <WorkOutlineIcon sx={{ fontSize: 48, color: "text.secondary", mb: 1 }} />
           <Typography variant="h5" sx={{ mb: 1 }}>Nicio societate</Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>
+          <Typography  sx={{ mb: 2 }}>
             Creează mai întâi o societate pentru a gestiona anunțurile de muncă.
           </Typography>
           <Button component={Link} href="/dashboard/company" variant="outlined">
@@ -440,7 +410,7 @@ export function JobsClient() {
           <Typography variant="h5" sx={{ mb: 1 }}>
             {selectedCompanyId === "all" ? "Niciun anunț de muncă" : "Niciun anunț pentru această societate"}
           </Typography>
-          <Typography color="text.secondary" sx={{ mb: 2 }}>
+          <Typography  sx={{ mb: 2 }}>
             {selectedCompanyId === "all"
               ? "Creează primul tău anunț pentru a atrage candidații potriviți."
               : "Adaugă un anunț nou pentru societatea selectată."}

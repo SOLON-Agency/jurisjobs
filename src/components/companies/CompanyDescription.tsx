@@ -33,7 +33,7 @@ export function CompanyDescription({
 
   return (
     <Box>
-      <Typography color="text.secondary" sx={{ lineHeight: 1.85, fontSize: "1rem" }}>
+      <Typography  sx={{ lineHeight: 1.85, fontSize: "1rem" }}>
         {displayed}
         {needsTruncation && !expanded && "…"}
       </Typography>

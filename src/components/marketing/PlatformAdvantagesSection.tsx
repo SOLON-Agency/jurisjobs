@@ -1,7 +1,8 @@
 "use client";
 
 import { brandCssVars, brandGradientGold } from "@/theme/tokens";
-import { Box, Container, Paper, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import { JJCard } from "@/components/common/JJCard";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
@@ -184,8 +185,8 @@ export function PlatformAdvantagesSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
             >
-              <Paper
-                variant="outlined"
+              <JJCard
+                hoverColor={adv.color}
                 sx={{
                   p: { xs: 3, md: 4 },
                   height: "100%",
@@ -276,7 +277,7 @@ export function PlatformAdvantagesSection() {
                     </Box>
                   ))}
                 </Box> */}
-              </Paper>
+              </JJCard>
             </motion.div>
           ))}
         </Box>

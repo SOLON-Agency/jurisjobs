@@ -93,7 +93,7 @@ export function TestimonialsSection() {
           </Typography>
           <Typography
             variant="body1"
-            color="text.secondary"
+            
             sx={{ lineHeight: 1.75, fontSize: { xs: "1rem", md: "1.1rem" } }}
           >
             Recrutori, parteneri de firme și avocați aflați în pragul unei noi etape de

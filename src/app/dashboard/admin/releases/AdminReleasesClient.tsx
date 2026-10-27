@@ -175,7 +175,7 @@ export function AdminReleasesClient() {
         hideBelow: "md",
         headerSx: { fontWeight: 700 },
         cell: (release) => (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {formatDate(release.created_at)}
           </Typography>
         ),
@@ -186,7 +186,7 @@ export function AdminReleasesClient() {
         hideBelow: "lg",
         headerSx: { fontWeight: 700 },
         cell: (release) => (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {release.sent_at ? formatDate(release.sent_at) : "—"}
           </Typography>
         ),
@@ -239,7 +239,7 @@ export function AdminReleasesClient() {
         }
       />
 
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+      <Typography variant="body2"  sx={{ mb: 3 }}>
         Acestea sunt draft-urile create automat de <code>notifications-release-detect</code> când
         detectează o nouă versiune a aplicației. Editează titlul și textul, apoi publică pentru a
         notifica toți utilizatorii.
@@ -254,7 +254,7 @@ export function AdminReleasesClient() {
           </Box>
         ) : releases.length === 0 ? (
           <Box sx={{ p: 4, textAlign: "center" }}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" >
               Niciun anunț de noutăți găsit. Acestea sunt generate automat la detecția unei noi versiuni.
             </Typography>
           </Box>
@@ -303,7 +303,7 @@ export function AdminReleasesClient() {
             />
             {editBodyHtml && (
               <Box>
-                <Typography variant="caption" color="text.secondary" sx={{ mb: 0.5, display: "block" }}>
+                <Typography variant="caption"  sx={{ mb: 0.5, display: "block" }}>
                   Previzualizare:
                 </Typography>
                 <Paper

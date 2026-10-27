@@ -149,7 +149,7 @@ export function AdminFaqClient() {
             <Typography variant="body2" fontWeight={600}>
               {row.question}
             </Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 0.5 }}>
+            <Typography variant="caption"  sx={{ display: "block", mt: 0.5 }}>
               {row.answer.slice(0, 120)}
               {row.answer.length > 120 ? "…" : ""}
             </Typography>
@@ -234,7 +234,7 @@ export function AdminFaqClient() {
           </Stack>
         }
         subtitle={
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             Gestionează cuprinsul FAQ pentru pagina principală și pentru „Cum funcționează”.
             Întrebările marcate „Ambele pagini” apar în ambele tab-uri și pe ambele pagini publice.
             Modificările apar pe site după revalidarea paginilor (până la 24 h în producție).
@@ -277,7 +277,7 @@ export function AdminFaqClient() {
             rows.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5}>
-                  <Typography variant="body2" color="text.secondary" sx={{ py: 2 }}>
+                  <Typography variant="body2"  sx={{ py: 2 }}>
                     Nu există întrebări pentru această pagină. Apasă „Adaugă întrebare”.
                   </Typography>
                 </TableCell>

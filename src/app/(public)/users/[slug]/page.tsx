@@ -152,7 +152,7 @@ export default async function PublicProfilePage({ params }: Props) {
         {profile.location && (
           <Stack direction="row" alignItems="center" spacing={0.5}>
             <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-            <Typography variant="caption" color="text.secondary" fontWeight={500}>
+            <Typography variant="caption"  fontWeight={500}>
               {profile.location}
             </Typography>
           </Stack>
@@ -160,7 +160,7 @@ export default async function PublicProfilePage({ params }: Props) {
         {experienceLabel && (
           <Stack direction="row" alignItems="center" spacing={0.5}>
             <WorkOutlineIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-            <Typography variant="caption" color="text.secondary" fontWeight={500}>
+            <Typography variant="caption"  fontWeight={500}>
               {experienceLabel}
             </Typography>
           </Stack>
@@ -168,7 +168,7 @@ export default async function PublicProfilePage({ params }: Props) {
         {skills.length > 0 && (
           <Stack direction="row" alignItems="center" spacing={0.5}>
             <PsychologyOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-            <Typography variant="caption" color="text.secondary" fontWeight={500}>
+            <Typography variant="caption"  fontWeight={500}>
               {skills.length} {skills.length === 1 ? "competență" : "competențe"}
             </Typography>
           </Stack>
@@ -198,7 +198,7 @@ export default async function PublicProfilePage({ params }: Props) {
                 {profile.full_name ?? "Utilizator"}
               </Typography>
               {profile.headline && (
-                <Typography variant="h6" component="p" color="text.secondary" fontWeight={400} sx={{ mt: 0.5 }}>
+                <Typography variant="h6" component="p"  fontWeight={400} sx={{ mt: 0.5 }}>
                   {profile.headline}
                 </Typography>
               )}
@@ -213,13 +213,13 @@ export default async function PublicProfilePage({ params }: Props) {
             {profile.bio ? (
               <Typography
                 variant="body1"
-                color="text.secondary"
+                
                 sx={{ lineHeight: 1.85, whiteSpace: "pre-wrap", pl: 5 }}
               >
                 {profile.bio}
               </Typography>
             ) : profile.headline ? (
-              <Typography variant="body1" color="text.secondary" sx={{ pl: 5 }}>
+              <Typography variant="body1"  sx={{ pl: 5 }}>
                 {profile.headline}
               </Typography>
             ) : (
@@ -269,7 +269,7 @@ export default async function PublicProfilePage({ params }: Props) {
                 {profile.full_name ?? "Utilizator"}
               </Typography>
               {profile.headline && (
-                <Typography variant="caption" color="text.secondary" sx={{ px: 1 }}>
+                <Typography variant="caption"  sx={{ px: 1 }}>
                   {profile.headline}
                 </Typography>
               )}

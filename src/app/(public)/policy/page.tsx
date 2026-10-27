@@ -33,32 +33,32 @@ export default function PolicyPage() {
 
         <Box sx={{ "& h4": { mt: 4, mb: 1.5 }, "& p": { mb: 2 } }}>
           <Typography variant="h4">1. Informații pe care le colectăm</Typography>
-          <Typography color="text.secondary">
+          <Typography>
             Colectăm informații pe care le furnizezi direct către noi, inclusiv numele, adresa de email, CV-ul și orice altă informație pe care o alegi să o furnizezi la crearea unui cont sau la aplicarea pentru un loc de muncă.
           </Typography>
 
           <Typography variant="h4">2. Cum folosim informațiile tale</Typography>
-          <Typography color="text.secondary">
+          <Typography>
             Folosim informațiile pe care le colectăm pentru a vă furniza, menține și îmbunătăți serviciile noastre, pentru a procesa aplicările pentru locuri de muncă și pentru a vă comunica despre oportunități care corespund preferințelor dumneavoastră.
           </Typography>
 
           <Typography variant="h4">3. Împărtășirea informațiilor</Typography>
-          <Typography color="text.secondary">
+          <Typography>
             Împărtășim informațiile despre aplicarea dumneavoastră doar cu societățile la care ați aplicat. Nu vândem informațiile personale dumneavoastră terților.
           </Typography>
 
           <Typography variant="h4">4. Securitatea datelor</Typography>
-          <Typography color="text.secondary">
+          <Typography>
             Implementăm măsuri tehnice și organizatorice adecvate pentru a proteja datele personale împotriva accesului neautorizat, modificării, divulgării sau distrugerii.
           </Typography>
 
           <Typography variant="h4">5. Drepturile tale</Typography>
-          <Typography color="text.secondary">
+          <Typography>
             Aveți dreptul să accesați, corectați sau ștergeți datele personale dumneavoastră în orice moment prin setările contului dumneavoastră. De asemenea, puteți contacta-ne pentru a exercita aceste drepturi.
           </Typography>
 
           <Typography variant="h4">6. Contactați-ne</Typography>
-          <Typography color="text.secondary">
+          <Typography>
             Dacă aveți întrebări cu privire la această politică de confidențialitate, vă rugăm să contactați-ne prin sistemul de mesajare de pe platformă.
           </Typography>
         </Box>

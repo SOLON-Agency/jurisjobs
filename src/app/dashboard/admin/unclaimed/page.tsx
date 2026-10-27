@@ -30,7 +30,7 @@ export default async function UnclaimedCompaniesPage() {
           <Typography variant="h5" component="h1" fontWeight={700}>
             Societăți nerevendicate
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+          <Typography variant="body2"  sx={{ mt: 0.5 }}>
             {companies.length === 0
               ? "Nicio societate nerevendicată momentan."
               : `${companies.length} compan${companies.length === 1 ? "ie" : "ii"} în așteptarea revendicării contului lor`}

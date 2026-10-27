@@ -197,7 +197,7 @@ function FormFieldInput({
         <Box>
           <Typography
             variant="caption"
-            color="text.secondary"
+            
             sx={{ display: "block", mb: 0.5 }}
             id={helperId ? `${helperId}-label` : undefined}
           >
@@ -439,7 +439,7 @@ export function ApplicationForm({
         >
           <Typography
             variant="overline"
-            color="text.secondary"
+            
             sx={{ letterSpacing: 1, lineHeight: 1 }}
           >
             Aplică acum
@@ -477,7 +477,7 @@ export function ApplicationForm({
               </Typography>
             </Stack>
             {company?.name && (
-              <Typography variant="body2" color="text.secondary" noWrap sx={{ mt: 0.25 }}>
+              <Typography variant="body2"  noWrap sx={{ mt: 0.25 }}>
                 {company.name}
               </Typography>
             )}
@@ -493,7 +493,7 @@ export function ApplicationForm({
             <Typography variant="h5" fontWeight={700}>
               Aplicație trimisă!
             </Typography>
-            <Typography color="text.secondary">
+            <Typography >
               Candidatura ta a fost înregistrată. Vei fi contactat dacă ești selectat.
             </Typography>
             <Button variant="outlined" onClick={onClose} sx={{ mt: 1 }}>
@@ -562,7 +562,7 @@ export function ApplicationForm({
                       </Box>
                     )
                   ) : (
-                    <Typography variant="body2" color="text.secondary"
+                    <Typography variant="body2" 
                       sx={{ wordBreak: "break-word", overflowWrap: "break-word" }}>
                       {truncate(plainText, 500)}
                     </Typography>

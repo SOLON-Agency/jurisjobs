@@ -200,7 +200,7 @@ export function AdminSkillsClient() {
             />
           )}
         </Stack>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           Aprobă sau respinge competențele adăugate de utilizatori. Numai
           competențele aprobate apar în lista de selecție a altor utilizatori.
         </Typography>
@@ -252,7 +252,7 @@ export function AdminSkillsClient() {
       {filtered.length === 0 ? (
         <Paper sx={{ p: 5, textAlign: "center", border: "1px solid rgba(3, 23, 12, 0.1)", borderRadius: 2 }}>
           <PsychologyOutlinedIcon sx={{ fontSize: 52, color: "text.secondary", mb: 1.5 }} />
-          <Typography color="text.secondary">
+          <Typography >
             {skills.length === 0
               ? "Nicio competență înregistrată."
               : "Niciun rezultat pentru filtrele selectate."}
@@ -270,7 +270,7 @@ export function AdminSkillsClient() {
         />
       )}
 
-      <Typography variant="caption" color="text.secondary" sx={{ mt: 1.5, display: "block" }}>
+      <Typography variant="caption"  sx={{ mt: 1.5, display: "block" }}>
         {filtered.length} din {skills.length} competențe/{skills.length !== 1 ? "e" : ""}
       </Typography>
     </>

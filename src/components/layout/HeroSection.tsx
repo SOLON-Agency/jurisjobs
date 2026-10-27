@@ -259,16 +259,9 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 size="large"
                 endIcon={<ArrowForwardIcon sx={{ transition: "transform 0.2s", ".MuiButton-root:hover &": { transform: "translateX(4px)" } }} />}
                 sx={{
-                  px: 4,
-                  py: 1.6,
-                  borderRadius: 99,
                   fontWeight: 700,
                   fontSize: "0.95rem",
                   letterSpacing: "0.04em",
-                  bgcolor: "rgba(195,174,97,0.9)",
-                  color: "white",
-                  "&:hover": { bgcolor: "rgba(195,174,97,1)", boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
-                  transition: "background-color 0.2s, box-shadow 0.2s",
                 }}
               >
                 Creează anunț

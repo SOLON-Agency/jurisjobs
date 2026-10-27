@@ -30,7 +30,7 @@ export default function NotFound() {
       <Typography variant="h4" sx={{ mb: 2 }}>
         Page not found
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 4 }}>
+      <Typography sx={{ mb: 4 }}>
         The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </Typography>
       <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import appSettings from "@/config/app.settings.json";
 import { brandCssVars } from "@/theme/tokens";
 import { JJLink } from "@/components/common/JJLink";
@@ -34,21 +34,33 @@ export function Footer() {
           alignItems="center"
           spacing={3}
         >
-          <Box
-            component={Link}
-            href="/"
-            aria-label={`${appSettings.name} — pagina principală`}
-            sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
-          >
-            <Image
-              src="/footer-logo.png"
-              alt={`${appSettings.name} logo`}
-              width={480}
-              height={160}
-              priority={false}
-              style={{ width: "auto", height: 44, objectFit: "contain" }}
-            />
-          </Box>
+          <Stack direction="row" alignItems="center" spacing={1.5}>
+            <Box
+              component={Link}
+              href="/"
+              aria-label={`${appSettings.name} — pagina principală`}
+              sx={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+            >
+              <Image
+                src="/footer-logo.png"
+                alt={`${appSettings.name} logo`}
+                width={480}
+                height={160}
+                priority={false}
+                style={{ width: "auto", height: 44, objectFit: "contain" }}
+              />
+            </Box>
+            <Typography variant="caption" sx={{ whiteSpace: "nowrap" }}>
+              un proiect{" "}
+              <JJLink
+                href="https://solon.agency"
+                variant="caption"
+                sx={{ color: "inherit", fontWeight: 700 }}
+              >
+                SOLON, agenția digitală pentru avocați
+              </JJLink>
+            </Typography>
+          </Stack>
 
           <Box component="nav" aria-label="Linkuri utile">
             <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" spacing={{ xs: 1, sm: 3 }}>

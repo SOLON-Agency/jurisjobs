@@ -168,12 +168,12 @@ export default async function CompanyPage({ params }: Props) {
           {company.location && (
             <Stack direction="row" alignItems="center" spacing={0.5}>
               <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-              <Typography variant="caption" color="text.secondary" fontWeight={500}>
+              <Typography variant="caption"  fontWeight={500}>
                 {company.location}
               </Typography>
             </Stack>
           )}
-          <Typography variant="body2" color="text.secondary" fontWeight={500} sx={{ ml: 1 }}>
+          <Typography variant="body2"  fontWeight={500} sx={{ ml: 1 }}>
             {totalJobCount}{" "}
             {totalJobCount === 1 ? "anunț total" : "anunțuri totale"}
           </Typography>
@@ -308,7 +308,7 @@ export default async function CompanyPage({ params }: Props) {
               >
                 <Stack direction="row" alignItems="center" spacing={0.75} sx={{ mb: 1.5 }}>
                   <PsychologyOutlinedIcon sx={{ fontSize: 16, color: "text.secondary" }} />
-                  <Typography variant="subtitle2" fontWeight={700} color="text.secondary">
+                  <Typography variant="subtitle2" fontWeight={700} >
                     Competențe
                   </Typography>
                 </Stack>

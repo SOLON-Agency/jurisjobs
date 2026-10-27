@@ -157,7 +157,7 @@ export function RegisterForm() {
           </JJButton>
         </Box>
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 3, textAlign: "center" }}>
+        <Typography variant="body2"  sx={{ mt: 3, textAlign: "center" }}>
           Ai deja un cont?{" "}
           <JJLink
             href={redirectAfter === "/dashboard" ? "/login" : `/login?redirect=${encodeURIComponent(redirectAfter)}`}

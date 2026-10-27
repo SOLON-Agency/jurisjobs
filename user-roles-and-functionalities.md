@@ -12,9 +12,9 @@ Employer, premium employer, and admin keep the Utilizator account (profile, appl
 | --- | --- | --- |
 | Visitor | No authenticated profile role | Public routes; auth and newsletter entry points |
 | `user` — Utilizator | Default registered role; candidate account | Authenticated dashboard and self-owned records |
-| `employer` — Angajator | Hiring account | `isAtLeastEmployer`; UI limit of 1 active company and 3 published jobs |
-| `premium_employer` — Angajator Premium | Same hiring tools, higher limits | `isAtLeastEmployer`; company and job UI maxima are unlimited (`null`) |
-| `admin` — Administrator | Platform operator; also passes employer checks | `requireAdminRole`; unlimited company and job UI limits |
+| `employer` — Angajator | Hiring account | `isAtLeastEmployer`; UI limit of 1 active company; no job-count limit |
+| `premium_employer` — Angajator Premium | Same hiring tools, higher company limit | `isAtLeastEmployer`; company UI maximum is unlimited (`null`); no job-count limit |
+| `admin` — Administrator | Platform operator; also passes employer checks | `requireAdminRole`; unlimited company UI limit and no job-count limit |
 
 `company_users` stores company-local labels `owner`, `admin`, and `member`. These are membership records, not extra global roles. The app does not give those three labels different actions. Any accepted member of a company can use that company’s hiring tools when their account role is employer or above. RLS still governs which company rows they can touch.
 
@@ -57,18 +57,18 @@ Employer, premium employer, and admin keep the Utilizator account (profile, appl
 - Resend the confirmation email from the dashboard while the address is unverified.
 - Sign out from the account menu.
 
-`MAX_ACTIVE_JOBS` and `MAX_ACTIVE_COMPANIES` are `0` for this role, so employer navigation stays hidden.
+`MAX_ACTIVE_COMPANIES` is `0` for this role, so employer navigation stays hidden.
 
 ## Angajator (`employer`)
 
-Caps are enforced in the company and job screens: 1 active company and 3 published jobs. They are not enforced again when restoring from the archive or when publishing a draft from the list.
+The company screen limits this role to 1 active company. Job postings have no count limit at launch.
 
 - See hiring stats, received applications, job status, and the employer checklist. Candidate home widgets are hidden.
 - Create one active company, upload a logo, and become its owner.
 - Update the company profile and logo, and open the public page. Followers are notified of profile updates.
 - Add, remove, reorder, or propose competencies used for matchmaking.
 - Archive a company and restore it later.
-- Save a draft, publish now, or schedule publication, up to 3 published jobs.
+- Save a draft, publish now, or schedule publication, with no job-count limit at launch.
 - Update a job, its benefits, and whether candidates apply by link, email, or form.
 - Publish a draft or set a live job back to draft. Followers and matching alerts are notified on publish.
 - Copy a job into a new draft. Benefits and the linked form are not copied.
@@ -80,18 +80,17 @@ Caps are enforced in the company and job screens: 1 active company and 3 publish
 - Download a CSV of candidates for one job.
 - Receive notices for new applications, withdrawals, company follows, and job events.
 
-Marketing copy on the homepage and pricing section still says visitors can publish up to 5 jobs for free. The employer cap in `src/lib/roles.ts` is 3.
+Job postings are free and have no count limit at launch. Employer accounts remain limited to 1 active company; premium employers and admins have no company-count limit.
 
 ## Angajator Premium (`premium_employer`)
 
-Same hiring and candidate tools as Angajator. No separate premium screen or payment flow exists.
+Same hiring and candidate tools as Angajator, with no job-count limit. No separate premium screen or payment flow exists.
 
 - Create more than one active company.
-- Publish more than three jobs at the same time.
 
 ## Administrator (`admin`)
 
-Also has the full Utilizator account and the full hiring toolset, with the same unlimited company and job caps as premium. The home dashboard shows both candidate and employer blocks.
+Also has the full Utilizator account and the full hiring toolset, with unlimited companies and no job-count limit. The home dashboard shows both candidate and employer blocks.
 
 - List every account, including email, and search, filter, and sort them.
 - Set any account, including their own, to user, employer, premium employer, or admin.

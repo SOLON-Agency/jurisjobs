@@ -209,7 +209,6 @@ export function ConsentScreen({
         </Typography>
         <Typography
           variant="body2"
-          color="text.secondary"
           align="center"
           sx={{ mb: 3 }}
         >
@@ -235,7 +234,7 @@ export function ConsentScreen({
           aria-label={`Conectat ca ${userEmail}`}
         >
           <AccountCircleIcon fontSize="small" sx={{ color: "text.secondary" }} />
-          <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+          <Typography variant="body2"  sx={{ flexGrow: 1 }}>
             Conectat ca
           </Typography>
           <Chip
@@ -251,7 +250,7 @@ export function ConsentScreen({
           <>
             <Typography
               variant="overline"
-              color="text.secondary"
+              
               sx={{ display: "block", mb: 1.5, letterSpacing: "0.08em" }}
             >
               Permisiuni solicitate
@@ -286,7 +285,7 @@ export function ConsentScreen({
                     <Typography variant="body2" fontWeight={700}>
                       {s.label}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" >
                       {s.description}
                     </Typography>
                   </Box>
@@ -346,7 +345,7 @@ export function ConsentScreen({
         {/* ── Footer note ───────────────────────────────────────── */}
         <Typography
           variant="caption"
-          color="text.secondary"
+          
           display="block"
           align="center"
           sx={{ mt: 3, lineHeight: 1.6 }}

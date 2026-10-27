@@ -72,7 +72,7 @@ function EmptyState({
       <Typography variant="h6" sx={{ mb: 0.5 }}>
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" >
         {description}
       </Typography>
     </Paper>
@@ -218,7 +218,7 @@ function FavouritesContent() {
                   <Typography variant="subtitle2" fontWeight={700} noWrap>
                     {job.title}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" noWrap>
+                  <Typography variant="caption"  noWrap>
                     {job.companies?.name ?? "—"}
                     {job.location ? ` · ${job.location}` : ""}
                     {job.published_at ? ` · ${timeAgo(job.published_at)}` : ""}
@@ -314,7 +314,7 @@ function FavouritesContent() {
                   <Typography variant="subtitle2" fontWeight={700}>
                     {company.name}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" noWrap>
+                  <Typography variant="caption"  noWrap>
                     {[company.industry, company.location]
                       .filter(Boolean)
                       .join(" · ") || "—"}

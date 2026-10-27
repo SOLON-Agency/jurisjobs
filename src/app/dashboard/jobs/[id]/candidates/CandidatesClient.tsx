@@ -248,7 +248,7 @@ export function CandidatesClient() {
                   <JJLink
                     href={`mailto:${email}`}
                     variant="caption"
-                    color="text.secondary"
+                    
                     sx={{ display: "block", "&:hover": { color: "primary.main" } }}
                   >
                     {email}
@@ -264,7 +264,7 @@ export function CandidatesClient() {
         header: "Headline",
         hideBelow: "md",
         cell: (app) => (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {app.profiles?.headline || "—"}
           </Typography>
         ),
@@ -279,7 +279,7 @@ export function CandidatesClient() {
           onClick: () => toggleSort("applied_at"),
         },
         cell: (app) => (
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {formatDate(app.applied_at)}
           </Typography>
         ),
@@ -406,11 +406,11 @@ export function CandidatesClient() {
               flexWrap="wrap"
             >
               {job?.companies?.name && (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" >
                   {job.companies.name}
                 </Typography>
               )}
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 • {counts.all}{" "}
                 {counts.all === 1 ? "candidat" : "candidați"}
               </Typography>
@@ -537,7 +537,7 @@ export function CandidatesClient() {
           <Typography variant="h6" sx={{ mb: 0.5 }}>
             Niciun candidat
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {hasFilters
               ? "Niciun candidat nu corespunde filtrelor selectate."
               : "Acest anunț nu a primit candidaturi încă."}

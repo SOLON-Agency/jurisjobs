@@ -71,7 +71,7 @@ export function JJResetPasswordForm() {
         <Typography variant="h3" component="h1" sx={{ mb: 1, textAlign: "center" }}>
           Parolă nouă
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 4, textAlign: "center" }}>
+        <Typography variant="body2"  sx={{ mb: 4, textAlign: "center" }}>
           Alege o parolă pe care o poți reține. După salvare rămâi conectat.
         </Typography>
 
@@ -130,7 +130,7 @@ export function JJResetPasswordForm() {
           </Box>
         )}
 
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 3, textAlign: "center" }}>
+        <Typography variant="body2"  sx={{ mt: 3, textAlign: "center" }}>
           {!user && (
             <>
               <JJLink href="/forgot-password" variant="body2" sx={{ color: "primary.main" }}>

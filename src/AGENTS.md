@@ -238,7 +238,7 @@ All app-defined React components use the `JJ` prefix in both the exported identi
 
 ### Shared Button components
 
-- Use `JJButton` from `@/components/common/JJButton` for text and action buttons. Choose `appearance="primary"` for pill-shaped primary actions and `appearance="secondary"` for less-rounded secondary/filter actions. MUI props remain available, including `component={Link}`, `type`, `disabled`, icons, and `sx`.
+- Use `JJButton` from `@/components/common/JJButton` for text and action buttons. Primary and secondary appearances share the same pill-shaped radius; choose appearance for the visual treatment. MUI props remain available, including `component={Link}`, `type`, `disabled`, icons, and `sx`.
 - Use `JJIconButton` from `@/components/common/JJIconButton` for icon-only actions. Supply a meaningful `aria-label` and retain tooltips, toggle/pressed state, and minimum touch target.
 - Migrate touched MUI buttons without changing behavior or removing customized styles; keep form submit, loading, route link, dialog, and responsive semantics intact. Do not use a text button wrapper for icon-only controls.
 - See `/AGENTS.md` → *Reusable buttons* and the `Reusable Buttons` section in `src/PATTERNS.md` for guidance. Update both documents when this API changes.
@@ -327,6 +327,7 @@ Available: `fadeUp`, `stagger`, `heroContainer`, `heroItem`, `statsContainer`,
 |---|---|---|
 | `PageContainer` | `components/common/PageContainer.tsx` | Responsive Container with preset `py` per page type |
 | `BorderedCard` | `components/common/BorderedCard.tsx` | `Paper variant="outlined"` with consistent border style |
+| `JJCard` | `components/common/JJCard.tsx` | Extensible outlined card surface with reduced-motion-aware animated border hover |
 | `EmptyState` | `components/common/EmptyState.tsx` | Centered empty list placeholder |
 | `FormFieldError` | `components/common/FormFieldError.tsx` | Accessible RHF error display |
 

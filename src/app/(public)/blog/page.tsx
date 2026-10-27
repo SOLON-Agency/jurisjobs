@@ -62,9 +62,9 @@ export default async function BlogPage({
           fontWeight={800}
           sx={{ fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" }, mb: 1 }}
         >
-          Blog
+          Blog {appSettings.name}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1">
           Articole despre cariera juridică, tendințe în recrutare și sfaturi pentru
           profesioniști din domeniul juridic din România.
         </Typography>

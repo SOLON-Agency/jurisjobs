@@ -1,7 +1,8 @@
 "use client";
 
 import { brandCssVars } from "@/theme/tokens";
-import { Box, Container, Paper, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import { JJCard } from "@/components/common/JJCard";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
@@ -177,8 +178,8 @@ export function AudienceSection() {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
             >
-              <Paper
-                variant="outlined"
+              <JJCard
+                hoverColor="rgba(195,174,97,0.95)"
                 sx={{
                   p: { xs: 3, md: 3.5 },
                   height: "100%",
@@ -261,7 +262,7 @@ export function AudienceSection() {
                     </Typography>
                   </Box> */}
                 </Stack>
-              </Paper>
+              </JJCard>
             </motion.div>
           ))}
         </Box>

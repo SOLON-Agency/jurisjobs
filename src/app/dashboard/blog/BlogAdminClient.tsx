@@ -100,7 +100,7 @@ export function BlogAdminClient({ initialPosts, subscriberCount }: Props) {
             <Typography variant="body2" fontWeight={600}>
               {post.title}
             </Typography>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" >
               /blog/{post.slug}
             </Typography>
           </Stack>
@@ -129,7 +129,7 @@ export function BlogAdminClient({ initialPosts, subscriberCount }: Props) {
         hideBelow: "md",
         headerSx: { fontWeight: 700 },
         cell: (post) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {post.published_at ? formatDate(post.published_at) : "—"}
           </Typography>
         ),
@@ -140,7 +140,7 @@ export function BlogAdminClient({ initialPosts, subscriberCount }: Props) {
         hideBelow: "lg",
         headerSx: { fontWeight: 700 },
         cell: (post) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {post.reading_time_minutes ? `${post.reading_time_minutes} min` : "—"}
           </Typography>
         ),
@@ -226,7 +226,7 @@ export function BlogAdminClient({ initialPosts, subscriberCount }: Props) {
           <Typography variant="h5" fontWeight={700}>
             Gestionare Blog
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {posts.length} articole &middot; {subscriberCount} abonați newsletter
           </Typography>
         </Stack>

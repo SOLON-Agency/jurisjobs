@@ -146,7 +146,7 @@ export function AddEditBlogPost({ initialData, onSave }: AddEditBlogPostProps) {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Typography variant="body2" color="text.secondary">/blog/</Typography>
+                  <Typography variant="body2" >/blog/</Typography>
                 </InputAdornment>
               ),
             }}
@@ -161,7 +161,7 @@ export function AddEditBlogPost({ initialData, onSave }: AddEditBlogPostProps) {
             Conținut
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" >
               ~{estimatedReadingTime} min lectură
             </Typography>
             <Tooltip title={showPreview ? "Ascunde previzualizare" : "Arată previzualizare"}>
@@ -200,7 +200,7 @@ export function AddEditBlogPost({ initialData, onSave }: AddEditBlogPostProps) {
               borderColor: "divider",
             }}
           >
-            <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: "block" }}>
+            <Typography variant="caption"  sx={{ mb: 1, display: "block" }}>
               Previzualizare
             </Typography>
             <MarkdownRenderer markdown={contentValue} />

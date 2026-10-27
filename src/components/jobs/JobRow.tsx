@@ -123,7 +123,7 @@ export function JobRow({
           {truncate(job.title)}
         </Typography>
 
-        <Typography variant="caption" color="text.secondary"
+        <Typography variant="caption"
           sx={{ wordBreak: "break-word", overflowWrap: "break-word", lineHeight: 0.75 }}>
           {truncate(job.companies?.name ?? "", 50)}
         </Typography>
@@ -157,13 +157,13 @@ export function JobRow({
           />
         )}
         <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="flex-end">
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" >
             {job.published_at ? timeAgo(job.published_at) : ""}{job.location && " în "}
           </Typography>
           {job.location && (
             <>
               <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-              <Typography variant="caption" color="text.secondary" noWrap>
+              <Typography variant="caption"  noWrap>
                 {job.location}
               </Typography>
             </>

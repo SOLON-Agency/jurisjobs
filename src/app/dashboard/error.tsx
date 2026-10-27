@@ -31,7 +31,7 @@ export default function DashboardError({ error, reset }: ErrorProps) {
       <Typography variant="h5" fontWeight={600}>
         Eroare în dashboard
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" >
         Nu am putut încărca pagina. Încearcă din nou.
       </Typography>
       <Button variant="contained" onClick={reset}>

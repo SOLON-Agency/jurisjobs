@@ -5,6 +5,9 @@ import MuiIconButton, { type IconButtonProps as MuiIconButtonProps } from "@mui/
 export interface JJIconButtonProps extends MuiIconButtonProps {
   /** Required accessible name for the icon-only control. */
   "aria-label": string;
+  /** Anchor attributes supported when this button renders as a link. */
+  href?: string;
+  download?: boolean | string;
 }
 
 /** Icon-only action button with a consistent 44px minimum touch target. */

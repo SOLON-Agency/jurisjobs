@@ -99,7 +99,7 @@ export const AddEditCompany = forwardRef<AddEditCompanyHandle, AddEditCompanyPro
               <Typography variant="body2" fontWeight={600}>
                 Logo societate
               </Typography>
-              <Typography variant="caption" color="text.secondary">
+              <Typography variant="caption" >
                 JPG, PNG sau SVG. Recomandat 200×200 px.
               </Typography>
             </Box>

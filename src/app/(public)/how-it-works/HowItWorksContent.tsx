@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   Box,
   Container,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -23,6 +22,7 @@ import PeopleOutlineIcon from "@mui/icons-material/PeopleOutlined";
 import GavelIcon from "@mui/icons-material/Gavel";
 import { JJBanner } from "@/components/common/JJBanner";
 import { JJButton } from "@/components/common/JJButton";
+import { JJCard } from "@/components/common/JJCard";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import appSettings from "@/config/app.settings.json";
@@ -227,7 +227,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   appearance="primary"
                   endIcon={<ArrowForwardIcon />}
                   sx={{
-                    px: 4, py: 1.6, borderRadius: 99, fontWeight: 700,
+                    fontWeight: 700,
                     bgcolor: GOLD, color: "white",
                     "&:hover": { bgcolor: GOLD_FULL, boxShadow: "0 8px 32px rgba(195,174,97,0.35)" },
                     transition: "background-color 0.2s, box-shadow 0.2s",
@@ -314,7 +314,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
               >
-                <Paper variant="outlined" sx={{
+                <JJCard hoverColor={b.color} sx={{
                   p: 3, height: "100%", borderRadius: 3,
                   borderColor: b.border, bgcolor: b.bg,
                   transition: "border-color 0.25s, box-shadow 0.25s",
@@ -332,10 +332,10 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                     {b.icon}
                   </Box>
                   <Typography variant="h5" component="h3" sx={{ mb: 1 }}>{b.title}</Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  <Typography variant="body2"  sx={{ lineHeight: 1.7 }}>
                     {b.body}
                   </Typography>
-                </Paper>
+                </JJCard>
               </motion.div>
             ))}
           </Box>
@@ -366,7 +366,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   4 pași
                 </Box>
               </Typography>
-              {/* <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 500, mx: "auto" }}>
+              {/* <Typography variant="body1"  sx={{ maxWidth: 500, mx: "auto" }}>
                 Iar totul este complet gratuit.
               </Typography> */}
             </Box>
@@ -388,7 +388,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
               >
-                <Paper variant="outlined" sx={{
+                <JJCard hoverColor={step.color} sx={{
                   p: 3, height: "100%", borderRadius: 3,
                   borderColor: step.border, bgcolor: step.bg,
                   position: "relative", zIndex: 1,
@@ -425,10 +425,10 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   </Box> */}
 
                   <Typography variant="h5" component="h3" sx={{ mb: 1 }}>{step.title}</Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  <Typography variant="body2"  sx={{ lineHeight: 1.7 }}>
                     {step.body}
                   </Typography>
-                </Paper>
+                </JJCard>
               </motion.div>
             ))}
           </Box>

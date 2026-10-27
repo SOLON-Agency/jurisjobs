@@ -93,8 +93,7 @@ export function TableOfContents({ headings, variant = "inline" }: TableOfContent
       <Typography
         variant="caption"
         fontWeight={700}
-        color="text.secondary"
-        sx={{ mb: 1, display: "block", textTransform: "uppercase", letterSpacing: 0.5 }}
+        sx={{ fontSize: "1.1125rem", mb: 1, display: "block", textTransform: "uppercase", letterSpacing: 0.5 }}
       >
         Cuprins
       </Typography>
@@ -118,7 +117,8 @@ export function TableOfContents({ headings, variant = "inline" }: TableOfContent
                     ? alpha(theme.palette.primary.main, 0.55)
                     : "transparent",
                   bgcolor: isActive ? alpha(theme.palette.primary.main, 0.07) : "transparent",
-                  color: isActive ? "text.primary" : "text.secondary",
+                  // color: isActive ? "text.primary" : "text.secondary",
+                  color: "text.primary",
                   fontWeight: isActive ? 600 : 400,
                   transition,
                   "&:hover": {

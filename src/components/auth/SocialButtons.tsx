@@ -39,7 +39,7 @@ export function SocialButtons() {
       </Stack>
 
       <Divider sx={{ my: 3 }}>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" >
           sau
         </Typography>
       </Divider>

@@ -387,7 +387,7 @@ export function CompanyClient() {
           <Typography variant="h5" sx={{ mb: 1 }}>
             Nicio societate
           </Typography>
-          <Typography color="text.secondary" sx={{ mb: 3 }}>
+          <Typography  sx={{ mb: 3 }}>
             Creează o societate pentru a publica locuri de muncă.
           </Typography>
           <Button variant="contained" startIcon={<AddIcon />} onClick={openCreate}>
@@ -447,7 +447,7 @@ export function CompanyClient() {
                   {company.location && (
                     <Stack direction="row" spacing={0.5} alignItems="center">
                       <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-                      <Typography variant="caption" color="text.secondary"
+                      <Typography variant="caption" 
                         sx={{ wordBreak: "break-word", overflowWrap: "break-word" }}>
                         {company.location}
                       </Typography>
@@ -472,7 +472,7 @@ export function CompanyClient() {
                 </Stack>
 
                 {company.description && (
-                  <Typography variant="body2" color="text.secondary"
+                  <Typography variant="body2" 
                     sx={{ mt: 1, wordBreak: "break-word", overflowWrap: "break-word" }}>
                     {truncate(company.description)}
                   </Typography>

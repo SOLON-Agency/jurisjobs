@@ -68,7 +68,7 @@ export function JJNotificationBell({ sx }: JJNotificationBellProps) {
         <Divider />
         {unread.length === 0 ? (
           <Box sx={{ p: 3, textAlign: "center" }}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" >
               Nicio notificare necitită
             </Typography>
           </Box>
@@ -89,11 +89,11 @@ export function JJNotificationBell({ sx }: JJNotificationBellProps) {
                   secondary={
                     <>
                       {n.body && (
-                        <Typography variant="caption" color="text.secondary" component="span">
+                        <Typography variant="caption"  component="span">
                           {n.body}
                         </Typography>
                       )}
-                      <Typography variant="caption" color="text.secondary" component="span" sx={{ display: "block" }}>
+                      <Typography variant="caption"  component="span" sx={{ display: "block" }}>
                         {timeAgo(n.created_at)}
                       </Typography>
                     </>

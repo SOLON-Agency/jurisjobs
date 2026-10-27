@@ -116,7 +116,7 @@ export function ClaimClient({ token, code: initialCode, email, isAuthenticated }
             <Typography variant="h5" fontWeight={700}>
               Societate revendicată!
             </Typography>
-            <Typography color="text.secondary">
+            <Typography >
               Ești redirecționat către panoul de control...
             </Typography>
             <CircularProgress size={24} />
@@ -134,7 +134,7 @@ export function ClaimClient({ token, code: initialCode, email, isAuthenticated }
         <Paper sx={{ p: 4, textAlign: "center" }}>
           <Stack spacing={2} alignItems="center">
             <CircularProgress />
-            <Typography color="text.secondary">
+            <Typography >
               Se verifică codul de revendicare...
             </Typography>
           </Stack>
@@ -162,7 +162,7 @@ export function ClaimClient({ token, code: initialCode, email, isAuthenticated }
               <Typography variant="h5" fontWeight={700} component="h1">
                 Revendică societatea
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 Preia gratuit controlul asupra profilului societății tale.
               </Typography>
             </Box>
@@ -212,7 +212,7 @@ export function ClaimClient({ token, code: initialCode, email, isAuthenticated }
 
           <Box component="form" onSubmit={handleManualSubmit} noValidate>
             <Stack spacing={2}>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 Introduceți codul de 6 cifre din emailul de invitație:
               </Typography>
               <TextField
@@ -242,7 +242,7 @@ export function ClaimClient({ token, code: initialCode, email, isAuthenticated }
               <Typography
                 id="claim-code-hint"
                 variant="caption"
-                color="text.secondary"
+                
               >
                 Codul se află în emailul primit de la LegalJobs. Procesul
                 durează ~60 de secunde, contul este gratuit, fără card.

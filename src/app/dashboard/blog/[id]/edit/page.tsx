@@ -49,7 +49,7 @@ export default async function EditBlogPostPage({ params }: Props) {
           </Typography>
         }
         subtitle={
-          <Typography variant="body2" color="text.secondary" noWrap>
+          <Typography variant="body2"  noWrap>
             {post.title}
           </Typography>
         }

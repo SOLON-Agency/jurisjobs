@@ -194,7 +194,7 @@ export function CandidatesOverviewClient() {
                 {candidate.profiles?.full_name ?? "Candidat necunoscut"}
               </Typography>
               {candidate.profiles?.headline && (
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" >
                   {candidate.profiles.headline}
                 </Typography>
               )}
@@ -217,7 +217,7 @@ export function CandidatesOverviewClient() {
               {candidate.job_listings?.title ?? "—"}
             </Typography>
             {candidate.job_listings?.companies?.name && (
-              <Typography variant="caption" color="text.secondary">
+              <Typography variant="caption" >
                 {candidate.job_listings.companies.name}
               </Typography>
             )}
@@ -234,7 +234,7 @@ export function CandidatesOverviewClient() {
           onClick: () => handleSort("applied_at"),
         },
         cell: (candidate) => (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" >
             {formatDate(candidate.applied_at ?? "")}
           </Typography>
         ),
@@ -376,13 +376,13 @@ export function CandidatesOverviewClient() {
           <Typography variant="h5" sx={{ mb: 1 }}>
             Niciun candidat
           </Typography>
-          <Typography color="text.secondary">
+          <Typography >
             Candidații vor apărea aici după ce aplică la anunțurile tale.
           </Typography>
         </Paper>
       ) : filtered.length === 0 ? (
         <Paper sx={{ p: 4, textAlign: "center", border: "1px solid rgba(3, 23, 12, 0.1)", borderRadius: 2 }}>
-          <Typography color="text.secondary">
+          <Typography >
             Niciun candidat nu corespunde filtrelor selectate.
           </Typography>
         </Paper>
@@ -397,7 +397,7 @@ export function CandidatesOverviewClient() {
 
       {/* Summary */}
       {filtered.length > 0 && (
-        <Typography variant="caption" color="text.secondary" sx={{ mt: 1.5, display: "block" }}>
+        <Typography variant="caption"  sx={{ mt: 1.5, display: "block" }}>
           {filtered.length} din {candidates.length} candidat{candidates.length !== 1 ? "i" : ""}
         </Typography>
       )}

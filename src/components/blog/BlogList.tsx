@@ -62,7 +62,7 @@ export function BlogList({ initial, initialTotal, pageSize = 9, tag }: BlogListP
 
   if (posts.length === 0 && !loading) {
     return (
-      <Typography color="text.secondary" textAlign="center" sx={{ py: 8 }}>
+      <Typography  textAlign="center" sx={{ py: 8 }}>
         Nu există articole publicate momentan.
       </Typography>
     );

@@ -71,7 +71,7 @@ function MetaItem({ label, value, icon }: { label: string; value: string; icon?:
     <Box>
       <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mb: 0.25 }}>
         {icon}
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="caption">
           {label}
         </Typography>
       </Stack>
@@ -148,15 +148,15 @@ export function JobDetail({
         >
           {job.location && (
             <Stack direction="row" alignItems="center" spacing={0.5}>
-              <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-              <Typography variant="caption" color="text.secondary" fontWeight={500}>
+              <LocationOnOutlinedIcon sx={{ fontSize: 14 }} />
+              <Typography variant="caption" fontWeight={500}>
                 {job.location}
               </Typography>
             </Stack>
           )}
           <Stack direction="row" alignItems="center" spacing={0.5}>
-            <CalendarTodayOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-            <Typography variant="caption" color="text.secondary">
+            <CalendarTodayOutlinedIcon sx={{ fontSize: 14 }} />
+            <Typography variant="caption">
               {job.published_at ? formatDate(job.published_at) : "Ciornă"}
             </Typography>
           </Stack>
@@ -327,9 +327,9 @@ export function JobDetail({
                 icon={<CardGiftcardOutlinedIcon sx={{ fontSize: "12px !important" }} />}
                 label={benefits.length === 1 ? "1 beneficiu" : `${benefits.length} beneficii`}
                 size="small"
-                color="success"
+                color="primary"
                 variant="outlined"
-                sx={{ height: 20, fontSize: "0.7rem", fontWeight: 700 }}
+                sx={{ height: 20, fontSize: "0.7rem", fontWeight: 700, pl: 1, pr: 0.65 }}
               />
             </Stack>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
@@ -396,7 +396,7 @@ export function JobDetail({
               </Typography>
             )}
             {job.companies?.description && (
-              <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
+              <Typography variant="caption"  sx={{ mt: 0.5 }}>
                 {job.companies.description.slice(0, 80)}
                 {job.companies.description.length > 80 ? "…" : ""}
               </Typography>
@@ -432,7 +432,7 @@ export function JobDetail({
               <MetaItem
                 label="Salariu"
                 value={(job.salary_min || job.salary_max) ? formatSalary(job.salary_min, job.salary_max) : "—"}
-                icon={<AttachMoneyOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />}
+                icon={<AttachMoneyOutlinedIcon sx={{ fontSize: 14 }} />}
               />
               <MetaItem
                 label="Experiență"
@@ -441,12 +441,12 @@ export function JobDetail({
                     ? job.experience_level.map((lvl) => experienceLevelLabels[lvl] ?? lvl).join(", ")
                     : "—"
                 }
-                icon={<WorkOutlineIcon sx={{ fontSize: 14, color: "text.secondary" }} />}
+                icon={<WorkOutlineIcon sx={{ fontSize: 14 }} />}
               />
               <MetaItem
                 label="Locație"
                 value={job.location ?? "—"}
-                icon={<LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />}
+                icon={<LocationOnOutlinedIcon sx={{ fontSize: 14 }} />}
               />
               <MetaItem
                 label="Tip de contract"
@@ -455,17 +455,17 @@ export function JobDetail({
                     ? (jobTypeLabels[job.job_type] ?? job.job_type)
                     : "—"
                 }
-                icon={<BusinessCenterOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />}
+                icon={<BusinessCenterOutlinedIcon sx={{ fontSize: 14 }} />}
               />
               <MetaItem
                 label="Publicat"
                 value={job.published_at ? formatDate(job.published_at) : "Ciornă"}
-                icon={<CalendarTodayOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />}
+                icon={<CalendarTodayOutlinedIcon sx={{ fontSize: 14 }} />}
               />
               <MetaItem
                 label="Remote"
                 value={job.is_remote ? "Da" : "Nu"}
-                icon={<WifiOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />}
+                icon={<WifiOutlinedIcon sx={{ fontSize: 14 }} />}
               />
             </Box>
 
@@ -474,8 +474,8 @@ export function JobDetail({
             {/* Benefits chip */}
             {benefits.length > 0 && (
               <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2.5 }}>
-                <CardGiftcardOutlinedIcon sx={{ fontSize: 16, color: "success.main" }} />
-                <Typography variant="body2" fontWeight={600} color="success.main">
+                <CardGiftcardOutlinedIcon sx={{ fontSize: 16 }} />
+                <Typography variant="body2" fontWeight={600}>
                   {benefits.length} {benefits.length === 1 ? "beneficiu" : "beneficii"}
                 </Typography>
               </Stack>

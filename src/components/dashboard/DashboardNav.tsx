@@ -77,7 +77,7 @@ function NavList({ items, pathname, onNavigate }: NavListProps) {
               }}
             >
               <ListItemIcon
-                sx={{ minWidth: 40, color: isActive ? "primary.main" : "text.secondary" }}
+                sx={{ minWidth: 40, color: isActive ? "text.secondary" : "text.primary" }}
               >
                 {item.icon}
               </ListItemIcon>
@@ -86,7 +86,7 @@ function NavList({ items, pathname, onNavigate }: NavListProps) {
                 primaryTypographyProps={{
                   variant: "body2",
                   fontWeight: isActive ? 600 : 400,
-                  color: isActive ? "primary.main" : "text.primary",
+                  color: isActive ? "text.secondary" : "text.primary",
                 }}
               />
             </ListItemButton>

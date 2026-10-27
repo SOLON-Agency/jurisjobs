@@ -37,4 +37,5 @@ export const brandCssProperties = {
 } as CSSProperties;
 
 export const brandGradient = `linear-gradient(135deg, ${brandColors.forest} 0%, ${brandColors.green} 100%)`;
+export const brandPrimaryButtonGradient = `linear-gradient(to right, ${brandColors.forest} 0%, ${brandColors.green} 51%, ${brandColors.forest} 100%)`;
 export const brandGradientGold = `linear-gradient(135deg, ${brandColors.forest} 0%, ${brandColors.gold} 100%)`;

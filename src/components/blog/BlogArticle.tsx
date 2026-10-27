@@ -73,7 +73,6 @@ export function BlogArticle({ post }: BlogArticleProps) {
             {post.excerpt && (
               <Typography
                 variant="body1"
-                color="text.secondary"
                 sx={{ mb: 2.5, fontSize: "1.0625rem", lineHeight: 1.7 }}
               >
                 {post.excerpt}
@@ -88,17 +87,15 @@ export function BlogArticle({ post }: BlogArticleProps) {
               sx={{ mb: 3 }}
               component="div"
             >
-              <address style={{ fontStyle: "normal" }}>
+              {/* <address style={{ fontStyle: "normal" }}>
                 <Typography variant="body2" fontWeight={600}>
-                  De{" "}
-                  {/* <span rel="author">{authorName}</span> */}
                   <span rel="author">Admin</span>
                 </Typography>
-              </address>
+              </address> */}
               {post.published_at && (
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <CalendarTodayIcon sx={{ fontSize: 14, color: "text.disabled" }} />
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" >
                     <time dateTime={post.published_at}>{formatDate(post.published_at)}</time>
                   </Typography>
                 </Stack>
@@ -106,8 +103,8 @@ export function BlogArticle({ post }: BlogArticleProps) {
               {post.reading_time_minutes && (
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <AccessTimeIcon sx={{ fontSize: 14, color: "text.disabled" }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {post.reading_time_minutes} min lectură
+                  <Typography variant="body2" >
+                    {post.reading_time_minutes} min
                   </Typography>
                 </Stack>
               )}
@@ -154,7 +151,7 @@ export function BlogArticle({ post }: BlogArticleProps) {
           <footer>
             {post.tags.length > 0 && (
               <Stack direction="row" flexWrap="wrap" gap={1} alignItems="center">
-                <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                <Typography variant="body2"  fontWeight={600}>
                   Etichete:
                 </Typography>
                 {post.tags.map((tag) => (

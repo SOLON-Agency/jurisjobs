@@ -9,7 +9,7 @@ export default function BlogNotFound() {
       <Typography variant="h2" fontWeight={700} sx={{ mb: 2 }}>
         Articol negăsit
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 4 }}>
+      <Typography  sx={{ mb: 4 }}>
         Articolul pe care îl cauți nu există sau a fost eliminat.
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>

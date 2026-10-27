@@ -2,7 +2,8 @@
 
 import { brandCssVars, brandGradient } from "@/theme/tokens";
 import React from "react";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import { JJCard } from "@/components/common/JJCard";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, resolveMotionDuration } from "@/lib/motion";
 import SearchIcon from "@mui/icons-material/Search";
@@ -106,8 +107,8 @@ export function WhySection() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: resolveMotionDuration(reduced) }}
             >
-              <Paper
-                variant="outlined"
+              <JJCard
+                hoverColor={f.color}
                 sx={{
                   p: 3,
                   height: "100%",
@@ -142,10 +143,10 @@ export function WhySection() {
                 <Typography variant="h5" component="h3" sx={{ mb: 1, color: "text.primary" }}>
                   {f.title}
                 </Typography>
-                {/* <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                {/* <Typography variant="body2"  sx={{ lineHeight: 1.7 }}>
                   {f.description}
                 </Typography> */}
-              </Paper>
+              </JJCard>
             </motion.div>
           ))}
         </Box>

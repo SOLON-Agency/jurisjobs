@@ -151,7 +151,7 @@ export function AddEditForm({
         <Stack spacing={2}>
           {requireCompany && (
             <Box>
-              <Typography variant="caption" color="text.secondary" sx={{ mb: 0.5, display: "block" }}>
+              <Typography variant="caption"  sx={{ mb: 0.5, display: "block" }}>
                 Societate *
               </Typography>
               <Controller
@@ -231,7 +231,7 @@ export function AddEditForm({
               variant="outlined"
               sx={{ p: 3, textAlign: "center", borderStyle: "dashed", borderRadius: 2 }}
             >
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 Niciun câmp adăugat. Apasă „Adaugă câmp” pentru a începe.
               </Typography>
             </Paper>

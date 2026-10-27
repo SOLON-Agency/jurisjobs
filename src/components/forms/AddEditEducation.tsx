@@ -38,6 +38,7 @@ import {
 import { parseSupabaseError, truncate } from "@/lib/utils";
 import { useToast } from "@/contexts/ToastContext";
 import { educationSchema, type EducationFormData } from "./validations/education.schema";
+import { JJButton } from "@/components/common/JJButton";
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -204,9 +205,9 @@ export function AddEditEducation({
               Educație
             </Typography>
           </Stack>
-          <Button size="small" startIcon={<AddIcon />} variant="outlined" onClick={openAdd}>
+          <JJButton size="small" startIcon={<AddIcon />} variant="outlined" appearance="secondary" onClick={openAdd}>
             Adaugă
-          </Button>
+          </JJButton>
         </Stack>
 
         {loading ? (
@@ -240,7 +241,7 @@ export function AddEditEducation({
                         />
                       )}
                     </Stack>
-                    <Typography variant="body2" color="text.secondary"
+                    <Typography variant="body2" 
                       sx={{ wordBreak: "break-word", overflowWrap: "break-word" }}>
                       {truncate(item.institution, 80)}
                       {(item.start_year || item.end_year) && (

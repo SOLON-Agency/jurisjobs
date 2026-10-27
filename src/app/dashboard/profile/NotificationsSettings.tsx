@@ -217,7 +217,7 @@ export function NotificationsSettings({
           Notificări
         </Typography>
       </Stack>
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+      <Typography variant="body2"  sx={{ mb: 3 }}>
         Controlează canalele de notificare și tipurile de eventi pentru care primești
         actualizări.
       </Typography>
@@ -264,7 +264,7 @@ export function NotificationsSettings({
                           </Typography>
                           <Typography
                             variant="caption"
-                            color="text.secondary"
+                            
                             component="span"
                             display="block"
                           >
@@ -321,7 +321,7 @@ export function NotificationsSettings({
                         </Typography>
                         <Typography
                           variant="caption"
-                          color="text.secondary"
+                          
                           component="span"
                           display="block"
                         >
@@ -374,7 +374,7 @@ export function NotificationsSettings({
                             </Typography>
                             <Typography
                               variant="caption"
-                              color="text.secondary"
+                              
                               component="span"
                               display="block"
                             >
@@ -405,7 +405,7 @@ export function NotificationsSettings({
         <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 2 }}>
           Preferințe pe tip de notificare
         </Typography>
-        <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: "block" }}>
+        <Typography variant="caption"  sx={{ mb: 2, display: "block" }}>
           Bifează canalele dorite pentru fiecare tip de notificare. Canalele dezactivate global nu
           trimit notificări indiferent de setările de mai jos.
         </Typography>
@@ -420,7 +420,7 @@ export function NotificationsSettings({
               component="legend"
               variant="caption"
               fontWeight={700}
-              color="text.secondary"
+              
               sx={{ textTransform: "uppercase", letterSpacing: 0.8, mb: 1 }}
             >
               {group.label}

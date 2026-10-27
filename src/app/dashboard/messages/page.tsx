@@ -17,7 +17,7 @@ export default function MessagesPage() {
         <Typography variant="h5" sx={{ mb: 1 }}>
           No conversations yet
         </Typography>
-        <Typography color="text.secondary">
+        <Typography >
           Messages with employers will appear here.
         </Typography>
       </Paper>

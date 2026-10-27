@@ -38,6 +38,7 @@ import {
 import { parseSupabaseError, truncate } from "@/lib/utils";
 import { useToast } from "@/contexts/ToastContext";
 import { experienceSchema, type ExperienceFormData } from "./validations/experience.schema";
+import { JJButton } from "@/components/common/JJButton";
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -204,9 +205,9 @@ export function AddEditExperience({
               Experiență profesională
             </Typography>
           </Stack>
-          <Button size="small" startIcon={<AddIcon />} variant="outlined" onClick={openAdd}>
+          <JJButton size="small" startIcon={<AddIcon />} variant="outlined" appearance="secondary" onClick={openAdd}>
             Adaugă
-          </Button>
+          </JJButton>
         </Stack>
 
         {loading ? (
@@ -240,7 +241,7 @@ export function AddEditExperience({
                         />
                       )}
                     </Stack>
-                    <Typography variant="body2" color="text.secondary"
+                    <Typography variant="body2" 
                       sx={{ wordBreak: "break-word", overflowWrap: "break-word" }}>
                       {truncate(item.company, 80)}
                       {(item.start_year || item.end_year) && (

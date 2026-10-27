@@ -50,6 +50,7 @@ import { NOTIFICATION_TYPES } from "@/lib/notifications/types";
 import type { Tables } from "@/types/database";
 import { JJPasskeySettings } from "@/components/profile/JJPasskeySettings";
 import { NotificationsSettings } from "./NotificationsSettings";
+import { JJButton } from "@/components/common/JJButton";
 
 export function ProfileClient() {
   const { user } = useAuth();
@@ -207,13 +208,13 @@ export function ProfileClient() {
         actions={
           <>
             {profile?.is_public && profile?.slug && (
-              <Button variant="outlined" startIcon={<OpenInNewIcon />} onClick={openViewProfile} disabled={loading}>
+              <JJButton variant="outlined" appearance="secondary" startIcon={<OpenInNewIcon />} onClick={openViewProfile} disabled={loading}>
                 Vizualizează profilul
-              </Button>
+              </JJButton>
             )}
-            <Button variant="contained" startIcon={<EditIcon />} onClick={openEdit} disabled={loading}>
+            <JJButton variant="contained" appearance="primary" startIcon={<EditIcon />} onClick={openEdit} disabled={loading}>
               Editează profilul
-            </Button>
+            </JJButton>
           </>
         }
       />
@@ -289,13 +290,13 @@ export function ProfileClient() {
                 )}
               </Typography>
               {profile.headline && (
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+                <Typography variant="body1"  sx={{ mb: 1 }}>
                   {profile.headline}
                 </Typography>
               )}
               {profile.location && <Stack direction="row" spacing={0.5}>
                 <LocationOnOutlinedIcon sx={{ fontSize: 14, color: "text.secondary" }} />
-                <Typography variant="caption" color="text.secondary" noWrap>
+                <Typography variant="caption"  noWrap>
                   {profile.location}
                 </Typography>
               </Stack>}
@@ -304,7 +305,7 @@ export function ProfileClient() {
 
           {profile.bio && (
             <Box sx={{ mt: 3, pt: 3, borderTop: "1px solid", borderColor: "divider" }}>
-              <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-wrap" }}>
+              <Typography variant="body2"  sx={{ whiteSpace: "pre-wrap" }}>
                 {truncate(profile.bio ?? "")}
               </Typography>
             </Box>
@@ -316,16 +317,18 @@ export function ProfileClient() {
             </Typography>
             {profile.cv_url ? (
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                <Button
+                <JJButton
                   variant="outlined"
+                  appearance="secondary"
                   size="small"
                   startIcon={<DownloadIcon />}
                   onClick={handleCvDownload}
                 >
                   Descarcă CV
-                </Button>
-                <Button
+                </JJButton>
+                <JJButton
                   variant="outlined"
+                  appearance="secondary"
                   size="small"
                   component="label"
                   disabled={cvUploading}
@@ -334,11 +337,12 @@ export function ProfileClient() {
                 >
                   {cvUploading ? "Se încarcă…" : "Înlocuiește"}
                   <input type="file" hidden accept=".pdf" onChange={handleCvUpload} disabled={cvUploading} />
-                </Button>
+                </JJButton>
               </Stack>
             ) : (
-              <Button
+              <JJButton
                 variant="outlined"
+                appearance="secondary"
                 size="small"
                 component="label"
                 disabled={cvUploading}
@@ -347,7 +351,7 @@ export function ProfileClient() {
               >
                 {cvUploading ? "Se încarcă…" : "Încarcă CV (PDF, max 5MB)"}
                 <input type="file" hidden accept=".pdf" onChange={handleCvUpload} disabled={cvUploading} />
-              </Button>
+              </JJButton>
             )}
           </Box>
         </Paper>
@@ -468,7 +472,7 @@ export function ProfileClient() {
                       <Typography variant="body2" fontWeight={600}>
                         Profil public
                       </Typography>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography variant="caption" >
                         Permite oricui să îți vizualizeze profilul prin link direct.
                       </Typography>
                     </Box>

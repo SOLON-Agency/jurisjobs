@@ -120,7 +120,7 @@ function VerifyEmailContent() {
 
       <Typography
         variant="caption"
-        color="text.secondary"
+        
         display="block"
         align="center"
         sx={{ mt: 2 }}

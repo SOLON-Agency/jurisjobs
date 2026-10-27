@@ -355,7 +355,7 @@ export function MarkdownEditor({
         transformOrigin={{ vertical: "top", horizontal: "left" }}
         slotProps={{ paper: { sx: { p: 2, borderRadius: 2, width: 320, mt: 0.5 } } }}
       >
-        <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1 }}>
+        <Typography variant="caption"  display="block" sx={{ mb: 1 }}>
           Adaugă un hyperlink
         </Typography>
         <TextField

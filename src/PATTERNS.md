@@ -32,6 +32,7 @@ Reference implementations — when introducing a new feature, prefer mirroring a
 | Recharts chart | `components/dashboard/DashboardContent.tsx` | — |
 | Empty state | `app/dashboard/forms/FormsClient.tsx` | `components/common/EmptyState.tsx` |
 | Bordered card | `components/dashboard/DashboardContent.tsx` | `components/common/BorderedCard.tsx` |
+| Animated extensible card surface | `components/layout/WhySection.tsx`, `components/marketing/PlatformAdvantagesSection.tsx` | `components/common/JJCard.tsx` |
 | Reusable CTA / notice banner | `app/page.tsx`, `components/dashboard/JJEmailVerificationBanner.tsx` | `components/common/JJBanner.tsx` |
 | Reusable text and icon buttons | `components/layout/HeroSection.tsx`, `components/jobs/JobFilters.tsx` | `components/common/JJButton.tsx`, `components/common/JJIconButton.tsx` |
 | Reusable textual links (underline hover) | `components/layout/Footer.tsx`, `components/auth/LoginForm.tsx` | `components/common/JJLink.tsx`, `styles/jj-link.css` (`.jj-prose` for raw HTML) |
@@ -94,7 +95,23 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 </JJIconButton>
 ```
 
-Primary buttons use a full-pill shape; secondary buttons use a less-rounded shape. The default derives primary styling from MUI `contained` and secondary styling from `outlined` / `text`; specify `appearance` when intent differs. Icon-only controls require descriptive `aria-label` values and retain at least a 44 × 44 px target. During migration preserve loading, form `type`, disabled, link, tooltip, pressed-state, and responsive behavior. See `/AGENTS.md` → *Reusable buttons* and `src/AGENTS.md` → *Shared Button components*.
+Primary and secondary buttons use the same full-pill shape. The default derives primary styling from MUI `contained` and secondary styling from `outlined` / `text`; specify `appearance` when intent differs. Icon-only controls require descriptive `aria-label` values and retain at least a 44 × 44 px target. During migration preserve loading, form `type`, disabled, link, tooltip, pressed-state, and responsive behavior. See `/AGENTS.md` → *Reusable buttons* and `src/AGENTS.md` → *Shared Button components*.
+
+## Reusable Cards
+
+Use `JJCard` as a flexible outlined `Paper` surface. It keeps content and semantics in the caller, forwards MUI `PaperProps`, and supports custom `sx`, padding, accent color, and an animated border trace on hover or focus-within. Set `hoverEffect={false}` for a static surface. The border animation respects `prefers-reduced-motion`.
+
+```tsx
+import { JJCard } from "@/components/common/JJCard";
+import { brandCssVars } from "@/theme/tokens";
+
+<JJCard padding={3} hoverColor={brandCssVars.gold} sx={{ bgcolor: "background.paper", height: "100%" }}>
+  <Typography component="h3" variant="h5">Card title</Typography>
+  <Typography variant="body2">Card content stays specific to its feature.</Typography>
+</JJCard>
+```
+
+Cards are not interactive by default. If a card contains actions or links, keep those controls semantic and keyboard-operable rather than making the whole surface behave like a button. `BorderedCard` remains available for existing dashboard/form surfaces that need a static outlined wrapper.
 
 ---
 
@@ -109,7 +126,7 @@ import { JJLink } from "@/components/common/JJLink";
   Creează unul
 </JJLink>
 
-<JJLink href="https://example.com" variant="caption" color="text.secondary">
+<JJLink href="https://example.com" variant="caption" >
   example.com
 </JJLink>
 
