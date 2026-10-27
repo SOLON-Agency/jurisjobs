@@ -22,7 +22,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { PasswordField } from "@/components/common/PasswordField";
+import { JJPasswordField } from "@/components/common/JJPasswordField";
 import CheckIcon from "@mui/icons-material/Check";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlined";
 import EditIcon from "@mui/icons-material/Edit";
@@ -152,7 +152,7 @@ function LoginInline({ supabase, onError }: {
           error={!!errors.email}
           helperText={errors.email?.message}
         />
-        <PasswordField
+        <JJPasswordField
           {...register("password")}
           label="Parolă"
           fullWidth
@@ -212,14 +212,14 @@ function RegisterInline({ supabase, emailRedirectTo, onError, onSuccess }: {
           error={!!errors.email}
           helperText={errors.email?.message}
         />
-        <PasswordField
+        <JJPasswordField
           {...register("password")}
           label="Parolă"
           fullWidth
           error={!!errors.password}
           helperText={errors.password?.message}
         />
-        <PasswordField
+        <JJPasswordField
           {...register("confirmPassword")}
           label="Confirmă parola"
           fullWidth
@@ -742,7 +742,7 @@ export function AnuntWizard() {
             >
               Publică un anunț
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2">
               Completează pașii de mai jos pentru a publica anunțul tău de angajare.
             </Typography>
           </Box>

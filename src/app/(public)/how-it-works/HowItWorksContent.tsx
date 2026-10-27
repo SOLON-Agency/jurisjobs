@@ -5,7 +5,6 @@ import React from "react";
 import Link from "next/link";
 import {
   Box,
-  Button,
   Container,
   Paper,
   Stack,
@@ -22,7 +21,8 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutlined";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutlined";
 import GavelIcon from "@mui/icons-material/Gavel";
-import { BannerSection } from "@/components/layout/BannerSection";
+import { JJBanner } from "@/components/common/JJBanner";
+import { JJButton } from "@/components/common/JJButton";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import appSettings from "@/config/app.settings.json";
@@ -222,8 +222,9 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                 useFlexGap
                 flexWrap="wrap"
               >
-                <Button
+                <JJButton
                   component={Link} href="#candidati" variant="contained" size="large"
+                  appearance="primary"
                   endIcon={<ArrowForwardIcon />}
                   sx={{
                     px: 4, py: 1.6, borderRadius: 99, fontWeight: 700,
@@ -233,11 +234,12 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   }}
                 >
                   Sunt candidat
-                </Button>
-                <Button
+                </JJButton>
+                <JJButton
                   component={Link} href="#angajatori" variant="outlined" size="large"
+                  appearance="secondary"
                   sx={{
-                    px: 4, py: 1.6, borderRadius: 99, fontWeight: 600,
+                    px: 4, py: 1.6, fontWeight: 600,
                     borderColor: "rgba(240,235,216,0.25)", color: "rgba(240,235,216,0.8)",
                     backdropFilter: "blur(8px)", bgcolor: "rgba(240,235,216,0.05)",
                     "&:hover": { borderColor: "rgba(240,235,216,0.5)", bgcolor: "rgba(240,235,216,0.1)" },
@@ -245,14 +247,15 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   }}
                 >
                   Sunt angajator
-                </Button>
-                <Button
+                </JJButton>
+                <JJButton
                   component={Link}
                   href="#agentii-recrutare"
                   variant="outlined"
                   size="large"
+                  appearance="secondary"
                   sx={{
-                    px: 4, py: 1.6, borderRadius: 99, fontWeight: 600,
+                    px: 4, py: 1.6, fontWeight: 600,
                     borderColor: "rgba(195,174,97,0.45)", color: GOLD,
                     backdropFilter: "blur(8px)", bgcolor: "rgba(195,174,97,0.06)",
                     "&:hover": {
@@ -263,7 +266,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   }}
                 >
                   Agenții de recrutare
-                </Button>
+                </JJButton>
               </Stack>
             </motion.div>
 
@@ -291,7 +294,7 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
                   lumea juridică
                 </Box>
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 520, mx: "auto" }}>
+              <Typography variant="body1" sx={{ maxWidth: 520, mx: "auto" }}>
                 O platformă inteligentă pentru juriști inteligenți.
               </Typography>
             </Box>
@@ -518,7 +521,14 @@ export function HowItWorksContent({ faqItems }: { faqItems: FaqPublicItem[] }) {
       <FaqSection items={faqItems} variant="dark" />
 
       <Box>
-        <BannerSection />
+        <JJBanner
+          title={`Hai pe ${appSettings.name}`}
+          description="Locul unde recrutarea juridică încetează să mai fie penală."
+          actions={[
+            { label: "Postează un anunț gratuit", href: "/anunt" },
+            { label: "Explorează anunțuri", href: "/jobs", variant: "outlined", endIcon: null },
+          ]}
+        />
       </Box>
 
     </Box>

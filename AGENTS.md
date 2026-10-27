@@ -51,6 +51,8 @@ Before changing routing, data fetching, or config:
 
 - **`src/app/`** — App Router: route groups `(public)`, `(auth)`; plain `dashboard/` segment; API route handlers under `src/app/api/`.
 - **`src/components/`** — Feature and layout UI (prefer **named exports** for shared components).
+  - **`src/components/common/JJBanner.tsx`** — Shared CTA-section and contextual-notice presentation; see `src/PATTERNS.md` for its API.
+  - **`src/components/common/JJButton.tsx`** and **`JJIconButton.tsx`** — Shared action and icon-only button foundations; use for new buttons and migrate legacy usages when editing them.
   - **`src/components/forms/`** — All form components live here (not in `dashboard/` or co-located with trigger components).
     - `AddEditCompany.tsx`, `AddEditForm.tsx`, `AddEditJob.tsx`, `AddEditExperience.tsx`, `AddEditEducation.tsx` — dashboard CRUD forms.
     - `ApplicationForm.tsx` — job application drawer.
@@ -289,12 +291,28 @@ Never commit secrets. Add new server-only variables to `.env.example` with a pla
 ## Code style and architecture expectations
 
 - **TypeScript:** Strict mode; avoid `any`; narrow with `unknown` + type guards when needed.
-- **Components:** Functional components; shared pieces use **named exports** (e.g. `export const Navbar`). Next.js **pages, layouts, and special files** use `default` exports as required by the framework.
+- **Components:** Functional components; use the mandatory `JJ` prefix (e.g. `export function JJNavbar`) and named exports for shared components. Next.js **pages, layouts, and special files** keep `default` exports as required by the framework.
 - **Data layer:** Add or extend **`src/services/*.service.ts`** and pass the appropriate Supabase client from the caller (page, route handler, or server action).
 - **Database types:** Use `Database`, `Tables<"…">` from `@/types` / `@/types/database` for all query results, inserts, and updates.
 - **MUI:** Use theme tokens and `sx` consistently; respect the brand palette in `src/theme/palette.ts` and `app.settings.json`.
 - **Feature flags:** Check `src/config/app.settings.json` `features` before exposing UI for areas that are intentionally disabled (e.g. `alerts`, `messages`).
 - **SEO:** `src/lib/seo.ts`, `sitemap.ts`, `robots.ts` — keep URLs aligned with `NEXT_PUBLIC_SITE_URL`.
+
+### Custom React component naming (mandatory)
+
+- Every app-defined React component must use the **`JJ`** prefix in its exported component name and matching component filename: `JJBanner` in `JJBanner.tsx`, `JJJobCard` in `JJJobCard.tsx`.
+- Apply this to shared, feature-specific, route-local, and private helper components. Prefix component prop types when they are part of the component's exported API (for example, `JJBannerProps`).
+- Keep framework-required Next.js special files and their required default exports unchanged (`page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, and similar). Prefix the React components defined within those files.
+- Do not add new unprefixed components. Existing components are legacy migration targets: when changing one for a feature, rename it and update all references in the same change; avoid unrelated repository-wide rename-only churn.
+- Use named exports for shared components. Keep component docs, pattern indexes, and examples aligned when introducing or renaming reusable components.
+
+### Reusable buttons (mandatory)
+
+- Use `JJButton` from `src/components/common/JJButton.tsx` for every text/action button. Choose `appearance="primary"` for full-pill primary actions and `appearance="secondary"` for less-rounded secondary/filter actions. It preserves MUI `ButtonProps`, link composition, submit behavior, and `sx` customization.
+- Use `JJIconButton` from `src/components/common/JJIconButton.tsx` for icon-only controls. Give every control a meaningful `aria-label`; preserve tooltips, pressed state, disabled state, and a minimum 44 × 44 px touch target.
+- Keep labels, loading/disabled states, `href`/`component`, form `type`, `startIcon` / `endIcon`, and event handlers unchanged when migrating. Do not convert an icon-only action into a text button or strip responsive labels.
+- App-defined wrappers must follow the `JJ` component naming rule. Keep MUI as the implementation primitive; do not mix the separate Tailwind/Radix button unless a feature explicitly requires its `asChild` behavior.
+- Update the examples and Pattern Index in `src/PATTERNS.md` when these APIs change. New and touched button instances should use these shared components; migrate the remaining legacy MUI instances incrementally without unrelated churn.
 
 ### Form validation (mandatory for all forms)
 
@@ -375,6 +393,12 @@ Only use inside `NotificationBell` or a dedicated notification-feed component.
 | Action fails inside a still-open drawer/form | `EditSideDrawer` `message` prop |
 | Displaying persisted in-app notifications | `useNotifications` |
 | Sending a transactional email | Supabase Edge Function (`send-email` / `notifications`) |
+
+### Reusable banners
+
+- Use **`src/components/common/JJBanner.tsx`** for section-level CTA banners and compact contextual notices; see **`src/PATTERNS.md`** for the API and examples.
+- Keep feature-specific state and behavior in the caller, passing CTA links through `actions` or notice controls through `action`.
+- Do not replace form errors, transient feedback, or persisted notifications with a banner. Use the notice variant only for contextual page/dashboard notices; use `useToast` for ephemeral confirmations.
 
 ---
 

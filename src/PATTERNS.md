@@ -4,6 +4,8 @@ Human-facing companion to **`src/AGENTS.md`**. Copy-paste snippets must stay ali
 
 **Documentation map:** `/AGENTS.md` (product + ops) · `/docs/ENVIRONMENTS.md` (TEST vs PROD branches) · `/README.md` (onboarding) · **`src/AGENTS.md`** (conventions) · **`src/PATTERNS.md`** (this file).
 
+**Custom component naming:** every new app-defined React component uses the `JJ` prefix in both its identifier and matching filename (for example, `JJBanner` in `JJBanner.tsx`). Follow `/AGENTS.md` → *Custom React component naming* when migrating existing components or defining framework exceptions.
+
 ---
 
 ## Pattern Index
@@ -30,6 +32,8 @@ Reference implementations — when introducing a new feature, prefer mirroring a
 | Recharts chart | `components/dashboard/DashboardContent.tsx` | — |
 | Empty state | `app/dashboard/forms/FormsClient.tsx` | `components/common/EmptyState.tsx` |
 | Bordered card | `components/dashboard/DashboardContent.tsx` | `components/common/BorderedCard.tsx` |
+| Reusable CTA / notice banner | `app/page.tsx`, `components/dashboard/JJEmailVerificationBanner.tsx` | `components/common/JJBanner.tsx` |
+| Reusable text and icon buttons | `components/layout/HeroSection.tsx`, `components/jobs/JobFilters.tsx` | `components/common/JJButton.tsx`, `components/common/JJIconButton.tsx` |
 | Page layout container | `app/(public)/jobs/page.tsx` | `components/common/PageContainer.tsx` |
 | Error boundary | `app/error.tsx` | `app/dashboard/error.tsx` |
 | Feature flag (static, JSON) | `lib/feature-flags.ts`, `middleware.ts` | `config/app.settings.json` |
@@ -39,6 +43,57 @@ Reference implementations — when introducing a new feature, prefer mirroring a
 | List row actions (primary + kebab) | `app/dashboard/applications/ApplicationsClient.tsx` | `ApplicationActions` pattern |
 | Responsive dashboard data table | `components/dashboard/ResponsiveDashboardTable.tsx`, `app/dashboard/candidates/CandidatesOverviewClient.tsx` | `hideBelow: "sm" \| "md" \| "lg"` on columns — 2 cols on `xs`, more from `sm`/`md`/`lg` |
 | ESLint / React Compiler hygiene | `eslint.config.mjs` | `startTransition`, `useSyncExternalStore`, `useWatch` |
+
+---
+
+## Reusable Banner
+
+Use `JJBanner` for a section-level CTA or a compact contextual notice. It centralizes shared presentation, responsive layout, section/heading semantics, and reduced-motion behavior; feature-specific behavior remains with the caller.
+
+```tsx
+import { JJBanner } from "@/components/common/JJBanner";
+
+<JJBanner
+  title="Hai pe JurisJobs"
+  description="Locul unde recrutarea juridică încetează să mai fie penală."
+  actions={[
+    { label: "Postează un anunț", href: "/anunt" },
+    { label: "Explorează anunțuri", href: "/jobs", variant: "outlined", endIcon: null },
+  ]}
+/>
+
+<JJBanner variant="notice" severity="warning" role="status">
+  Verifică adresa de e-mail pentru a folosi toate funcțiile contului.
+</JJBanner>
+```
+
+CTA `actions` have descriptive labels and internal links; the first action defaults to contained styling with an arrow, later actions to outlined styling. Set `variant` or `endIcon` to override those defaults (`endIcon: null` suppresses the arrow). For notices, keep behavior such as resend, dismiss, or loading in the caller and pass the resulting control through `action`. Do not use banners for field-level validation, one-shot toast feedback, or the persisted notification feed. See `src/AGENTS.md` → *Shared Banner component* for constraints.
+
+---
+
+## Reusable Buttons
+
+Use `JJButton` for text actions and `JJIconButton` for icon-only controls. Both wrap MUI primitives, preserving standard props and `sx` escape-hatch styling.
+
+```tsx
+import { JJButton } from "@/components/common/JJButton";
+import { JJIconButton } from "@/components/common/JJIconButton";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+
+<JJButton appearance="primary" variant="contained" component={Link} href="/anunt">
+  Creează anunț
+</JJButton>
+
+<JJButton appearance="secondary" variant="outlined" onClick={resetFilters}>
+  Resetează filtrele
+</JJButton>
+
+<JJIconButton aria-label="Editează profilul" onClick={openEditor}>
+  <EditOutlinedIcon />
+</JJIconButton>
+```
+
+Primary buttons use a full-pill shape; secondary buttons use a less-rounded shape. The default derives primary styling from MUI `contained` and secondary styling from `outlined` / `text`; specify `appearance` when intent differs. Icon-only controls require descriptive `aria-label` values and retain at least a 44 × 44 px target. During migration preserve loading, form `type`, disabled, link, tooltip, pressed-state, and responsive behavior. See `/AGENTS.md` → *Reusable buttons* and `src/AGENTS.md` → *Shared Button components*.
 
 ---
 
@@ -247,7 +302,7 @@ import { RichTextEditor } from "@/components/editor/RichTextEditor";
   onChange={(html) => setContent(html)}
   placeholder="Descriere..."
   minHeight={200}
-/>
+ />
 ```
 
 ---

@@ -157,8 +157,6 @@ export function PlatformAdvantagesSection() {
             </Box>
           </Typography>
           <Typography
-            variant="body1"
-            color="text.secondary"
             sx={{ lineHeight: 1.75, fontSize: { xs: "1rem", md: "1.1rem" } }}
           >
               Câteva avantaje care diferențiază {appSettings.name} de platformele generaliste de
@@ -221,7 +219,6 @@ export function PlatformAdvantagesSection() {
                   <Typography
                     variant="caption"
                     sx={{
-                      color: adv.color,
                       fontWeight: 700,
                       letterSpacing: "0.18em",
                       textTransform: "uppercase",
@@ -242,7 +239,6 @@ export function PlatformAdvantagesSection() {
 
                 <Typography
                   variant="body2"
-                  color="text.secondary"
                   sx={{ lineHeight: 1.75, mb: 2 }}
                 >
                   {adv.description}

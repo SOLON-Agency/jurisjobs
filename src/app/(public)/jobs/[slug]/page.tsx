@@ -7,7 +7,7 @@ import { getJobBenefits } from "@/services/benefits.service";
 import { generateJobPostingJsonLd, generateBreadcrumbJsonLd } from "@/lib/seo";
 import { JobDetailWrapper } from "@/components/jobs/JobDetailWrapper";
 import { JobsCarousel } from "@/components/jobs/JobsCarousel";
-import { JobCtaBanner } from "@/components/layout/JobCtaBanner";
+import { JJBanner } from "@/components/common/JJBanner";
 import { withTitlePrefix } from "@/lib/page-title";
 import type { Metadata } from "next";
 
@@ -108,7 +108,14 @@ export default async function JobPage({ params }: Props) {
         <JobDetailWrapper job={job} benefits={benefits} />
         <JobsCarousel subtitle="Posturi similare" jobs={relatedJobs} autoScroll={false} />
       </Container>
-      <JobCtaBanner />
+      <JJBanner
+        title="Portal de joburi juridice."
+        titleVariant="h4"
+        actions={[
+          { label: "Cauți un loc de muncă?", href: "/jobs", variant: "outlined", endIcon: null },
+          { label: "Publică un anunț", href: "/anunt" },
+        ]}
+      />
     </>
   );
 }

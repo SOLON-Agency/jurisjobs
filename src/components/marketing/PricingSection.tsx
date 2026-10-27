@@ -2,7 +2,8 @@
 
 import { brandCssVars, brandGradientGold } from "@/theme/tokens";
 import Link from "next/link";
-import { Box, Button, Container, Paper, Stack, Typography } from "@mui/material";
+import { Box, Container, Paper, Stack, Typography } from "@mui/material";
+import { JJButton } from "@/components/common/JJButton";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlined";
@@ -169,10 +170,11 @@ export function PricingSection() {
                 </Typography>
 
                 <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                  <Button
+                  <JJButton
                     component={Link}
                     href="/anunt"
                     variant="contained"
+                    appearance="primary"
                     size="large"
                     endIcon={<ArrowForwardIcon />}
                     sx={{
@@ -189,16 +191,16 @@ export function PricingSection() {
                     }}
                   >
                     Postează gratuit
-                  </Button>
-                  <Button
+                  </JJButton>
+                  <JJButton
                     component={Link}
                     href="/register"
                     variant="outlined"
+                    appearance="secondary"
                     size="large"
                     sx={{
                       px: 4,
                       py: 1.6,
-                      borderRadius: 99,
                       fontWeight: 600,
                       borderColor: "rgba(3,23,12,0.25)",
                       color: "text.primary",
@@ -209,7 +211,7 @@ export function PricingSection() {
                     }}
                   >
                     Creează cont
-                  </Button>
+                  </JJButton>
                 </Stack>
               </Box>
 

@@ -7,7 +7,6 @@ import {
   TextField,
   FormControlLabel,
   Switch,
-  Button,
   Stack,
   Typography,
   InputAdornment,
@@ -18,6 +17,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { JJButton } from "@/components/common/JJButton";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -226,8 +226,8 @@ export function JobFilters() {
         <Collapse id="filter-salary" in={open.salary}>
           <Box sx={{ pb: 2, px: 1 }}>
             <Stack direction="row" justifyContent="space-between" sx={{ mb: 1 }}>
-              <Typography variant="caption" color="text.secondary">{fmt(salaryRange[0])}</Typography>
-              <Typography variant="caption" color="text.secondary">{fmt(salaryRange[1])}{salaryRange[1] === SALARY_MAX ? "+" : ""}</Typography>
+              <Typography variant="caption">{fmt(salaryRange[0])}</Typography>
+              <Typography variant="caption">{fmt(salaryRange[1])}{salaryRange[1] === SALARY_MAX ? "+" : ""}</Typography>
             </Stack>
             <Slider
               value={salaryRange}
@@ -369,7 +369,8 @@ export function JobFilters() {
         </Box>
         <Box sx={{ px: 2.5 }}>{filtersBody}</Box>
         {activeFilterCount > 0 && <Box sx={{ p: 2.5 }}>
-          <Button
+          <JJButton
+            appearance="secondary"
             variant="contained"
             fullWidth
             onClick={clearFilters}
@@ -377,7 +378,7 @@ export function JobFilters() {
             sx={{ borderRadius: 1, py: 1, "&.Mui-disabled": { color: "white", cursor: "not-allowed" } }}
           >
             Resetează filtrele{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
-          </Button>
+          </JJButton>
           <Box sx={{ mt: 1.5 }}>
             <SaveSearchAsAlertCta variant="inline" />
           </Box>
@@ -448,14 +449,15 @@ export function JobFilters() {
         <Box sx={{ px: 2, pb: 2 }}>
           {filtersBody}
           {activeFilterCount > 0 && (
-            <Button
+            <JJButton
+              appearance="secondary"
               variant="contained"
               fullWidth
               onClick={clearFilters}
               sx={{ mt: 2, borderRadius: 1 }}
             >
               Resetează filtrele ({activeFilterCount})
-            </Button>
+            </JJButton>
           )}
           {activeFilterCount > 0 && (
             <Box sx={{ mt: 1.5 }}>

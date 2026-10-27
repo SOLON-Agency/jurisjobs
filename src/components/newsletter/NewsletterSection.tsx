@@ -49,9 +49,9 @@ export function NewsletterSection() {
 
           <Typography
             variant="body1"
-            sx={{ color: brandCssVars.cream, maxWidth: 520, lineHeight: 1.7 }}
+            sx={{ color: brandCssVars.cream, maxWidth: 720, lineHeight: 1.7 }}
           >
-            Abonează-te pe email să primești cele mai recente noutăți.
+            Abonează-te pe email să primești cele mai recente noutăți despre platformă.
           </Typography>
 
           <Box sx={{ width: "100%", maxWidth: 540 }}>

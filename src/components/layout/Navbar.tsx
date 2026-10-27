@@ -32,7 +32,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { useAuth } from "@/hooks/useAuth";
 import { getProfileAvatar } from "@/services/profiles.service";
 import { useSupabase } from "@/hooks/useSupabase";
-import { NotificationBell } from "@/components/notifications/NotificationBell";
+import { JJNotificationBell } from "@/components/notifications/JJNotificationBell";
 import appSettings from "@/config/app.settings.json";
 
 const CREAM = brandCssVars.cream;
@@ -236,7 +236,7 @@ export function Navbar() {
                     Dashboard
                   </Button>
                   {appSettings.features.notifications && (
-                    <NotificationBell
+                    <JJNotificationBell
                       sx={{ color: CREAM_MUTED, "&:hover": { color: CREAM, bgcolor: CREAM_HOVER } }}
                     />
                   )}

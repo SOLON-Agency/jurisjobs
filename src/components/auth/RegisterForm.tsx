@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { PasswordField } from "@/components/common/PasswordField";
+import { JJPasswordField } from "@/components/common/JJPasswordField";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterFormData } from "@/components/forms/validations/register.schema";
@@ -115,7 +115,7 @@ export function RegisterForm() {
             FormHelperTextProps={{ id: "register-email-error" }}
             sx={{ mb: 2 }}
           />
-          <PasswordField
+          <JJPasswordField
             {...register("password")}
             label="Parolă"
             fullWidth
@@ -126,7 +126,7 @@ export function RegisterForm() {
             FormHelperTextProps={{ id: "register-password-error" }}
             sx={{ mb: 2 }}
           />
-          <PasswordField
+          <JJPasswordField
             {...register("confirmPassword")}
             label="Confirmă parola"
             fullWidth

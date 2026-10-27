@@ -31,7 +31,7 @@ export default function RootError({ error, reset }: ErrorProps) {
       <Typography variant="h5" fontWeight={600}>
         Ceva a mers prost
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" color="text.primary">
         A apărut o eroare neașteptată. Încearcă din nou.
       </Typography>
       <Button variant="contained" onClick={reset}>

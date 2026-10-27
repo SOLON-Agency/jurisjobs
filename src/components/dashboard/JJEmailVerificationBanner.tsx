@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Alert, Button, CircularProgress, Collapse } from "@mui/material";
+import { Button, CircularProgress, Collapse } from "@mui/material";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import { JJBanner } from "@/components/common/JJBanner";
 import { useAuth } from "@/hooks/useAuth";
 
-export function EmailVerificationBanner() {
+export function JJEmailVerificationBanner() {
   const { user, resendVerification } = useAuth();
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -29,16 +30,18 @@ export function EmailVerificationBanner() {
 
   return (
     <Collapse in={isUnverified} unmountOnExit>
-      <Alert
+      <JJBanner
+        variant="notice"
         severity={sent ? "success" : "warning"}
+        role={sent ? "status" : "alert"}
         icon={sent ? <MarkEmailReadIcon fontSize="inherit" /> : undefined}
-        sx={{ mb: 3, alignItems: "center" }}
         action={
           !sent ? (
             <Button
               color="inherit"
-              size="small"
+              size="medium"
               disabled={sending}
+              sx={{ minHeight: 44, minWidth: 44 }}
               startIcon={
                 sending ? <CircularProgress size={14} color="inherit" /> : null
               }
@@ -54,7 +57,7 @@ export function EmailVerificationBanner() {
           : error
             ? `Eroare: ${error}`
             : "Adresa ta de e-mail nu este verificată. Verifică-ți căsuța de e-mail sau retrimite linkul de confirmare."}
-      </Alert>
+      </JJBanner>
     </Collapse>
   );
-};
+}

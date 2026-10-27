@@ -18,7 +18,7 @@ export const lightPalette = {
   success: { main: brandColors.green, contrastText: "#ffffff" },
   info: { main: brandColors.green, contrastText: brandColors.cream },
   background: {
-    default: brandColors.nearWhite,
+    default: brandColors.white,
     paper: brandColors.white,
   },
   text: {

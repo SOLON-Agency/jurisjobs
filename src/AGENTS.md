@@ -31,14 +31,14 @@ src/
   components/
     auth/               # LoginForm, RegisterForm, SocialButtons
     common/             # Shared presentational: PageContainer, BorderedCard, EmptyState, FormFieldError
-    dashboard/          # DashboardContent, DashboardNav, DashboardPageHeader, EmailVerificationBanner
+    dashboard/          # DashboardContent, DashboardNav, DashboardPageHeader, JJEmailVerificationBanner
     editor/             # RichTextEditor (TipTap)
     forms/              # CRUD forms (AddEditJob, AddEditCompany, AddEditEducation, AddEditExperience,
     │                   #             ApplicationForm, WithdrawApplicationForm, AddEditForm)
     │   validations/    # Zod schemas — ONE file per domain
     jobs/               # JobCard, JobDetail, JobList, JobRow, JobFilters, JobsCarousel,
     │                   # ApplyButton, JobTags, JobDetailWrapper
-    layout/             # Navbar, Footer, HeroSection, FeaturesSection, EditSideDrawer, JobCtaBanner
+    layout/             # Navbar, Footer, HeroSection, WhySection, EditSideDrawer
     notifications/      # NotificationBell
     profile/            # EditSkills, EducationTimeline, ExperienceTimeline
   hooks/                # Client-only custom hooks
@@ -210,11 +210,30 @@ a `*Client.tsx` body component (which has "use client"). See `dashboard/profile/
 
 | Artifact | Convention | Example |
 |---|---|---|
-| Components | `PascalCase.tsx` | `JobCard.tsx` |
+| Components | `JJ` + `PascalCase.tsx` | `JJJobCard.tsx` |
 | Hooks | `useDescriptiveName.ts` | `useAuth.ts`, `useToast`-related contexts |
 | Services | `<domain>.service.ts` | `jobs.service.ts` |
 | Validations | `<domain>.schema.ts` | `job.schema.ts` |
 | Client body (split pages) | `<PageName>Client.tsx` | `ProfileClient.tsx` |
+
+### Shared Banner component
+
+Use the named export `JJBanner` from `@/components/common/JJBanner` for app-wide banner UI:
+
+- **CTA section:** pass `title`, optional `eyebrow` / `description`, and a data-only `actions` array (`label`, internal `href`, optional `variant` / `endIcon`). The component owns the responsive dark branded surface, section semantics, accessible heading association, and reduced-motion behavior.
+- **Contextual notice:** set `variant="notice"`, provide MUI `severity` and message children, and optionally pass an `action`, `icon`, or `role`. Keep async state and event handlers in the feature-specific wrapper.
+- Use real, descriptive action labels and preserve heading order. The CTA uses an `h2`; place it in a section where that level is appropriate.
+- Do not use the notice variant for field validation, ephemeral success toasts, or the persisted notifications feed. Keep those on their existing form, `useToast`, and `useNotifications` patterns.
+- When changing the banner API, update both this guide and the `Reusable Banner` entry/example in `src/PATTERNS.md`.
+
+All app-defined React components use the `JJ` prefix in both the exported identifier and matching filename. This includes route-local and private helper components; Next.js special filenames and exports remain framework-defined. See `/AGENTS.md` → *Custom React component naming* for the legacy migration rule.
+
+### Shared Button components
+
+- Use `JJButton` from `@/components/common/JJButton` for text and action buttons. Choose `appearance="primary"` for pill-shaped primary actions and `appearance="secondary"` for less-rounded secondary/filter actions. MUI props remain available, including `component={Link}`, `type`, `disabled`, icons, and `sx`.
+- Use `JJIconButton` from `@/components/common/JJIconButton` for icon-only actions. Supply a meaningful `aria-label` and retain tooltips, toggle/pressed state, and minimum touch target.
+- Migrate touched MUI buttons without changing behavior or removing customized styles; keep form submit, loading, route link, dialog, and responsive semantics intact. Do not use a text button wrapper for icon-only controls.
+- See `/AGENTS.md` → *Reusable buttons* and the `Reusable Buttons` section in `src/PATTERNS.md` for guidance. Update both documents when this API changes.
 
 ---
 

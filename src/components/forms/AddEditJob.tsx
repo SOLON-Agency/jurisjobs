@@ -29,6 +29,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CardGiftcardOutlinedIcon from "@mui/icons-material/CardGiftcardOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useForm, Controller, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSupabase } from "@/hooks/useSupabase";
@@ -441,7 +442,6 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
                   <FormControl sx={{ flex: 2 }}>
                     <Typography
                       variant="caption"
-                      color="text.secondary"
                       sx={{ mb: 0.75, display: "block" }}
                     >
                       Nivel de experiență
@@ -526,7 +526,7 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
           <Box>
             <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
               <CardGiftcardOutlinedIcon sx={{ fontSize: 18, color: "text.secondary" }} />
-              <Typography variant="subtitle2" fontWeight={700}>
+              <Typography variant="h4" color="text.secondary">
                 Beneficii
               </Typography>
               {benefits.length > 0 && (
@@ -702,9 +702,12 @@ export const AddEditJob = forwardRef<AddEditJobHandle, AddEditJobProps>(
             control={control}
             render={({ field }) => (
               <FormControl component="fieldset">
-                <FormLabel component="h3" sx={{ mb: 0, fontSize: "0.875rem", fontWeight: 600 }}>
-                  Modalitatea de aplicare a candidaților
-                </FormLabel>
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5 }}>
+                  <AssignmentOutlinedIcon sx={{ fontSize: 18, color: "text.secondary" }} />
+                 <Typography variant="h4" color="text.secondary">
+                    Modalitatea de aplicare a candidaților
+                 </Typography>
+                </Stack>
                 <RadioGroup row {...field}>
                   <FormControlLabel
                     value="url"

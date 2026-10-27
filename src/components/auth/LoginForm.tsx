@@ -13,7 +13,7 @@ import {
   Alert,
   Paper,
 } from "@mui/material";
-import { PasswordField } from "@/components/common/PasswordField";
+import { JJPasswordField } from "@/components/common/JJPasswordField";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "@/components/forms/validations/login.schema";
@@ -100,7 +100,7 @@ export function LoginForm() {
             FormHelperTextProps={{ id: "login-email-error" }}
             sx={{ mb: 2 }}
           />
-          <PasswordField
+          <JJPasswordField
             {...register("password")}
             label="Parolă"
             fullWidth

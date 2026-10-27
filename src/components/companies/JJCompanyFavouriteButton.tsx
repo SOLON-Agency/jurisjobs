@@ -1,22 +1,23 @@
 "use client";
 
 import React from "react";
-import { IconButton, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavourites } from "@/hooks/useFavourites";
 import { useFavouritesFeature } from "@/contexts/FavouritesFeatureContext";
+import { JJIconButton } from "@/components/common/JJIconButton";
 
-interface CompanyFavouriteButtonProps {
+export interface JJCompanyFavouriteButtonProps {
   companyId: string;
   companyName?: string;
 }
 
-export function CompanyFavouriteButton({
+export function JJCompanyFavouriteButton({
   companyId,
   companyName = "societatea",
-}: CompanyFavouriteButtonProps) {
+}: JJCompanyFavouriteButtonProps) {
   const { user } = useAuth();
   const { isCompanyFavourite, toggleCompany } = useFavourites();
   const favouritesEnabled = useFavouritesFeature();
@@ -27,7 +28,7 @@ export function CompanyFavouriteButton({
 
   return (
     <Tooltip title={isFav ? "Elimină din favorite" : "Salvează societatea"}>
-      <IconButton
+      <JJIconButton
         onClick={() => void toggleCompany(companyId)}
         aria-label={
           isFav
@@ -49,7 +50,7 @@ export function CompanyFavouriteButton({
         ) : (
           <BookmarkBorderIcon fontSize="small" />
         )}
-      </IconButton>
+      </JJIconButton>
     </Tooltip>
   );
 }

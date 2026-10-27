@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/layout/HeroSection";
 import { WhySection } from "@/components/layout/WhySection";
-import { BannerSection } from "@/components/layout/BannerSection";
+import { JJBanner } from "@/components/common/JJBanner";
 import { PlatformAdvantagesSection } from "@/components/marketing/PlatformAdvantagesSection";
 import { AudienceSection } from "@/components/marketing/AudienceSection";
 // import { PricingSection } from "@/components/marketing/PricingSection";
@@ -76,7 +76,14 @@ export default async function HomePage() {
       <FaqSection items={faqHomeItems} />
       <BlogPreviewSection />
       <NewsletterSection />
-      <BannerSection />
+      <JJBanner
+        title={`Hai pe ${appSettings.name}`}
+        description="Locul unde recrutarea juridică încetează să mai fie penală."
+        actions={[
+          { label: "Postează anunțuri gratuite", href: "/anunt" },
+          { label: "Explorează anunțuri", href: "/jobs", endIcon: null },
+        ]}
+      />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { Container, Box } from "@mui/material";
 import { DashboardNav } from "@/components/dashboard/DashboardNav";
-import { EmailVerificationBanner } from "@/components/dashboard/EmailVerificationBanner";
+import { JJEmailVerificationBanner } from "@/components/dashboard/JJEmailVerificationBanner";
 
 export default function DashboardLayout({
   children,
@@ -9,7 +9,7 @@ export default function DashboardLayout({
 }) {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <EmailVerificationBanner />
+      <JJEmailVerificationBanner />
       {/* On desktop, 2-col grid; on mobile, stacked single col */}
       <Box
         sx={{

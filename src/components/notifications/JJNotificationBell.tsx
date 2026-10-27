@@ -2,14 +2,12 @@
 
 import React, { useState } from "react";
 import {
-  IconButton,
   Badge,
   Popover,
   List,
   ListItem,
   ListItemText,
   Typography,
-  Button,
   Box,
   Divider,
   type SxProps,
@@ -18,12 +16,14 @@ import {
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNotifications } from "@/hooks/useNotifications";
 import { timeAgo } from "@/lib/utils";
+import { JJIconButton } from "@/components/common/JJIconButton";
+import { JJButton } from "@/components/common/JJButton";
 
-interface NotificationBellProps {
+export interface JJNotificationBellProps {
   sx?: SxProps<Theme>;
 }
 
-export function NotificationBell({ sx }: NotificationBellProps) {
+export function JJNotificationBell({ sx }: JJNotificationBellProps) {
   const { notifications, unreadCount, markAsRead, markAllAsRead } =
     useNotifications();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -32,7 +32,7 @@ export function NotificationBell({ sx }: NotificationBellProps) {
 
   return (
     <>
-      <IconButton
+      <JJIconButton
         onClick={(e) => setAnchorEl(e.currentTarget)}
         size="small"
         aria-label={unreadCount > 0 ? `Notificări (${unreadCount} necitite)` : "Notificări"}
@@ -43,7 +43,7 @@ export function NotificationBell({ sx }: NotificationBellProps) {
         <Badge badgeContent={unreadCount} color="error">
           <NotificationsIcon />
         </Badge>
-      </IconButton>
+      </JJIconButton>
 
       <Popover
         open={Boolean(anchorEl)}
@@ -60,9 +60,9 @@ export function NotificationBell({ sx }: NotificationBellProps) {
         <Box sx={{ p: 2, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Typography variant="h6">Notificări</Typography>
           {unread.length > 0 && (
-            <Button size="small" onClick={markAllAsRead}>
+            <JJButton appearance="secondary" size="small" onClick={markAllAsRead}>
               Marchează toate ca citite
-            </Button>
+            </JJButton>
           )}
         </Box>
         <Divider />

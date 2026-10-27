@@ -4,7 +4,8 @@ import { brandCssVars } from "@/theme/tokens";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
+import { Box, CircularProgress, Stack, TextField, Typography } from "@mui/material";
+import { JJButton } from "@/components/common/JJButton";
 import { newsletterSchema, type NewsletterFormData } from "@/components/forms/validations/newsletter.schema";
 import { subscribeToNewsletter } from "@/app/newsletter/actions";
 import { useToast } from "@/contexts/ToastContext";
@@ -83,7 +84,8 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
           </Typography>
         </Box>
 
-        <Button
+        <JJButton
+          appearance="secondary"
           type="submit"
           variant="contained"
           size="large"
@@ -95,7 +97,6 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
             whiteSpace: "nowrap",
             flexShrink: 0,
             bgcolor: brandCssVars.gold,
-            color: brandCssVars.forest,
             transition: "background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease",
             "&:hover": {
               bgcolor: brandCssVars.gold,
@@ -114,7 +115,7 @@ export function NewsletterSignup({ source = "homepage" }: NewsletterSignupProps)
           }}
         >
           {isSubmitting ? "Se trimite…" : "Mă abonez"}
-        </Button>
+        </JJButton>
       </Stack>
     </Box>
   );

@@ -32,7 +32,7 @@ import { generateOrganizationJsonLd, generateBreadcrumbJsonLd } from "@/lib/seo"
 import { JobsCarousel } from "@/components/jobs/JobsCarousel";
 import { CompanyDescription } from "@/components/companies/CompanyDescription";
 import { CompanyPageTracker } from "@/components/companies/CompanyPageTracker";
-import { CompanyFavouriteButton } from "@/components/companies/CompanyFavouriteButton";
+import { JJCompanyFavouriteButton } from "@/components/companies/JJCompanyFavouriteButton";
 import { CompanyLogoAvatar } from "@/components/company/CompanyLogoAvatar";
 import { MetaCell } from "@/components/common/MetaCell";
 import { jobTypeLabels, jobTypeChipSx, experienceLevelLabels } from "@/lib/utils";
@@ -207,7 +207,7 @@ export default async function CompanyPage({ params }: Props) {
 
               <Stack direction="row" spacing={1} sx={{ flexShrink: 0, pt: 0.5 }}>
                 {/* Favourite */}
-                <CompanyFavouriteButton
+                <JJCompanyFavouriteButton
                   companyId={company.id}
                   companyName={company.name}
                 />

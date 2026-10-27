@@ -3,7 +3,8 @@
 import { brandColors, brandCssVars } from "@/theme/tokens";
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import { JJButton } from "@/components/common/JJButton";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroContainer, heroItem, resolveMotionDuration } from "@/lib/motion";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -250,10 +251,11 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
               justifyContent="center"
               sx={{ mb: 5 }}
             >
-              <Button
+              <JJButton
                 component={Link}
                 href="/anunt"
                 variant="contained"
+                appearance="primary"
                 size="large"
                 endIcon={<ArrowForwardIcon sx={{ transition: "transform 0.2s", ".MuiButton-root:hover &": { transform: "translateX(4px)" } }} />}
                 sx={{
@@ -270,16 +272,16 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 }}
               >
                 Creează anunț
-              </Button>
-              <Button
+              </JJButton>
+              <JJButton
                 component={Link}
                 href="/jobs"
                 variant="outlined"
+                appearance="secondary"
                 size="large"
                 sx={{
                   px: 4,
                   py: 1.6,
-                  borderRadius: 99,
                   fontWeight: 600,
                   fontSize: "0.95rem",
                   borderColor: "rgba(240,235,216,0.25)",
@@ -294,7 +296,7 @@ export function HeroSection({ }: { counts?: HeroCounts }) {
                 }}
               >
                 Explorează anunțuri
-              </Button>
+              </JJButton>
             </Stack>
           </motion.div>
           <br/>

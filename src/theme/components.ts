@@ -6,6 +6,8 @@ export const components: Components<Theme> = {
     styleOverrides: {
       body: {
         scrollbarWidth: "thin",
+        backgroundColor: brandCssVars.white,
+        color: brandCssVars.forest,
       },
     },
   },
@@ -13,6 +15,7 @@ export const components: Components<Theme> = {
     styleOverrides: {
       root: {
         borderRadius: 8,
+        minHeight: 44,
         textTransform: "none",
         fontWeight: 600,
         letterSpacing: "0.02em",
@@ -30,6 +33,7 @@ export const components: Components<Theme> = {
         },
       },
       contained: {
+        borderRadius: 999,
         "&:hover:not(.Mui-disabled)": {
           backgroundColor: brandGradient,
         },
@@ -51,11 +55,23 @@ export const components: Components<Theme> = {
         },
       },
       outlined: {
+        borderRadius: 8,
         borderColor: "rgba(3, 23, 12, 0.22)",
         "&:hover": {
           borderColor: brandCssVars.green,
           backgroundColor: "color-mix(in srgb, var(--brand-green) 5%, transparent)",
         },
+      },
+      text: {
+        borderRadius: 8,
+      },
+    },
+  },
+  MuiIconButton: {
+    styleOverrides: {
+      root: {
+        minWidth: 44,
+        minHeight: 44,
       },
     },
   },
@@ -82,6 +98,20 @@ export const components: Components<Theme> = {
       },
       outlined: {
         borderColor: "color-mix(in srgb, var(--brand-green) 30%, transparent)",
+      },
+    },
+  },
+  MuiInputBase: {
+    styleOverrides: {
+      input: {
+        color: "primary.main",
+      },
+    },
+  },
+  MuiFormHelperText: {
+    styleOverrides: {
+      root: {
+        color: "primary.main",
       },
     },
   },
