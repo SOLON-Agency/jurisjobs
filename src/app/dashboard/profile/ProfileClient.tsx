@@ -234,7 +234,7 @@ export function ProfileClient() {
         <Paper sx={{ p: 3, border: "1px solid", borderColor: "divider" }}>
           <Stack direction="row" spacing={3} alignItems="flex-start">
             <Box sx={{ position: "relative" }}>
-              <Avatar src={profile.avatar_url ?? undefined} sx={{ width: 80, height: 80 }}>
+              <Avatar src={profile.avatar_url ?? undefined} alt={profile.full_name ?? "Profil utilizator"} imgProps={{ alt: profile.full_name ?? "Profil utilizator" }} sx={{ width: 80, height: 80 }}>
                 <PersonIcon />
               </Avatar>
               <IconButton

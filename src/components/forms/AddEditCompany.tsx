@@ -67,6 +67,8 @@ export const AddEditCompany = forwardRef<AddEditCompanyHandle, AddEditCompanyPro
             <Box sx={{ position: "relative" }}>
               <Avatar
                 src={logoPreviewUrl ?? undefined}
+                alt="Logo societate"
+                imgProps={{ alt: "Logo societate" }}
                 sx={{
                   width: 72,
                   height: 72,

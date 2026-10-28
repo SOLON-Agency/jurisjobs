@@ -8,6 +8,7 @@ import { VercelAnalytics } from "@/components/providers/VercelAnalytics";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { VercelToolbar } from "@vercel/toolbar/next";
+import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import { isVercelToolbarConfigured } from "@/lib/vercel-toolbar";
 import { generateWebSiteJsonLd } from "@/lib/seo";
 import { isFeatureEnabled } from "@/lib/feature-flags";
@@ -103,6 +104,7 @@ export default function RootLayout({
             </ReduxStoreProvider>
           </ThemeRegistry>
         </FavouritesFeatureRoot>
+        <AnalyticsProvider />
         <VercelAnalytics />
         <script
           type="application/ld+json"

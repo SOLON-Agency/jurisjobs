@@ -184,6 +184,8 @@ export function CandidatesOverviewClient() {
           <Stack direction="row" alignItems="center" spacing={1.5}>
             <Avatar
               src={candidate.profiles?.avatar_url ?? undefined}
+              alt={candidate.profiles?.full_name ?? "Avatar candidat"}
+              imgProps={{ alt: candidate.profiles?.full_name ?? "Avatar candidat" }}
               sx={{ width: 32, height: 32, flexShrink: 0 }}
               aria-hidden="true"
             >

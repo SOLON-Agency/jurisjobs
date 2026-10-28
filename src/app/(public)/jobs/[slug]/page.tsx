@@ -37,8 +37,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const job = await getJobBySlug(supabase, slug);
     const company = job.companies?.name ?? "Societate";
     const title = `${job.title} la ${company}`;
+    const trimmedDesc = job.description?.trim();
     const description =
-      job.description?.slice(0, 160) ?? `Aplică la ${job.title} — ${company}`;
+      trimmedDesc && trimmedDesc.length > 0
+        ? trimmedDesc.slice(0, 160)
+        : `Aplică la ${job.title} — ${company}. Anunț de angajare juridic pe platforma noastră.`;
     const url = `${SITE_URL}/jobs/${slug}`;
 
     return withTitlePrefix({
@@ -64,7 +67,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     });
   } catch {
-    return withTitlePrefix({ title: "Anunț negăsit" });
+    return withTitlePrefix({
+      title: "Anunț negăsit",
+      description: "Anunțul de angajare căutat nu a fost găsit.",
+    });
   }
 }
 

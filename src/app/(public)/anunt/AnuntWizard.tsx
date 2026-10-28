@@ -349,6 +349,8 @@ function ConfirmationStep({
           <Stack direction="row" spacing={2} alignItems="center">
             <Avatar
               src={companyLogoUrl ?? undefined}
+              alt={companyData.name || "Logo societate"}
+              imgProps={{ alt: companyData.name || "Logo societate" }}
               sx={{ width: 56, height: 56, bgcolor: "primary.main" }}
             >
               <BusinessIcon />
